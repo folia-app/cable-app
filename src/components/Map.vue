@@ -17,11 +17,11 @@
   onMounted(() => {
     const labelStyle = new Style({
       text: new Text({
-        font: '6px Verdana,sans-serif',
+        font: '6px Anybody,sans-serif',
         placement: 'line',
         overflow: true,
         fill: new Fill({
-          color: '#667',
+          color: '#778',
         }),
       }),
     });
@@ -84,7 +84,8 @@
     });
   
     let highlight;
-    const displayFeatureInfo = function (pixel) {
+    let highlightIsPinned = false
+    const displayFeatureInfo = function (pixel, isClick) {
       vectorLayer1.getFeatures(pixel).then(function (features) {
         const feature = features.length ? features[0] : undefined;
         const info = document.getElementById('info');
@@ -116,7 +117,7 @@
     });
   
     map.on('click', function (evt) {
-      displayFeatureInfo(evt.pixel);
+      displayFeatureInfo(evt.pixel, true);
     });
   })
 </script>

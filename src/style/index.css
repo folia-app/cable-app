@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* css variables */
+:root{
+  --rem:10px;
+
+  --color-bg: black;
+  --color-text: #CCFF01;
+  --color-accent: #f72d8e;
+  --color-accent2: #00f051;
+  --color-accent3: #3d18c3;
+}
+
+html{
+  font-size:var(--rem);
+}
+
+*{
+  &:focus{
+    outline:none;
+  }
+  &:focus-visible{
+    @apply ring ring-accent3;
+  }
+}
+
+button {
+  text-transform: inherit;
+  letter-spacing: inherit;
+  &[disabled] {
+    @apply cursor-not-allowed;
+  }
+}
+
+input::-moz-selection { /* Code for Firefox */
+  color: black;
+  background: var(--color-accent2);
+}
+input::selection {
+  color: black;
+  background: var(--color-accent2);
+}
+
+.overlay{
+  @apply w-full h-full top-0 left-0;
+}
+.overlay-px{
+  top:-1px; left:-1px;
+  width:calc(100% + 2px);
+  height:calc(100% + 2px);
+}
+.scrollbars-hidden::-webkit-scrollbar{ display: none; }
+
+.btn-theme-darken{
+  &:hover, &:focus{ @apply bg-black-a03 }
+  &:focus{ @apply outline-none; }
+}
+
+.border-dotted{
+  border-style: dotted;
+}
+@media (hover:hover) {
+  .hover_border-solid:hover{
+    border-style: solid;
+  }  
+}
+
+.backdrop-blur{
+  backdrop-filter:blur(10px);
+}
+
+
+.children-mt-em > * + *{ margin-top: 1.2em; }
+
+.links-underline a {
+  @apply border-b border-current;
+  border-style: dashed;
+  &:hover, &:focus{
+    border-style:solid;
+  }
+}
+
+.boards-grid{
+  @apply w-full overflow-hidden grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 xl_grid-cols-5;
+  padding-bottom:2px;
+  padding-top:1px;
+  margin-left:-1px;
+}
+
+.image-render-crisp{
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-accent1 text-accent2 font-sans leading-snug">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- meta -->
+    <title>cable by joan heemskerk</title>
+    <meta property="og:title" content="cable by joan heemskerk">
+    <meta name="twitter:title" content="cable by joan heemskerk">
+    <meta name="description" content="an on-chain NFT edition by artist joan heemskerk ~ presented by folia 𐡸">
+    <meta property="og:description" content="an on-chain NFT edition by artist joan heemskerk ~ presented by folia 𐡸">
+    <meta name="twitter:description" content="an on-chain NFT edition by artist joan heemskerk ~ presented by folia 𐡸">
+    <meta property="og:video" content="">
+    <meta name="twitter:video" content="">
+    <meta property="og:image" content="">
+    <meta name="twitter:image" content="">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anybody&display=swap" rel="stylesheet">
+    <!-- web3/vite polyfills -->
+    <script>window.global = window;</script>
+    <script type="module">
+        import process from "process";
+        import { Buffer } from "buffer";
+        import EventEmitter from "events";
+        
+        window.Buffer = Buffer;
+        window.process = process;
+        window.EventEmitter = EventEmitter;
+    </script>
+
+    <style>
+      #loading svg path {
+        animation: flip 5000ms linear infinite;
+        transform-origin: center center;
+      }
+      @keyframes flip {
+        0%{ transform: scale(1,1); }
+        32%{ transform: scale(1,1); }
+        50%{ transform: scale(-1,1) }
+        82%{ transform: scale(-1,1); }
+        100%{ transform: scale(1,1); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

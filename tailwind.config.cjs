@@ -64,12 +64,12 @@ module.exports = {
       xxs: '1.3rem',
       xs: '1.4rem',
       sm: '1.5rem',
-      smm: '1.6rem',
+      smm: '1.7rem',
       md: '1.8rem',
       base: '1.9rem',
       lg: '2.1rem',
       xl: '2.2rem',
-      '2xl': '2.3rem',
+      '2xl': '2.4rem',
       '3xl': '2.9rem',
       '4xl': '3rem',
       '5xl': '3.4rem',
@@ -140,7 +140,11 @@ module.exports = {
       red: 'red',
       'red-duller': '#ce1212', // soldout
       green: {
-        400: '#30cb5f'
+        400: '#30cb5f',
+        'bright': '#03FF00',
+      },
+      teal: {
+        500: '#37ffc7',
       },
 
       legend: {

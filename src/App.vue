@@ -13,11 +13,11 @@ metainfo
         //- h1.sr-only Straylight Protocol
         
         //- laptop left
-        .flex.pointer-events-auto
+        .flex.pointer-events-auto.items-center
           //- (folia logo link)
           template(v-if="isIndex")
-            a.block.borderff.opacity-30.mouse_hover_opacity-100.mouse_hover_bg-current.rounded(href="https://folia.app", target="_blank", title="folia.app ↗")
-              .w-22.h-22.sm_w-20.sm_h-20.flex.items-center.justify-center.text-accent2.mouse_hover_text-black.pb-2.pr-1
+            a.block.opacity-30ff.mouse_hover_opacity-100.mouse_hover_bg-yellow-500.roundedff(href="https://folia.app", target="_blank", title="folia.app ↗")
+              .w-22.h-22.sm_w-20.sm_h-20.flex.items-center.justify-center.text-teal-500.mouse_hover_text-black.pb-1.pr-1
                 svg-fleuron(style="height:1.3em")
           //- (back btn)
           template(v-else-if="lastRt.name")
@@ -28,96 +28,83 @@ metainfo
             router-link.w-22.h-22.sm_w-20.sm_h-20.flex.w-full.items-center.justify-center.rounded.mouse_hover_bg-accent2.mouse_hover_text-accent1(:to="$route.params.networkName ? { name: 'network-index', params: $route.params } : `/`")
               arrow-left-icon.w-8.h-8.text-current
 
-          .h-22.sm_h-20.flex-1.flex.items-center.pb-1b
-            //- div <b>Straylight Protocol</b>
-            router-link.rounded-lg(:to="$route.params.networkName ? { name: 'network-index', params: { networkName: $route.params.networkName }} : '/'")
-              //- svg-logo.h-12.sm_h-10
-              | CABLE
+          router-link.h-22.sm_h-20.flex-1.flex.items-center.pl-2px.leading-none(to="/")
+            h1.text-2xl.mt-1.tracking-wide ADOPT-A-CABLE
 
         //- laptop right
-        nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.lg_justify-end.items-center.px-6.md_px-12.leading-none.text-md
-          .flex.flex-1.lg_flex-none.pointer-events-auto
+        nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.md_justify-end.items-center.px-6.md_px-10.leading-none.text-smm
+          .flex.flex-1.md_flex-none.pointer-events-auto
             //- border cell
-            .w-full.lg_w-auto.flex.justify-evenly.border.rounded-full.border-current.flex.overflow-hiddenff.bg-accent1.text-center
+            .w-full.md_w-auto.flex.justify-evenly.bg-teal-500.text-black.border-gray-600.rounded.flex.overflow-hiddenff.bg-accent1.text-center
               //- (info btn)
-              button.h-8.flex.items-center.justify-center.flex-1.lg_w-auto.lg_px-12.mouse_hover_bg-accent2.mouse_hover_text-black.pb-1.rounded-full(@click="openInfoOverlay")
+              button.btn.flex-1.md_w-auto.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="openInfoOverlay")
                 | info
 
               //- mint link
-              router-link.h-8.flex.items-center.justify-center.flex-1.lg_w-auto.lg_px-12.lg_-ml-4.mouse_hover_bg-accent2.mouse_hover_text-black.pb-1.rounded-full(:to="{name: 'mint', query: { network: $route.params.networkName || $route.query.network } }")
+              .btn.flex-1.md_w-auto.md_px-12.md_-ml-3.mouse_hover_bg-yellow-500.mouse_hover_text-black
                 div mint
 
               //- (connect btn)
               template(v-if="!$store.state.address")
-                button.h-8.flex.items-center.justify-center.flex-1.block.lg_-ml-4.lg_w-auto.lg_px-10.mouse_hover_bg-accent2.mouse_hover_text-black.pb-1.rounded-full(@click="connectWallet") connect
+                button.btn.flex-1.md_-ml-3.md_w-auto.md_px-10.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="connectWallet") connect
 
             //- (connected dropdown)
             template(v-if="$store.state.address")
               div.ml-1.text-accent1.text-smm
-                .border.border-accent2.rounded-full.bg-accent2
-                  button.h-8.flex.items-center.border.border-accent2.block.pl-8.rounded-full.flex.items-center.pb-1(@click="userMenuVisible = true")
-                    addr(:address="$store.state.address")
-                    svg-chevron-down.w-6.h-6.mx-3.mt-1(strokeWidth="1")
+                button.btn.block.pl-7.bg-yellow-500(@click="userMenuVisible = true")
+                  addr(:address="$store.state.address")
+                  svg-chevron-down.w-6.h-6.mx-2.mb-1(strokeWidth="1")
 
                 .relative(v-if="userMenuVisible", v-click-outside="() => { userMenuVisible = false }")
                   .absolute.top-0.right-0.pt-2
-                    ul.bg-accent2.bg-accent2.rounded-lg.pt-1.pb-2
+                    ul.bg-yellow-500.rounded.pt-1.pb-1
                       li
-                        router-link.block.px-4.py-1.rounded-full(:to="myProfileRt") my profile
+                        .block.px-4.py-1.rounded-full(:to="myProfileRt") my cables
                       li
                         button.block.px-4.py-1.rounded-full(@click.stop="disconnectWallet") sign-out
 
       //- bg gradient
-      .sm_hidden.absolute.overlay.bg-gradient-to-b.from-accent1.to-transparent.pointer-events-none(style="height:200%")
+      //- .sm_hidden.absolute.overlay.bg-gradient-to-b.from-accent1.to-transparent.pointer-events-none(style="height:200%")
             
 
     //- (info overlay)
-    .fixed.pt-36.md_pt-20.z-40.overlay.overflow-y-scroll.scrollbars-hidden(ref="infoEl", :class="{'pointer-events-none': !infoVisible}")
+    .fixed.pt-36.md_pt-18.z-40.overlay.overflow-y-scroll.scrollbars-hidden(ref="infoEl", :class="{'pointer-events-none': !infoVisible}")
       //- (reveals as background fades in)
-      .relative.px-6
+      .relative.px-6.md_px-10
         .flex.justify-end.items-start
           //- info card
-          .relative.z-10.bg-accent2.text-black.rounded-xl.border-accent2.overflow-hidden(@click.stop, v-show="infoVisible", style="box-shadowff: #f72d8e 0 4px 98px; box-shadow: black 0 4px 98px")
-            .px-6.md_px-9.py-9.leading-snug.text-2xl.tracking-wide.w-full(style="max-width:42em")
-              p.text-md.mb-em.pb-1
-                | #[a.font-bold(href="https://folia.app", target="_blank", rel="noopener noreferrer") #[svg-fleuron.inline-block(style="height:1em;margin-bottom:0.25em;margin-right:0.18em")] #[span.border-b.border-current.border-dashed.hover_border-solid folia]] presents&hellip;<br>
-              p
-                | #[span.inline-block.border.border-dashed.rounded-xl.px-1 straylight protocol] &mdash; a #[span.info-tag multi-player], #[span.info-tag NFT-based game] by #[a.font-bold.border-b.border-current.border-dashed.hover_border-solid(href="https://twitter.com/brachlandberlin", target="_blank", rel="noopener noreferrer") paul seidler] of #[a.font-bold.border-b.border-current.border-dashed.hover_border-solid(href="https://twitter.com/_terra0", target="_blank", rel="noopener noreferrer") terra0]
+          .relative.z-10.bg-teal-500.text-black.rounded.border-teal-500.overflow-hidden(@click.stop, v-show="infoVisible", style="box-shadowff: #f72d8e 0 4px 98px; box-shadowoff: rgba(0,0,0,0.75) 0px 2px 4px inset")
+            .px-6.md_px-9.py-9.leading-snug.text-sm.tracking-wide.w-full(style="max-width:46em")
+              p.text-sm.pb-4.mb-em.-ml-1
+                | #[a.font-bold(href="https://folia.app", target="_blank", rel="noopener noreferrer") #[svg-fleuron.inline-block(style="height:1.1em;margin-bottom:0.25em;margin-right:0.12em")] #[span.border-b.border-current.border-dashed.hover_border-solid folia]] presents&hellip;<br>
+              p.text-3xlff
+                | #[b cable] &mdash; a collection of 545, unique, &lsquo;on-chain&rsquo; NFTs by artist #[b Joan Heemskerk] (JODI)
+                            
+              p.mt-em
+                | each NFT (randomly revealed on mint) expresses a different undersea cable as an .SVG animation fully rendered by the contract
               
-              p.mt-em the game runs #[span.info-tag entirely on-chain] on the #[span.info-tag ethereum] and #[span.info-tag optimism] networks
-
-              ul.mt-em
-                li players mint NFT-#[span.info-tag turmites]
-                li there are 4 turmites per #[router-link.info-tag(to="/") world#[span(style="font-size:0.75em") &rarr;]]
-                li turmites dig in ~60,000 #[router-link.info-tag(to="/patterns") patterns#[span(style="font-size:0.75em") &rarr;]]
-                li players #[span.info-tag move()] turmites instantly with just gas
-                li the contract #[span.info-tag renders] the world anew
-
-              //- p.mt-em dig further, in the #[a.font-bold.border-b.border-current.border-dashed.hover_border-solid wiki]
-
-            footer.mt-em.w-full.grid.grid-cols-2.gap-1.px-3.pb-3
-              a.pb-px.text-md.border.rounded-full.flex.items-center.justify-center.mouse_hover_bg-accent1.mouse_hover_text-accent2(:href="discordLink", target="_blank", rel="noopener noreferrer")
-                | discord #[span.ml-1(style="font-size:0.75em") ↗]
+              p.mt-em
+                | all the world&rsquo;s undersea cables are dreadfully in neglect!<br>#[b ADOPT ONE TODAY!!]
               
-              a.pb-px.text-md.border.rounded-full.flex.items-center.justify-center.mouse_hover_bg-accent1.mouse_hover_text-accent2(:href="$store.getters.docsLink()", target="_blank", rel="noopener noreferrer")
-                | docs #[span.ml-1(style="font-size:0.75em") ↗]
+              p.mt-em
+                | Joan Heemskerk has a background in photography & digital.art _ She is a member of the art collective JODI >>> JODI, or (#[a.border-b.border-current.border-dashed.hover_border-solid(href="http://jodi.org") jodi.org]) - pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?bode. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
               
-              a.pb-px.text-md.border.rounded-full.flex.items-center.justify-center.mouse_hover_bg-accent1.mouse_hover_text-accent2(:href="$store.getters.etherscanLink({ networkName: 'ethereum' })", target="_blank", rel="noopener noreferrer")
-                | ethereum contract #[span.ml-1(style="font-size:0.75em") ↗]
+              p.mt-em
+                | &larr; click a cable on the map to view<br>(or view all minted &darr;)
 
-              a.pb-px.text-md.border.rounded-full.flex.items-center.justify-center.mouse_hover_bg-accent1.mouse_hover_text-accent2(:href="$store.getters.etherscanLink({ networkName: 'optimism' })", target="_blank", rel="noopener noreferrer")
-                | optimism contract #[span.ml-1(style="font-size:0.75em") ↗]
+            footer.w-full.grid.grid-cols-3.border-t.text-smm
+              a.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-yellow-500(:href="$store.getters.etherscanLink({ networkName: 'ethereum' })", target="_blank", rel="noopener noreferrer")
+                | contract #[span.ml-1(style="font-size:0.75em") ↗]
 
-
-              a.pb-px.text-md.border.rounded-full.flex.items-center.justify-center.mouse_hover_bg-accent1.mouse_hover_text-accent2(:href="$store.getters.marketplaceLink({ networkName: 'ethereum', path: '/collection/straylight-protocol' })", target="_blank", rel="noopener noreferrer")
+              a.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-yellow-500(:href="$store.getters.marketplaceLink({ networkName: 'ethereum', path: '/collection/straylight-protocol' })", target="_blank", rel="noopener noreferrer")
                 | opensea #[span.ml-1(style="font-size:0.75em") ↗]
 
-              a.pb-px.text-md.border.rounded-full.flex.items-center.justify-center.mouse_hover_bg-accent1.mouse_hover_text-accent2(:href="$store.getters.marketplaceLink({ networkName: 'optimism' })", target="_blank", rel="noopener noreferrer")
-                | quix #[span.ml-1(style="font-size:0.75em") ↗]
+              a.h-10.flex.items-center.pl-2.pt-1.mouse_hover_bg-yellow-500(:href="discordLink", target="_blank", rel="noopener noreferrer")
+                | discord #[span.ml-1(style="font-size:0.75em") ↗]
 
 
             //- close btn
-            button.absolute.top-0.right-0.w-16.h-16.m-4.border.border-gray-700.rounded-xl.flex.items-center.justify-center.bg-black-a08ff(@click.stop="closeInfoOverlay")
+            button.absolute.top-0.right-0.w-16.h-16.flex.items-center.justify-center.bg-black-a08ff(@click.stop="closeInfoOverlay")
               svg-x.w-5.h-5(strokeWidth="1.15")
 
         //- scroll off area

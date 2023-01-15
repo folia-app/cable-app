@@ -87,7 +87,7 @@ export default createStore({
       return prefix ? ('00' + id).slice(-3) // 001
         : id // 1 - for contract communication
     },
-    addrShort: () => (addr) => addr ? '0x' + addr.slice(2, 6).toUpperCase() + '...' + addr.slice(-4).toUpperCase() : '...',
+    addrShort: () => (addr) => addr ? '0x' + addr.slice(2, 6).toUpperCase() + '-' + addr.slice(-4).toUpperCase() : '...',
     userBalance: (state) => (addr) => provider?.getBalance(addr || state.address) || '0', // wei
     isSoldOut: () => (work) => {
       return work && Number(work.editions) && Number(work.printed) >= Number(work.editions)

@@ -82,34 +82,46 @@
         return highlightStyle2;
       },
     });
-  
+    
+    // highlight feature on hover + click
     let highlight;
-    let highlightIsPinned = false
+    let highlightIsPinned = false    
     const displayFeatureInfo = function (pixel, isClick) {
-      vectorLayer1.getFeatures(pixel).then(function (features) {
-        const feature = features.length ? features[0] : undefined;
-        const info = document.getElementById('info');
-        
-        if (features.length) {
-          info.innerHTML = feature.get('id') + '&nbsp;' + feature.get('name');
-        } else {
+      const features = map.getFeaturesAtPixel(pixel, { hitTolerance: 10 })
+      const feature = features.length ? features[0] : undefined; 
+      const info = document.getElementById('info');
+
+      function highlightFeature () {
+        if (highlight === feature) return
+        info.innerHTML = `<span style="font-size:0.625em">${feature.get('id')}</span>&nbsp;&nbsp;${feature.get('name')}`;
+        featureOverlay.getSource().removeFeature(highlight);
+        featureOverlay.getSource().addFeature(feature);
+        highlight = feature
+      }
+      
+      if (feature) {            
+        if (isClick) {
+          highlightFeature()
+          highlightIsPinned = true
+        } else if (!highlightIsPinned) {
+          // hover
+          highlightFeature()
+        }
+      } else {
+        if ((isClick && highlightIsPinned) || (!isClick && !highlightIsPinned)) {
+          // remove highlight/info
+          featureOverlay.getSource().removeFeature(highlight);
+          highlight = undefined
+          highlightIsPinned = false
           info.innerHTML = '&nbsp;';
         }
-  
-        if (feature !== highlight) {
-          if (highlight) {
-            featureOverlay.getSource().removeFeature(highlight);
-          }
-          if (feature) {
-            featureOverlay.getSource().addFeature(feature);
-          }
-          highlight = feature;
-        }
-      });
+      }
     };
-  
+    
+    const canHover = window.matchMedia('(hover:hover)').matches
+
     map.on('pointermove', function (evt) {
-      if (evt.dragging) {
+      if (evt.dragging || !canHover) {
         return;
       }
       const pixel = map.getEventPixel(evt.originalEvent);
@@ -133,7 +145,7 @@
     cursor: crosshair;
   }
   #map-container {
-    position: absolute;
+    position: fixed;
     z-index: 1;
   }
   #info {
@@ -145,4 +157,13 @@
    z-index: 100;
   }
 
+</style>
+
+<style>
+.ol-zoom{
+  top:auto;
+  left:auto;
+  right:8px;
+  bottom:8px;
+}
 </style>

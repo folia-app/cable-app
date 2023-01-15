@@ -53,6 +53,14 @@ input::selection {
 }
 .scrollbars-hidden::-webkit-scrollbar{ display: none; }
 
+.btn{
+  @apply h-8 text-md flex items-center justify-center rounded leading-none;
+  padding-top:0.15em;
+}
+.btn-lg{
+  @apply h-10;
+}
+
 .btn-theme-darken{
   &:hover, &:focus{ @apply bg-black-a03 }
   &:focus{ @apply outline-none; }

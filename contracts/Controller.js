@@ -1,40 +1,21 @@
-// joined from paul's starylight repo
 export default {
   "networks": {
     // ethereum
-    1: {
-      "address": "0xe0b14d9412f762b6a49e7d009b62daed70212788",
-    },
-    // optimism
-    10: {
-      "address": "0xb955c66FF031cEA247ff22bE1fDBeAE23977d9d7",
-    },
+    // 1: {
+    //   "address": "0xe0b14d9412f762b6a49e7d009b62daed70212788",
+    // },
     // goerli
     5: {
-      "address": "0x1De6276b73B5a5F41FdC7C239b0c9CECFEFF6B6c",
-    },
-    // optimism goerli
-    420: {
-      "address": "0xa4311c666BedBB73577F1A2a2D850Af5024589b2",
+      "address": "0xF80B749e0d03C005b8EfB7451BC6552555556149",
     }
   },
   "abi": [
     {
       "inputs": [
         {
-          "internalType": "address[]",
-          "name": "payees",
-          "type": "address[]"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_percentage",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_MintPrice",
-          "type": "uint256"
+          "internalType": "address payable",
+          "name": "splitter_",
+          "type": "address"
         }
       ],
       "stateMutability": "nonpayable",
@@ -44,13 +25,25 @@ export default {
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
-          "name": "addr",
+          "name": "to",
           "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "success",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "returnData",
+          "type": "bytes"
         }
       ],
-      "name": "Mint",
+      "name": "EthMoved",
       "type": "event"
     },
     {
@@ -76,18 +69,8 @@ export default {
       "inputs": [
         {
           "internalType": "address",
-          "name": "mintTo",
+          "name": "recipient",
           "type": "address"
-        },
-        {
-          "internalType": "bytes12",
-          "name": "rule",
-          "type": "bytes12"
-        },
-        {
-          "internalType": "uint256",
-          "name": "moves",
-          "type": "uint256"
         }
       ],
       "name": "adminMint",
@@ -97,10 +80,10 @@ export default {
     },
     {
       "inputs": [],
-      "name": "istraylight",
+      "name": "cable",
       "outputs": [
         {
-          "internalType": "contract interfaceStraylight",
+          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -110,15 +93,9 @@ export default {
     },
     {
       "inputs": [],
-      "name": "mintPrice",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
+      "name": "mint",
+      "outputs": [],
+      "stateMutability": "payable",
       "type": "function"
     },
     {
@@ -136,32 +113,28 @@ export default {
     },
     {
       "inputs": [],
-      "name": "pause",
-      "outputs": [],
-      "stateMutability": "nonpayable",
+      "name": "paused",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "mintTo",
-          "type": "address"
-        },
-        {
-          "internalType": "bytes12",
-          "name": "rule",
-          "type": "bytes12"
-        },
+      "inputs": [],
+      "name": "price",
+      "outputs": [
         {
           "internalType": "uint256",
-          "name": "moves",
+          "name": "",
           "type": "uint256"
         }
       ],
-      "name": "publicMint",
-      "outputs": [],
-      "stateMutability": "payable",
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -175,11 +148,63 @@ export default {
       "inputs": [
         {
           "internalType": "address",
-          "name": "_straylight",
+          "name": "cable_",
           "type": "address"
         }
       ],
-      "name": "setStraylight",
+      "name": "setCable",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "paused_",
+          "type": "bool"
+        }
+      ],
+      "name": "setPause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "splitter_",
+          "type": "address"
+        }
+      ],
+      "name": "setSplitter",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "splitter",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_to",
+          "type": "address"
+        }
+      ],
+      "name": "sweep",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -193,13 +218,6 @@ export default {
         }
       ],
       "name": "transferOwnership",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "unpause",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

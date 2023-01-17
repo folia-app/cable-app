@@ -41,7 +41,7 @@ metainfo
                 | info
 
               //- mint link
-              .btn.flex-1.md_w-auto.md_px-12.md_-ml-3.mouse_hover_bg-yellow-500.mouse_hover_text-black
+              button.btn.flex-1.md_w-auto.md_px-12.md_-ml-3.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
                 div mint
 
               //- (connect btn)
@@ -79,15 +79,20 @@ metainfo
                 | #[a.font-bold(href="https://folia.app", target="_blank", rel="noopener noreferrer") #[svg-fleuron.inline-block(style="height:1.1em;margin-bottom:0.25em;margin-right:0.12em")] #[span.border-b.border-current.border-dashed.hover_border-solid folia]] presents&hellip;<br>
               p.text-3xlff
                 | #[b cable] &mdash; a collection of 545, unique, &lsquo;on-chain&rsquo; NFTs by artist #[b Joan Heemskerk] (JODI)
+              
+              p.mt-em the Submarine Cable System consists of 545 fiber optic cables today that deliver 95% of all international internet traffic.
+
+              p.mt-em subsea cable owners/operators can deploy cable stations that open gateways between continents and interconnect around the world.
+
+              p.mt-em each NFT (randomly revealed on mint) expresses a different subsea cable as an .SVG data wave animation fully rendered on the ethereum chain by the contract.
                             
-              p.mt-em
-                | each NFT (randomly revealed on mint) expresses a different undersea cable as an .SVG animation fully rendered by the contract
+              p.mt-em 🌊🌊🌊🌊🌊🌊
               
-              p.mt-em
-                | all the world&rsquo;s undersea cables are dreadfully in neglect!<br>#[b ADOPT ONE TODAY!!]
+              p.mt-em all the world’s undersea cables are vulnerable, some failures are caused by natural hazards like #[a(href="https://www.youtube.com/watch?v=1ex7uTQf4bQ" target="_blank" rel="noopener noreferrer" class="border-b border-dashed mouse_hover_border-solid") sharks], but the vast majority of cable faults are caused by human activities !
               
-              p.mt-em
-                | Joan Heemskerk has a background in photography & digital.art _ She is a member of the art collective JODI >>> JODI, or (#[a.border-b.border-current.border-dashed.hover_border-solid(href="http://jodi.org") jodi.org]) - pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?bode. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
+              p.mt-em #[b ADOPT A CABLE!!]
+              
+              p.mt-em Joan Heemskerk is a contemporary artist who makes WWWorks in the cloud. _ She is also a member of the art collective JODI >>> JODI, or (#[a.border-b.border-current.border-dashed.hover_border-solid(href="http://jodi.org") jodi.org])- pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?code. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
               
               p.mt-em
                 | &larr; click a cable on the map to view<br>(or view all minted &darr;)

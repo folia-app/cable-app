@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
-import Index from '@/views/Index.vue'
-import IndexWorlds from '@/views/IndexWorlds.vue'
 
 const routes = [
   {
@@ -13,95 +11,95 @@ const routes = [
         path: '',
         name: 'home'
       },
-      {
-        path: '/adopted',
-        name: 'mints',
-        component: () => import('../views/Mints.vue')
-      }
+      // {
+      //   path: '/adopted',
+      //   name: 'mints',
+      //   component: () => import('../views/Mints.vue')
+      // }
     ]
   },
 
-  {
-    path: '/mint',
-    name: 'mint',
-    component: () => import('../views/Mint.vue')
-  },
+  // // {
+  // //   path: '/mint',
+  // //   name: 'mint',
+  // //   component: () => import('../views/Mint.vue')
+  // // },
 
-  {
-    path: '/networks/:networkName',
-    children: [
-      // network index
-      {
-        path: '',
-        component: Index,
-        children: [
-          {
-            path: 'worlds',
-            name: 'network-index',
-            component: IndexWorlds,
-          },
-          {
-            path: 'activity',
-            name: 'network-index__activity',
-            component: () => import('../views/IndexActivity.vue')
-          }
-        ]
-      },
+  // // {
+  // //   path: '/networks/:networkName',
+  // //   children: [
+  // //     // network index
+  // //     {
+  // //       path: '',
+  // //       component: Index,
+  // //       children: [
+  // //         {
+  // //           path: 'worlds',
+  // //           name: 'network-index',
+  // //           component: IndexWorlds,
+  // //         },
+  // //         {
+  // //           path: 'activity',
+  // //           name: 'network-index__activity',
+  // //           component: () => import('../views/IndexActivity.vue')
+  // //         }
+  // //       ]
+  // //     },
 
-      {
-        path: 'worlds/:board',
-        name: 'board',
-        component: () => import('../views/Board.vue')
-      },
-    ]
-  },
+  // //     {
+  // //       path: 'worlds/:board',
+  // //       name: 'board',
+  // //       component: () => import('../views/Board.vue')
+  // //     },
+  // //   ]
+  // // },
 
-  {
-    path: '/patterns',
-    name: 'patterns',
-    component: () => import('../views/Patterns.vue')
-  },
+  // // {
+  // //   path: '/patterns',
+  // //   name: 'patterns',
+  // //   component: () => import('../views/Patterns.vue')
+  // // },
 
-  {
-    path: '/patterns/:pattern',
-    name: 'pattern',
-    component: () => import('../views/Pattern.vue')
-  },
+  // // {
+  // //   path: '/patterns/:pattern',
+  // //   name: 'pattern',
+  // //   component: () => import('../views/Pattern.vue')
+  // // },
 
-  {
-    path: '/:address',
-    children: [
-      {
-        path: '',
-        component: () => import('../views/Profile.vue'),
-        children: [
-          // root redirects to network profile after lookup
-          {
-            path: '',
-            name: 'profile',
-            component: () => import('../views/ProfileIndex.vue'),
-          },
-          // 
-          {
-            path: ':networkName',
-            component: () => import('../views/ProfileNetwork.vue'),
-            children: [
-              {
-                path: '',
-                name: 'profile-network__worlds',
-                component: () => import('../views/ProfileNetworkWorlds.vue'),
-              },
-              {
-                path: 'activity',
-                name: 'profile-network__activity',
-                component: () => import('../views/ProfileNetworkActivity.vue'),
-              }
-            ]
-          },
-        ]
-      },
-    ]
-  }
+  // {
+  //   path: '/:address',
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: () => import('../views/Profile.vue'),
+  //       children: [
+  //         // root redirects to network profile after lookup
+  //         {
+  //           path: '',
+  //           name: 'profile',
+  //           component: () => import('../views/ProfileIndex.vue'),
+  //         },
+  //         // 
+  //         {
+  //           path: ':networkName',
+  //           component: () => import('../views/ProfileNetwork.vue'),
+  //           children: [
+  //             {
+  //               path: '',
+  //               name: 'profile-network__worlds',
+  //               component: () => import('../views/ProfileNetworkWorlds.vue'),
+  //             },
+  //             {
+  //               path: 'activity',
+  //               name: 'profile-network__activity',
+  //               component: () => import('../views/ProfileNetworkActivity.vue'),
+  //             }
+  //           ]
+  //         },
+  //       ]
+  //     },
+  //   ]
+  // }
 ]
 
 const router = createRouter({

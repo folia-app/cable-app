@@ -1,8 +1,7 @@
 import { createStore } from 'vuex'
-// contracts
-import NFTContractDeploy from '../../contracts/Straylight.js'
-import ControllerDeploy from '../../contracts/Minting.js'
-// web3
+import NFTContractDeploy from '../../contracts/ERC721'
+import ControllerDeploy from '../../contracts/Controller.js'
+import MetadataDeploy from '../../contracts/Metadata.js'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
 // Wallet Connect - directly import .js file since import breaks `vite build`
@@ -32,7 +31,7 @@ function setWeb3Modal (networkName) {
         options: {
           infuraId: infuraProjectID, // required
           rpc: {
-            10: networks[10].infura
+            // 10: networks[10].infura
             // 420: networks[420].infura
           }
         },
@@ -101,8 +100,8 @@ export default createStore({
       const chainId = getters.chainId({ networkName }) || appDefaultNetworkId
       return networks[chainId]
     },
-    contractAddr: (state, getters) => ({ networkName }) => {
-      const chainId = getters.chainId({ networkName })
+    contractAddr: (state, getters) => (chainId) => {
+      chainId = chainId ?? state.chainId ?? appDefaultNetworkId
       return NFTContractDeploy.networks[chainId]?.address
     },
     etherscanLink: (state, getters) => ({ hash, networkName, address }) => {
@@ -113,10 +112,11 @@ export default createStore({
         : `/address/${address ?? contractAddr}`
       return path
     },
-    marketplaceLink: (state, getters) => ({ token, account, networkName, path }) => {
-      const network = getters.network({ networkName })
-      const contractAddr = getters.contractAddr({ networkName })
-
+    marketplaceLink: (state, getters) => ({ token, account, path }) => {
+      const chainId = state.chainId ?? appDefaultNetworkId
+      const contractAddr = getters.contractAddr(chainId)
+      const network = networks[chainId]
+      
       let url = network?.marketplace.domain
       
       url += token !== undefined ? `${ network.marketplace.assetPath }/${contractAddr}/${token}`
@@ -128,10 +128,10 @@ export default createStore({
     meta: state => ({ title, descrip, img, video }) => {
       const meta = []
       // defaults
-      const siteTitle = 's̷̰̃t̴̫̊r̶͔̽ả̷̜y̴̼͂l̸̙͛į̸͆g̴̘̎h̷̜̀ṭ̸͂ ̸̰̊p̵̞̅ȑ̴̙ơ̸͍t̶̗̑o̶͂͜ć̵͍ȏ̸͕l̷̗͗'
-      const siteDescrip = 'by paul seidler (terra0) - an on-chain, NFT multiplayer game. presented by folia 𐡸'
-      const siteImg = 'https://images.prismic.io/folia-dev/ae2e97e5-86ec-4bdc-9e35-2f246ede5758_vlcsnap-2022-11-21-16h55m05s415.png?auto=compress,format'
-      const siteVideo = 'https://prismic-io.s3.amazonaws.com/folia-dev/580b753f-04cd-4fb8-b3fa-b62ed7f4f5ad_straylight-1a-1080p30.mp4'
+      const siteTitle = 'cable'
+      const siteDescrip = 'an on-chain NFT edition by by joan heemskerk (JODI) ~ presented by folia 𐡸'
+      const siteImg = undefined
+      const siteVideo = undefined
       
       // meta description is logo-title if custom page title
       const description = descrip ? descrip : !descrip && title ? undefined : siteDescrip
@@ -208,21 +208,6 @@ export default createStore({
     SAVE_METADATA (state, metadata) {
       state.metadatas.push(metadata)
     },
-
-    // SET_CONTRACTS (state, { chainId, provider }) {
-    //   // set network id
-    //   state.appNetworkId = chainId
-    //   console.log('app network:', chainId)
-      
-    //   // nft
-    //   nftContract = new ethers.Contract(NFTContractDeploy.networks[chainId].address, NFTContractDeploy.abi, provider)
-    //   state.contractAddr = NFTContractDeploy.networks[chainId].address.toLowerCase()
-    //   console.log('token contract:', NFTContractDeploy.networks[chainId].address)
-
-    //   // controller
-    //   controllerContract = new ethers.Contract(ControllerDeploy.networks[chainId].address, ControllerDeploy.abi, provider)
-    //   console.log('controller contract:', ControllerDeploy.networks[chainId].address)
-    // },
 
     SAVE_ADDRESS (state, { address, ens, openSea }) {
       const addrs = JSON.parse(JSON.stringify(state.addresses))
@@ -488,6 +473,12 @@ export default createStore({
       return contract
     },
 
+    async getMetadataContract ({ dispatch }, { network }) {
+      const { provider, chainId } = await dispatch('getProvider', { network })
+      const contract = new ethers.Contract(MetadataDeploy.networks[chainId].address, MetadataDeploy.abi, provider)
+      return contract
+    },
+
     async getDeployBlock ({ state, dispatch }, { network }) {
       let deployBlock = 0
       if (network) {
@@ -496,98 +487,61 @@ export default createStore({
       }
       return deployBlock
     },
-
-    async getBoardCount ({ state, dispatch }, { network }) {
-      try {
-        const nftContract = await dispatch('getNFTContract', { network })
-        let count = await nftContract.boardcounter()
-        count = count.toNumber()
-        // console.log('count', count)
-
-        // if (count === 0) {
-        //   // check if any mints because counter is 0 after 1 mint ¯\_(ツ)_/¯ 
-        //   const mints = await dispatch('getMints', { network })
-        //   if (mints.length) {
-        //     return Math.ceil(mints.length / 4)
-        //   } else {
-        //     return 0
-        //   }
-        // }
-        return count
-      } catch (e) {
-        console.error(e)
-        throw e
-      }
-    },
     
-    async getBoardImage ({ state, dispatch }, { id, network }) {
+    async getCableImage ({ state, dispatch }, { id, network }) {
       try {
-        const nftContract = await dispatch('getNFTContract', { network })
-        return nftContract.renderBoard(id)
+        const nftContract = await dispatch('getMetadataContract', { network })
+        return nftContract.getSVG(id)
       } catch (e) {
         console.error(e)
         throw e
       }
     },
 
-    async getMints ({ state, commit, dispatch }, { cached = false, filter, network }) {
-      try {
-        let events = state.mintEvents[network.name] ?? []
-
-        if (!events.length || !cached) {
-          // else, get fresh events
-          const fromBlock = await dispatch('getDeployBlock', { network })
-          const nftContract = await dispatch('getNFTContract', { network })
-
-          // get...
-          events = await nftContract.queryFilter('TurmiteMint', fromBlock)
-          // console.log({ mintEvents: events })
-
-          // format
-          events = events.reverse().map(event => {
-            const blockNumber = event.blockNumber
-            const tokenId = event.args[0].toString()
-            return {
-              id: `${blockNumber}-${tokenId}`,
-              type: 'mint',
-              blockNumber: event.blockNumber,
-              boardId: event.args[2].toString(),
-              tokenId,
-              rule: event.args[1].toString().toLowerCase().substr(2),
-              getBlock: event.getBlock,
-              getReceipt: event.getTransactionReceipt,
-            }
-          })
-          // console.log({ mints: events })
-
-          // SAVE
-          commit('SAVE_NETWORK_MINT_EVENTS', { networkName: network.name, events })
-        }
-
-        // filter?
-        if (filter) {
-          if (typeof filter[1] === 'object') {
-            events = events.filter(event => filter[1].includes(event[filter[0]]))
-          } else {
-            events = events.filter(event => event[filter[0]] === filter[1])  
-          }
-        }
-
-        return events
-      } catch (e) {
-        console.error(e)
-        throw e
-      }
-    },
-
-    // async findMint ({ dispatch }, { contract, tokenId }) {
+    // async getMints ({ state, commit, dispatch }, { cached = false, filter, network }) {
     //   try {
-    //     const events = await dispatch('getMintedEvents')
-    //     // find mint event by matching contract and token id
-    //     return events.find(event => {
-    //       return event.args.contractAddress.toString().toLowerCase() === contract.toLowerCase() &&
-    //         event.args.tokenId.toString().toLowerCase() === tokenId.toLowerCase()
-    //     })
+    //     let events = state.mintEvents[network.name] ?? []
+
+    //     if (!events.length || !cached) {
+    //       // else, get fresh events
+    //       const fromBlock = await dispatch('getDeployBlock', { network })
+    //       const nftContract = await dispatch('getNFTContract', { network })
+
+    //       // get...
+    //       events = await nftContract.queryFilter('TurmiteMint', fromBlock)
+    //       // console.log({ mintEvents: events })
+
+    //       // format
+    //       events = events.reverse().map(event => {
+    //         const blockNumber = event.blockNumber
+    //         const tokenId = event.args[0].toString()
+    //         return {
+    //           id: `${blockNumber}-${tokenId}`,
+    //           type: 'mint',
+    //           blockNumber: event.blockNumber,
+    //           boardId: event.args[2].toString(),
+    //           tokenId,
+    //           rule: event.args[1].toString().toLowerCase().substr(2),
+    //           getBlock: event.getBlock,
+    //           getReceipt: event.getTransactionReceipt,
+    //         }
+    //       })
+    //       // console.log({ mints: events })
+
+    //       // SAVE
+    //       commit('SAVE_NETWORK_MINT_EVENTS', { networkName: network.name, events })
+    //     }
+
+    //     // filter?
+    //     if (filter) {
+    //       if (typeof filter[1] === 'object') {
+    //         events = events.filter(event => filter[1].includes(event[filter[0]]))
+    //       } else {
+    //         events = events.filter(event => event[filter[0]] === filter[1])  
+    //       }
+    //     }
+
+    //     return events
     //   } catch (e) {
     //     console.error(e)
     //     throw e
@@ -597,59 +551,8 @@ export default createStore({
     async getMintPrice ({ state, commit, dispatch }, { network }) {
       try {
         const contract = await dispatch('getControllerContract', { network })
-        const price = await contract.mintPrice()
+        const price = await contract.price()
         return price
-      } catch (e) {
-        console.error(e)
-        throw e
-      }
-    },
-
-    async getMoves ({ state, commit, dispatch }, { cached = false, filter, network }) {
-      try {
-        let moves // = cached && state.moves ? state.moves : null
-        
-        if (!moves) {
-
-          const fromBlock = await dispatch('getDeployBlock', { network })
-          const nftContract = await dispatch('getNFTContract', { network })
-          
-          // get events...
-          const events = await nftContract.queryFilter('TurmiteMove', fromBlock)
-          // console.log({ moveEvents: events })
-
-          // format
-          moves = events.reverse().map(event => {
-            const blockNumber = event.blockNumber
-            const tokenId = event.args[0].toString()
-            const moves = event.args[2].toString()
-            
-            return {
-              id: `${blockNumber}-${tokenId}-${moves}`, // for component :key-ing
-              type: 'move',
-              blockNumber,
-              boardId: event.args[1].toString(),
-              tokenId,
-              moves: event.args[2].toString(),
-              getReceipt: event.getTransactionReceipt,
-              getBlock: event.getBlock,
-            }
-          })
-          // console.log({ moves })
-          
-          // commit('SAVE_MOVES', moves)
-        }
-
-        // filter?
-        if (filter) {
-          if (typeof filter[1] === 'object') {
-            moves = moves.filter(event => filter[1].includes(event[filter[0]]))
-          } else {
-            moves = moves.filter(event => event[filter[0]] === filter[1])  
-          }
-        }
-
-        return moves
       } catch (e) {
         console.error(e)
         throw e
@@ -667,30 +570,7 @@ export default createStore({
       }
     },
 
-    async getMaxTurmites ({ getters, dispatch }, { cached = true, network }) {
-      try {
-        const networkData = getters.network({ networkName: network.name })
-        const saved = networkData?.maxTurmites
-        if (saved && cached) {
-          return saved
-        }
-
-        const nftContract = await dispatch('getNFTContract', { network })
-        const max = (await nftContract.maxnumbturmites()).toNumber()
-
-        if (networkData) {
-          // save to networks object
-          networkData.maxTurmites = max
-        }
-
-        return max
-      } catch (e) {
-        console.error(e)
-        throw e
-      }
-    },
-
-    async mint ({ state, dispatch }, { rule, moves = 0, network }) {
+    async mint ({ state, dispatch }, { network }) {
       try {
         // wait for init?
         const contract = await dispatch('getControllerContract', { network })
@@ -714,7 +594,7 @@ export default createStore({
         const contractSigner = contract.connect(signer)
 
         // confirm...
-        const tx = await contractSigner.publicMint(state.address, rule, moves.toString(), { value: price.toString() })
+        const tx = await contractSigner.mint({ value: price.toString() })
         console.log('my new mint tx:', tx)
         return tx
       } catch (e) {
@@ -740,94 +620,6 @@ export default createStore({
         }
         
         return true
-      } catch (e) {
-        console.error(e)
-        throw e
-      }
-    },
-
-    async moveTurmite ({ state, dispatch }, { tokenId, moves, network }) {
-      try {
-        await dispatch('isWalletCorrectNetwork', { network })
-
-        const nftContract = await dispatch('getNFTContract', { network })
-
-        const contractSigner = nftContract.connect(signer)
-
-        const tx = await contractSigner.moveTurmite([tokenId, moves])
-
-        return tx
-      } catch (e) {
-        console.error(e)
-        throw e
-      }
-    },
-
-    async reprogramTurmite ({ state, dispatch }, { tokenId, rule, network }) {
-      try {
-        await dispatch('isWalletCorrectNetwork', { network })
-
-        const nftContract = await dispatch('getNFTContract', { network })
-        
-        const contractSigner = nftContract.connect(signer)
-
-        const tx = await contractSigner.reprogrammTurmite(tokenId, '0x' + rule)
-
-        return tx
-      } catch (e) {
-        console.error(e)
-        throw e
-      }
-    },
-
-    async getReprograms ({ state, commit, dispatch }, { cached = false, filter, network }) {
-      try {
-        let events = state.reprogrammedEvents[network.name] ?? []
-        
-        if (!events.length || !cached) {
-          // get latest events
-          const fromBlock = await dispatch('getDeployBlock', { network })
-          const nftContract = await dispatch('getNFTContract', { network })
-          
-          // get events...
-          events = await nftContract.queryFilter('TurmiteReprogramm', fromBlock)
-          // console.log({ reprogramEvents: events })
-
-          // format
-          events = events.reverse().map(event => {
-            const blockNumber = event.blockNumber
-            const tokenId = event.args[0].toString()
-            const rule = event.args[1].toString().toLowerCase().substr(2)
-            
-            return {
-              id: `${blockNumber}-${tokenId}-${rule}`,
-              type: 'reprogram',
-              blockNumber: event.blockNumber,
-              tokenId,
-              boardId: (Math.floor(tokenId / 4) + 1).toString(),
-              rule,
-              getBlock: event.getBlock,
-              getReceipt: event.getTransactionReceipt,
-            }
-          })
-          // console.log({ reprograms: events })
-
-          // save for caching
-          commit('SAVE_NETWORK_REPROGRAM_EVENTS', { networkName: network.name, events })
-        }
-
-        // filter?
-        if (filter) {
-          const key = filter[0]
-          const value = filter[1]
-          if (typeof filter[1] === 'object') {
-            events = events.filter(event => value.includes(event[key]))
-          } else {
-            events = events.filter(event => event[key] === value)  
-          }
-        }
-
-        return events
       } catch (e) {
         console.error(e)
         throw e

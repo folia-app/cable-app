@@ -4,7 +4,8 @@
 </template>
 
 <script setup>
-  import { onMounted } from "vue";
+  import { onMounted, watch } from "vue";
+  import { useRoute, useRouter } from "vue-router";
   // 
   import "ol/ol.css";
   import GeoJSON from 'ol/format/GeoJSON';
@@ -85,35 +86,43 @@
     
     // highlight feature on hover + click
     let highlight;
-    let highlightIsPinned = false    
+    let highlightIsPinned = false
+    const info = document.getElementById('info');
+    
+    function highlightFeature (feature, { pin }) {
+      if (highlight === feature) return
+      info.innerHTML = `${feature.get('name')}`;
+      featureOverlay.getSource().removeFeature(highlight);
+      featureOverlay.getSource().addFeature(feature);
+      highlight = feature
+      if (pin) {
+        highlightIsPinned = true
+      }
+    }
+
+    function clearHighlight () {
+      featureOverlay.getSource().removeFeature(highlight);
+      highlight = undefined
+      highlightIsPinned = false
+      info.innerHTML = '&nbsp;';
+    }
+
     const displayFeatureInfo = function (pixel, isClick) {
       const features = map.getFeaturesAtPixel(pixel, { hitTolerance: 10 })
       const feature = features.length ? features[0] : undefined; 
-      const info = document.getElementById('info');
-
-      function highlightFeature () {
-        if (highlight === feature) return
-        info.innerHTML = `<span style="font-size:0.625em">${feature.get('id')}</span>&nbsp;&nbsp;${feature.get('name')}`;
-        featureOverlay.getSource().removeFeature(highlight);
-        featureOverlay.getSource().addFeature(feature);
-        highlight = feature
-      }
       
       if (feature) {            
         if (isClick) {
-          highlightFeature()
+          highlightFeature(feature, { pin: true })
           highlightIsPinned = true
         } else if (!highlightIsPinned) {
           // hover
-          highlightFeature()
+          highlightFeature(feature, { pin: false })
         }
       } else {
         if ((isClick && highlightIsPinned) || (!isClick && !highlightIsPinned)) {
           // remove highlight/info
-          featureOverlay.getSource().removeFeature(highlight);
-          highlight = undefined
-          highlightIsPinned = false
-          info.innerHTML = '&nbsp;';
+          clearHighlight()
         }
       }
     };
@@ -130,7 +139,32 @@
   
     map.on('click', function (evt) {
       displayFeatureInfo(evt.pixel, true);
+      router.replace({query: {}}) // remove url query highlight
     });
+
+    // highlight cable when url query (?cable=2)
+    const route = useRoute()
+    const router = useRouter()
+    
+    watch(() => route.query.id, highlightFeatureByID)
+
+    function highlightFeatureByID (id) {
+      if (!id || isNaN(id)) {
+        clearHighlight()
+        return
+      }
+      const source = vectorLayer1.getSource()
+      const ft = source.getFeatureById(id)
+      console.log(source, ft, typeof id)
+      return ft && highlightFeature(ft, { pin: true })
+    }
+
+    // loaded with id?
+    // DOESNT WORK?? map.on('ready') ?
+    // if (route.name === 'home') {
+    //   console.log(route.query.cable)
+    //   highlightFeatureByID(route.query.cable)
+    // }
   })
 </script>
 

@@ -1,11 +1,11 @@
 <template>
-  <div class="min-h-screen bg-white text-black">
+  <section class="relative z-20 min-h-screen bg-white text-black">
     <ul class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4">
       <template v-for="id in boardIdsSorted" :key="id">
         <CableThumb :id="id"></CableThumb>
       </template>
     </ul>
-  </div>
+  </section>
 </template>
 
 <script setup>

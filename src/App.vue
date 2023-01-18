@@ -121,9 +121,8 @@ metainfo
 
     //- main
     main.app_main.flex-1
-      router-view(v-slot="{ Component }", :key="$route.path")
-        keep-alive(include="Index")
-          component(:is="Component")
+      router-view(v-slot="{ Component }")
+        component(:is="Component")
 
     //- footer?
   

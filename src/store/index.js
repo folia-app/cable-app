@@ -61,7 +61,7 @@ export default createStore({
       mints: null,
       mintCount: undefined,
       mintEvents: {}, // save per network
-      tokens: [],
+      tokens: {}, // owners
 
       moves: undefined,
       movesMax: 4000, // above seems to throw rpc error?
@@ -202,8 +202,8 @@ export default createStore({
       // push so app updates
       state.works.push(work)
     },
-    SAVE_TOKEN (state, token) {
-      state.tokens.push(token) // [tokenId, ownerAddr]
+    SAVE_TOKEN (state, { tokenId, owner }) {
+      state.tokens[tokenId] = owner
     },
     SAVE_METADATA (state, metadata) {
       state.metadatas.push(metadata)
@@ -630,14 +630,15 @@ export default createStore({
     async getNFTOwnerByTokenId ({ state, commit, dispatch }, { tokenId, network }) {
       try {
         // saved?
-        // const token = state.tokens.find(token => token[0] === tokenId) || []
-        // let owner = token && token[1]
-        // if (owner) return owner
+        let owner = state.tokens[tokenId]
+        if (owner) return owner
+        
         // fetch...
         const nftContract = await dispatch('getNFTContract', { network })
-        let owner = await nftContract.ownerOf(tokenId)
+        owner = await nftContract.ownerOf(tokenId)
+        
         // save
-        // commit('SAVE_TOKEN', [tokenId, owner])
+        commit('SAVE_TOKEN', { tokenId, owner })
         return owner
       } catch (e) {
         // console.error(e)

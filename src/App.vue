@@ -84,15 +84,15 @@ metainfo
 
               p.mt-em subsea cable owners/operators can deploy cable stations that open gateways between continents and interconnect around the world.
 
-              p.mt-em each NFT (randomly revealed on mint) expresses a different subsea cable as an .SVG data wave animation fully rendered on the ethereum chain by the contract.
-                            
+              p.mt-em each NFT (randomly revealed on mint) expresses a different subsea cable loaded with a [ + || - ] stream of data waves as an .SVG animation completely on the ethereum chain by the contract.
+              
               p.mt-em 🌊🌊🌊🌊🌊🌊
               
               p.mt-em all the world’s undersea cables are vulnerable, some failures are caused by natural hazards like #[a(href="https://www.youtube.com/watch?v=1ex7uTQf4bQ" target="_blank" rel="noopener noreferrer" class="border-b border-dashed mouse_hover_border-solid") sharks], but the vast majority of cable faults are caused by human activities !
               
               p.mt-em #[b ADOPT A CABLE!!]
               
-              p.mt-em Joan Heemskerk is a contemporary artist who makes WWWorks in the cloud. _ She is also a member of the art collective JODI >>> JODI, or (#[a.border-b.border-current.border-dashed.hover_border-solid(href="http://jodi.org") jodi.org])- pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?code. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
+              p.mt-em Joan Heemskerk is a contemporary artist who makes WWWorks in the cloud. _ She is also a member of the art collective JODI >>> JODI, or (#[a.border-b.border-current.border-dashed.hover_border-solid(href="https://joid.org"  target="_blank") jodi.org])- pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?code. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
               
               p.mt-em
                 | &larr; click a cable on the map to view<br>(or view all minted &darr;)

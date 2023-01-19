@@ -1,6 +1,6 @@
 <template>
   <section class="relative z-20 min-h-screen bg-white text-black">
-    <ul class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4">
+    <ul class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 text-smm">
       <template v-for="id in mintIdsSorted" :key="id">
         <CableThumb :id="id"></CableThumb>
       </template>

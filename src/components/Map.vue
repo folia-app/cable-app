@@ -1,10 +1,10 @@
 <template>
   <div id="map-container"></div>
-  <div id="info">&nbsp;</div>
+  <MapCableInfo :id="highlightId"></MapCableInfo>
 </template>
 
 <script setup>
-  import { onMounted, watch } from "vue";
+  import { onMounted, watch, ref } from "vue";
   import { useRoute, useRouter } from "vue-router";
   // 
   import "ol/ol.css";
@@ -15,6 +15,9 @@
   import View from 'ol/View';
   import {Style, Fill, Stroke, Text} from 'ol/style';  
   import store from '@/store'
+  import MapCableInfo from "./MapCableInfo.vue";
+
+  const highlightId = ref()
 
   // get owners
   store.dispatch('getMintCount').then((count) => {
@@ -96,14 +99,13 @@
     // highlight feature on hover + click
     let highlight;
     let highlightIsPinned = false
-    const info = document.getElementById('info');
     
     function highlightFeature (feature, { pin }) {
       if (highlight === feature) return
-      info.innerHTML = `${feature.get('name')}`;
       featureOverlay.getSource().removeFeature(highlight);
       featureOverlay.getSource().addFeature(feature);
       highlight = feature
+      highlightId.value = feature.id_
       if (pin) {
         highlightIsPinned = true
       }
@@ -112,8 +114,8 @@
     function clearHighlight () {
       featureOverlay.getSource().removeFeature(highlight);
       highlight = undefined
+      highlightId.value = undefined
       highlightIsPinned = false
-      info.innerHTML = '&nbsp;';
     }
 
     const displayFeatureInfo = function (pixel, isClick) {

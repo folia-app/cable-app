@@ -5,7 +5,7 @@ observer.cable-image.relative.group(:threshold="0.01", @visible="onVisible", @hi
   template(v-if="!imgSrc")
     .w-full
       .aspect-square
-        .absolute.overlay.flex.items-center.justify-center.animate-pulse.text-smm
+        .absolute.overlay.flex.items-center.justify-center.animate-pulse
           .py-1.pl-3.pr-2 loading...
 
   template(v-else)

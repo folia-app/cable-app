@@ -5,12 +5,18 @@
         <CableThumb :id="id"></CableThumb>
       </template>
     </ul>
+
+    <router-link class="fixed top-0 right-0 p-8" to="/">
+      <span class="sr-only">Close</span>
+      <SVGX class="w-6 h-6" strokeWidth="1.15" />
+    </router-link>
   </section>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import CableThumb from '../components/CableThumb.vue';
+import SVGX from '../components/SVG-X.vue';
 import store from '../store';
 
 const mintCount = ref(0)

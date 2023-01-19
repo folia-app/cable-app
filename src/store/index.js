@@ -61,7 +61,8 @@ export default createStore({
       mints: null,
       mintCount: undefined,
       mintEvents: {}, // save per network
-      tokens: {}, // owners
+      owners: {}, // owners
+      svgs: {},
 
       moves: undefined,
       movesMax: 4000, // above seems to throw rpc error?
@@ -202,8 +203,11 @@ export default createStore({
       // push so app updates
       state.works.push(work)
     },
-    SAVE_TOKEN (state, { tokenId, owner }) {
-      state.tokens[tokenId] = owner
+    SAVE_OWNER (state, { tokenId, owner }) {
+      state.owners[tokenId] = owner
+    },
+    SAVE_SVG (state, { tokenId, svg }) {
+      state.svgs[tokenId] = svg
     },
     SAVE_METADATA (state, metadata) {
       state.metadatas.push(metadata)
@@ -488,13 +492,19 @@ export default createStore({
       return deployBlock
     },
     
-    async getCableImage ({ state, dispatch }, { id, network }) {
+    async getCableImage ({ state, commit, dispatch }, { id, network }) {
+      const saved = state.svgs[id]
+      if (saved)
+      return saved
+
       try {
         const nftContract = await dispatch('getMetadataContract', { network })
-        return nftContract.getSVG(id)
+        const svg = nftContract.getSVG(id)
+        commit('SAVE_SVG', { tokenId: id, svg })
+        return svg
       } catch (e) {
         console.error(e)
-        throw e
+        return null
       }
     },
 
@@ -629,14 +639,14 @@ export default createStore({
     /* read owner by token id from chain */
     async getNFTOwnerByTokenId ({ state, commit, dispatch }, { tokenId, network }) {
       // saved?
-      let owner = state.tokens[tokenId]
+      let owner = state.owners[tokenId]
       if (owner) return owner
 
       // fetch...
       try {
         const nftContract = await dispatch('getNFTContract', { network })
         owner = await nftContract.ownerOf(tokenId)
-        commit('SAVE_TOKEN', { tokenId, owner })
+        commit('SAVE_OWNER', { tokenId, owner })
       } catch (e) {
         // console.error(e)
         console.warn(`get owner error / token doesn't exist? (${tokenId})`)

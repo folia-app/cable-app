@@ -3,7 +3,7 @@
 
 <div class="fixed z-10 bottom-0 left-0 w-full flex justify-center pointer-events-none">
   <router-link :to="{name: 'mints'}" class="p-8 pointer-events-auto text-white" @click="mintsVisible=!mintsVisible">
-    &darr;
+    ADOPTIONS
     <!-- <template v-if="mintsVisible">
       <SvgX class="w-5 h-5" strokeWidth="1.15"></SvgX>
     </template>

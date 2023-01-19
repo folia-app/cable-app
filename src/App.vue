@@ -32,7 +32,7 @@ metainfo
             h1.text-2xl.mt-1.tracking-wide ADOPT-A-CABLE
 
         //- laptop right
-        nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.md_justify-end.items-center.px-6.md_px-10.leading-none.text-smm
+        nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.md_justify-end.items-center.px-6.sm_pr-2px.md_px-10.leading-none.text-smm
           .grid.grid-cols-2.md_flex.gap-2px.flex-1.md_flex-none.pointer-events-auto.text-black
             //- cell body
             //- .w-full.md_w-auto.flex.justify-evenly.bg-accent3.text-black.border-gray-600.rounded.flex.overflow-hiddenff.bg-accent1.text-center
@@ -72,7 +72,7 @@ metainfo
             
 
     //- (info overlay)
-    .fixed.pt-36.md_pt-18.z-40.overlay.overflow-y-scroll.scrollbars-hidden(ref="infoEl", :class="{'pointer-events-none': !infoVisible}")
+    .fixed.pt-48.md_pt-18.z-40.overlay.overflow-y-scroll.scrollbars-hidden(ref="infoEl", :class="{'pointer-events-none': !infoVisible}")
       //- (reveals as background fades in)
       .relative.px-6.md_px-10
         .flex.justify-end.items-start
@@ -118,7 +118,7 @@ metainfo
 
         //- scroll off area
         #info-scroll-end.pointer-events-none(style="height:calc(100vh - 1px)")
-        observer.pointer-events-none.h-screen(:threshold="0.01", @visible="closeInfoOverlay")
+        observer.block.pointer-events-none.h-screen(:threshold="0.01", @visible="closeInfoOverlay")
 
         //- background
         button.block.absolute.overlay.bg-black-a60ff.transition.duration-1000(:class="{'opacity-0 pointer-events-none': !infoVisible}", @click.stop="infoVisible = false", aria-label="Close Info")

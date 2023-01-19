@@ -15,7 +15,7 @@ modal(@close="close")
       label.block.mr-4.text-smm.mt-2px.sr-only pattern:
       <SelectorRules v-model="selection" class="-mr-10" @activeOptionChanged="val => { activeOption = val }" />
     
-    .mt-8.text-xxs.flex.justify-center
+    .mt-8.text-2xs.flex.justify-center
       button.border-b.border-dashed.text-accent4.pb-1.mouse_hover_border-solid(@click.prevent="simulateSelection")
         | preview in the simulator &rarr;
       //- button.pl-10.pr-6.border.border-accent4.text-accent4.rounded-full.h-9.pb-px.flex.justify-center.items-center.leading-none.font-bold.text-md.focus-visible_ring-accent2(type="submit", :disabled="!selection") SIMULATE &rarr;

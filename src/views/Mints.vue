@@ -1,12 +1,15 @@
 <template>
   <section class="relative z-20 min-h-screen bg-white text-black">
-    <ul class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 text-smm">
+    <header class="sticky w-full top-0 left-0">
+
+    </header>
+    <ul class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 xl_grid-cols-5 text-smm">
       <template v-for="id in mintIdsSorted" :key="id">
         <CableThumb :id="id"></CableThumb>
       </template>
     </ul>
 
-    <router-link class="fixed top-0 right-0 p-8" to="/">
+    <router-link class="fixed top-0 right-0 p-8 mouse_hover_bg-yellow-500" to="/">
       <span class="sr-only">Close</span>
       <SVGX class="w-6 h-6" strokeWidth="1.15" />
     </router-link>

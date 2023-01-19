@@ -63,6 +63,7 @@ export default createStore({
       mintEvents: {}, // save per network
       owners: {}, // owners
       svgs: {},
+      fullscreenId: null,
 
       moves: undefined,
       movesMax: 4000, // above seems to throw rpc error?
@@ -241,6 +242,12 @@ export default createStore({
 
     SAVE_NETWORK_REPROGRAM_EVENTS (state, { networkName, events }) {
       state.reprogrammedEvents[networkName] = events
+    },
+    OPEN_FULLSCREEN (state, id) {
+      state.fullscreenId = id
+    },
+    CLOSE_FULLSCREEN (state) {
+      state.fullscreenId = null
     }
   },
   actions: {

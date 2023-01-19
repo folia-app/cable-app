@@ -54,7 +54,7 @@ input::selection {
 .scrollbars-hidden::-webkit-scrollbar{ display: none; }
 
 .btn{
-  @apply h-8 text-md flex items-center justify-center rounded leading-none;
+  @apply h-8 text-smm flex items-center justify-center rounded leading-none;
   padding-top:0.15em;
 }
 .btn-lg{

@@ -12,7 +12,7 @@
   .relative(v-if="menuVisible", v-click-outside="onClickOutsideMenu")
     .absolute.top-0.right-2.sm_right-auto.sm_left-0.pt-2
       ul.bg-accent4.rounded-lg.pb-3.whitespace-nowrap.shadow
-        .text-xxs.pl-3.pb-1b networks:
+        .text-2xs.pl-3.pb-1b networks:
         li
           button.block.pl-6.pr-6.rounded-full(@click.prevent="setNetwork('ethereum')") ethereum
         li
@@ -22,11 +22,11 @@
             span.opacity-40.mouse_hover_opacity-100.text-xs testnets
         li(v-show="testnetsVisible")
           button.block.pl-6.pr-6.rounded-full(@click.prevent="setNetwork('goerli')")
-            span.text-xxs.mr-2.opacity-40 testnet
+            span.text-2xs.mr-2.opacity-40 testnet
             | goerli
         li(v-show="testnetsVisible")
           button.block.pl-6.pr-6.rounded-full(@click.prevent="setNetwork('optimism-goerli')")
-            span.text-xxs.mr-2.opacity-40 testnet
+            span.text-2xs.mr-2.opacity-40 testnet
             | optimism-goerli
 
 </template>

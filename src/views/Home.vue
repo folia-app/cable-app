@@ -1,32 +1,44 @@
 <template>
 <Map></Map>
 
-<div class="fixed z-10 bottom-0 left-0 w-full flex justify-center pointer-events-none">
-  <router-link :to="{name: 'mints'}" class="p-8 pointer-events-auto text-white" @click="mintsVisible=!mintsVisible">
-    ADOPTIONS
-    <!-- <template v-if="mintsVisible">
-      <SvgX class="w-5 h-5" strokeWidth="1.15"></SvgX>
-    </template>
-    <template v-else>
-      
-    </template> -->
-  </router-link>
-</div>
-
 <router-view v-slot="{ Component, route }">
   <transition name="slideupdown">
     <component :is="Component" :key="route.name"/>
   </transition>
 </router-view>
+
+<!-- fullscreen overlay -->
+<div ref="overlayEl" v-if="store.state.fullscreenId" class="fixed overlay z-40 bg-white overflow-scroll scrollbars-hidden" tabindex="0">
+  <CableImage :id="store.state.fullscreenId"></CableImage>
+
+  <button class="fixed top-0 right-0 p-8 mouse_hover_bg-yellow-500" to="/" @click="closeOverlay">
+    <span class="sr-only">Close</span>
+    <SVGX class="w-6 h-6 text-black" strokeWidth="1.15" />
+    <img class="hidden" src="nope" @error="onOverlayEnter" />
+  </button>
+</div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import Map from '../components/Map.vue'
-import Mints from './Mints.vue';
-import SvgX from '../components/SVG-X.vue';
+import SVGX from '../components/SVG-X.vue';
+import CableImage from '../components/CableImage.vue';
+import store from '../store';
 
 const mintsVisible = ref(false)
+
+let lastActiveEl
+const overlayEl = ref()
+function onOverlayEnter () {
+  lastActiveEl = document.activeElement
+  overlayEl.value.focus()
+  overlayEl.value.scrollTo(0, (overlayEl.value.scrollHeight - window.innerHeight)/2);
+} 
+function closeOverlay () {
+  lastActiveEl.focus()
+  store.commit('CLOSE_FULLSCREEN')
+}
 </script>
 
 <style>

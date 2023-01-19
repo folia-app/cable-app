@@ -16,8 +16,8 @@ module.exports = {
       // '2xl': '1536px',
       sm: '568px',
       md: '768px',
-      lg: '1024px', // TODO - consider 960 for tiles to go 3col
-      xl: '1440px',
+      lg: '1168px', // TODO - consider 960 for tiles to go 3col
+      xl: '1513px',
       mouse: { raw: '(hover:hover)' }
     },
     spacing: {
@@ -37,6 +37,7 @@ module.exports = {
       8: '2rem',
       9: '2.25rem',
       10: '2.5rem',
+      11: '2.75rem',
       12: '3rem',
       14: '3.5rem',
       16: '4rem',
@@ -60,8 +61,9 @@ module.exports = {
       'lh-snug': '1.375em'
     },
     fontSize: {
-      '3xs': '1.2rem',
-      xxs: '1.3rem',
+      'smaller': '0.75em',
+      '3xs': '1.05rem',
+      '2xs': '1.2rem',
       xs: '1.4rem',
       sm: '1.5rem',
       smm: '1.7rem',

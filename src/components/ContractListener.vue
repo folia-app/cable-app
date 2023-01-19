@@ -4,7 +4,7 @@ div
     .flex.items-center.text-accent4
       .mt-1.relative.group
         .rounded-full.h-4.w-4(:class="{'animate-pulse bg-accent4': isListening, 'border border-current opacity-50': !isListening }")
-        .absolute.top-0.left-full.h-full.flex.items-center.opacity-0.mouse_group-hover_opacity-100.text-xxs.pl-2(v-if="isListening && !updateCount")
+        .absolute.top-0.left-full.h-full.flex.items-center.opacity-0.mouse_group-hover_opacity-100.text-2xs.pl-2(v-if="isListening && !updateCount")
           | listening...
           
       button.px-2.ml-1.flex.items-center(v-if="updateCount", @click="refreshClick")

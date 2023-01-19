@@ -37,11 +37,15 @@ metainfo
             //- border cell
             .w-full.md_w-auto.flex.justify-evenly.bg-teal-500.text-black.border-gray-600.rounded.flex.overflow-hiddenff.bg-accent1.text-center
               //- (info btn)
-              button.btn.flex-1.md_w-auto.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="openInfoOverlay")
+              button.btn.flex-1.md_w-auto.md_px-11.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="openInfoOverlay")
                 | info
+              
+              //- (info btn)
+              router-link.btn.flex-1.md_w-auto.md_px-11.mouse_hover_bg-yellow-500.mouse_hover_text-black(:to="{name: 'mints'}")
+                | adopted
 
               //- mint link
-              button.btn.flex-1.md_w-auto.md_px-12.md_-ml-3.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
+              button.btn.flex-1.md_w-auto.md_px-11.md_-ml-3.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
                 div mint
 
               //- (connect btn)
@@ -132,7 +136,7 @@ metainfo
       //- (v-html="'Wrong&nbsp;Network&nbsp;🤖 Please&nbsp;switch&nbsp;to&nbsp;Mainnet'")
       | 🤖 Wrong Network!
       //- .absolute.top-0.right-0.h-full.flex.items-center.px-6.md_p-8
-      button.absolute.top-0.right-0.h-full.bg-black-a15.px-8.md_px-12.mouse_hover_bg-black-a30(@click="switchToAppNetwork", style="font-size:0.875em") Switch
+      button.absolute.top-0.right-0.h-full.bg-black-a15.px-8.md_px-11.mouse_hover_bg-black-a30(@click="switchToAppNetwork", style="font-size:0.875em") Switch
 </template>
 
 <script>

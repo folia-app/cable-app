@@ -32,7 +32,7 @@ metainfo
             h1.text-2xl.mt-1.tracking-wide ADOPT-A-CABLE
 
         //- laptop right
-        nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.md_justify-end.items-center.px-6.md_px-10.leading-none.text-smm
+        nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.md_justify-end.items-center.px-6.sm_pr-2px.md_px-10.leading-none.text-smm
           .grid.grid-cols-2.md_flex.gap-2px.flex-1.md_flex-none.pointer-events-auto.text-black
             //- cell body
             //- .w-full.md_w-auto.flex.justify-evenly.bg-accent3.text-black.border-gray-600.rounded.flex.overflow-hiddenff.bg-accent1.text-center

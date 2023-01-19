@@ -13,11 +13,11 @@ metainfo
         //- h1.sr-only Straylight Protocol
         
         //- laptop left
-        .flex.pointer-events-auto.items-center
+        .flex-1.sm_flex-none.flex.pointer-events-auto.items-center
           //- (folia logo link)
           template(v-if="isIndex")
-            a.block.opacity-30ff.mouse_hover_opacity-100.mouse_hover_bg-yellow-500.roundedff(href="https://folia.app", target="_blank", title="folia.app ↗")
-              .w-22.h-22.sm_w-20.sm_h-20.flex.items-center.justify-center.text-teal-500.mouse_hover_text-black.pb-1.pr-1
+            a.-mr-22.sm_mr-0.block.opacity-30ff.mouse_hover_opacity-100.mouse_hover_bg-yellow-500.roundedff(href="https://folia.app", target="_blank", title="folia.app ↗")
+              .w-22.h-22.sm_w-20.sm_h-20.flex.items-center.justify-center.text-accent3.mouse_hover_text-black.pb-1.pr-1
                 svg-fleuron(style="height:1.3em")
           //- (back btn)
           template(v-else-if="lastRt.name")
@@ -28,34 +28,34 @@ metainfo
             router-link.w-22.h-22.sm_w-20.sm_h-20.flex.w-full.items-center.justify-center.rounded.mouse_hover_bg-accent2.mouse_hover_text-accent1(:to="$route.params.networkName ? { name: 'network-index', params: $route.params } : `/`")
               arrow-left-icon.w-8.h-8.text-current
 
-          router-link.h-22.sm_h-20.flex-1.flex.items-center.pl-2px.leading-none(to="/")
+          router-link.h-22.sm_h-20.flex-1.flex.items-center.justify-center.pl-2px.leading-none(to="/")
             h1.text-2xl.mt-1.tracking-wide ADOPT-A-CABLE
 
         //- laptop right
         nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.md_justify-end.items-center.px-6.md_px-10.leading-none.text-smm
-          .flex.flex-1.md_flex-none.pointer-events-auto
-            //- border cell
-            .w-full.md_w-auto.flex.justify-evenly.bg-teal-500.text-black.border-gray-600.rounded.flex.overflow-hiddenff.bg-accent1.text-center
-              //- (info btn)
-              button.btn.flex-1.md_w-auto.md_px-11.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="openInfoOverlay")
-                | info
-              
-              //- (info btn)
-              router-link.btn.flex-1.md_w-auto.md_px-11.mouse_hover_bg-yellow-500.mouse_hover_text-black(:to="{name: 'mints'}")
-                | adopted
+          .grid.grid-cols-2.md_flex.gap-2px.flex-1.md_flex-none.pointer-events-auto.text-black
+            //- cell body
+            //- .w-full.md_w-auto.flex.justify-evenly.bg-accent3.text-black.border-gray-600.rounded.flex.overflow-hiddenff.bg-accent1.text-center
+            //- (info btn)
+            button.btn.bg-accent3.flex-1.md_w-auto.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="openInfoOverlay")
+              | info
+            
+            //- (info btn)
+            router-link.btn.bg-accent3.flex-1.md_w-auto.md_px-10.mouse_hover_bg-yellow-500.mouse_hover_text-black(:to="{name: 'mints'}")
+              | adopted
 
-              //- mint link
-              button.btn.flex-1.md_w-auto.md_px-11.md_-ml-3.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
-                div mint
+            //- mint link
+            button.btn.bg-accent3.flex-1.md_w-auto.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
+              div mint
 
-              //- (connect btn)
-              template(v-if="!$store.state.address")
-                button.btn.flex-1.md_-ml-3.md_w-auto.md_px-10.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="connectWallet") connect
+            //- (connect btn)
+            template(v-if="!$store.state.address")
+              button.btn.bg-accent3.flex-1.md_w-auto.md_px-10.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="connectWallet") connect
 
             //- (connected dropdown)
             template(v-if="$store.state.address")
-              div.ml-1.text-accent1.text-smm
-                button.btn.block.pl-7.bg-yellow-500(@click="userMenuVisible = true")
+              div.text-accent1.text-smm
+                button.btn.w-full.block.pl-7.bg-yellow-500(@click="userMenuVisible = true")
                   addr(:address="$store.state.address")
                   svg-chevron-down.w-6.h-6.mx-2.mb-1(strokeWidth="1")
 
@@ -77,7 +77,7 @@ metainfo
       .relative.px-6.md_px-10
         .flex.justify-end.items-start
           //- info card
-          .relative.z-10.bg-teal-500.text-black.rounded.border-teal-500.overflow-hidden(@click.stop, v-show="infoVisible", style="box-shadowff: #f72d8e 0 4px 98px; box-shadowoff: rgba(0,0,0,0.75) 0px 2px 4px inset")
+          .relative.z-10.bg-accent3.text-black.rounded.border-accent3.overflow-hidden(@click.stop, v-show="infoVisible", style="box-shadowff: #f72d8e 0 4px 98px; box-shadowoff: rgba(0,0,0,0.75) 0px 2px 4px inset")
             .px-6.md_px-9.py-9.leading-snug.text-sm.tracking-wide.w-full(style="max-width:46em")
               p.text-sm.pb-4.mb-em.-ml-1
                 | #[a.font-bold(href="https://folia.app", target="_blank", rel="noopener noreferrer") #[svg-fleuron.inline-block(style="height:1.1em;margin-bottom:0.25em;margin-right:0.12em")] #[span.border-b.border-current.border-dashed.hover_border-solid folia]] presents&hellip;<br>
@@ -136,7 +136,7 @@ metainfo
       //- (v-html="'Wrong&nbsp;Network&nbsp;🤖 Please&nbsp;switch&nbsp;to&nbsp;Mainnet'")
       | 🤖 Wrong Network!
       //- .absolute.top-0.right-0.h-full.flex.items-center.px-6.md_p-8
-      button.absolute.top-0.right-0.h-full.bg-black-a15.px-8.md_px-11.mouse_hover_bg-black-a30(@click="switchToAppNetwork", style="font-size:0.875em") Switch
+      button.absolute.top-0.right-0.h-full.bg-black-a15.px-8.md_px-12.mouse_hover_bg-black-a30(@click="switchToAppNetwork", style="font-size:0.875em") Switch
 </template>
 
 <script>

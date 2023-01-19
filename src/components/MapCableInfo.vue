@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import data from '../../public/data/cable-geo.json'
+import data from '@/assets/cable-geo.json'
 import CableImage from './CableImage.vue';
 import { computed } from 'vue'
 import Addr from './Addr.vue';

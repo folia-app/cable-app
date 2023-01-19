@@ -90,7 +90,7 @@
       style: function (feature) {
         const tokenId = feature.id_
         const owner = store.state.owners[tokenId]
-        const color = owner ? '#eeeeee' : '#2222ff' // feature.get('color')
+        const color = owner ? '#eeeeee' : '#0018F9' // '#2222ff' // feature.get('color')
         highlightStyle[1].getStroke().setColor(color);
         return highlightStyle2;
       },

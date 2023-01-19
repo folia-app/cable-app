@@ -44,7 +44,7 @@ import store from '../store';
 import CableImage from './CableImage.vue'
 import Observer from './Observer.vue';
 import Addr from './Addr.vue';
-import data from '../../public/data/cable-geo.json'
+import data from '@/assets/cable-geo.json'
 import SvgExpand from './SvgExpand.vue';
 
 const props = defineProps(['id'])

@@ -14,7 +14,14 @@
   import VectorSource from 'ol/source/Vector';
   import View from 'ol/View';
   import {Style, Fill, Stroke, Text} from 'ol/style';  
+  import store from '@/store'
 
+  // get owners
+  store.dispatch('getMintCount').then((count) => {
+    const tokenIds = new Array(count.toNumber()).fill(0).map((v, i) => i + 1)
+    tokenIds.forEach(id => store.dispatch('getNFTOwnerByTokenId', { tokenId: id }))
+  })
+  
   onMounted(() => {
     const labelStyle = new Style({
       text: new Text({
@@ -78,7 +85,9 @@
       source: new VectorSource(),
       map: map,
       style: function (feature) {
-        const color = feature.get('color') || '#eeeeee';
+        const tokenId = feature.id_
+        const owner = store.state.tokens[tokenId]
+        const color = owner ? '#eeeeee' : '#2222ff' // feature.get('color')
         highlightStyle[1].getStroke().setColor(color);
         return highlightStyle2;
       },

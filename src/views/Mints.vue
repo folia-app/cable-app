@@ -1,7 +1,7 @@
 <template>
   <section class="relative z-20 min-h-screen bg-white text-black">
     <ul class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4">
-      <template v-for="id in boardIdsSorted" :key="id">
+      <template v-for="id in mintIdsSorted" :key="id">
         <CableThumb :id="id"></CableThumb>
       </template>
     </ul>
@@ -13,20 +13,20 @@ import { ref, computed, onMounted } from 'vue';
 import CableThumb from '../components/CableThumb.vue';
 import store from '../store';
 
-const boardCount = ref(0)
-const boardIdsSorted = computed(() => {
-  let boardIds = new Array(boardCount.value).fill(0).map((v, i) => (boardCount.value - i).toString())
-  // if (this.sort === 'updated' && this.boardIdsUpdated?.length) {
-  //   // add updated boards to beginning, then de-dupe
-  //   boardIds = [...this.boardIdsUpdated, ...boardIds]
-  //   boardIds = [...new Set(boardIds)]
+const mintCount = ref(0)
+const mintIdsSorted = computed(() => {
+  let mintIds = new Array(mintCount.value).fill(0).map((v, i) => i + 1)
+  // if (this.sort === 'updated' && this.mintIdsUpdated?.length) {
+  //   // add updated mints to beginning, then de-dupe
+  //   mintIds = [...this.mintIdsUpdated, ...mintIds]
+  //   mintIds = [...new Set(mintIds)]
   // } else if (this.sort === 'oldest') {
-  //   boardIds.reverse()
+  //   mintIds.reverse()
   // }
-  return boardIds
+  return mintIds
 })
 
 onMounted(async () => {
-  boardCount.value = await store.dispatch('getMintCount', {})
+  mintCount.value = (await store.dispatch('getMintCount', {})).toNumber()
 })
 </script>

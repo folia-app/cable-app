@@ -628,24 +628,22 @@ export default createStore({
 
     /* read owner by token id from chain */
     async getNFTOwnerByTokenId ({ state, commit, dispatch }, { tokenId, network }) {
+      // saved?
+      let owner = state.tokens[tokenId]
+      if (owner) return owner
+
+      // fetch...
       try {
-        // saved?
-        let owner = state.tokens[tokenId]
-        if (owner) return owner
-        
-        // fetch...
         const nftContract = await dispatch('getNFTContract', { network })
         owner = await nftContract.ownerOf(tokenId)
-        
-        // save
         commit('SAVE_TOKEN', { tokenId, owner })
-        return owner
       } catch (e) {
         // console.error(e)
-        // seems to error if token doesn't exist...
         console.warn(`get owner error / token doesn't exist? (${tokenId})`)
-        return null
+        owner = null
       }
+
+      return owner
     },
 
     // method for signing typed data

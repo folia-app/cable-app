@@ -80,7 +80,7 @@ metainfo
           .relative.z-10.bg-accent3.text-black.rounded.border-accent3.overflow-hidden(@click.stop, v-show="infoVisible", style="box-shadowff: #f72d8e 0 4px 98px; box-shadowoff: rgba(0,0,0,0.75) 0px 2px 4px inset")
             .px-6.md_px-9.py-9.leading-snug.text-sm.tracking-wide.w-full(style="max-width:46em")
               p.text-sm.pb-4.mb-em.-ml-1
-                | #[a.font-bold(href="https://folia.app", target="_blank", rel="noopener noreferrer") #[svg-fleuron.inline-block(style="height:1.1em;margin-bottom:0.25em;margin-right:0.12em")] #[span.underline folia]] presents&hellip;<br>
+                | #[a.font-bold(href="https://folia.app", target="_blank", rel="noopener noreferrer") #[svg-fleuron.inline-block(style="height:1.1em;margin-bottom:0.25em;margin-right:0.12em")] #[span.underline folia]] presents&hellip;<br> 
               p.text-3xlff
                 | #[b cable] &mdash; a collection of 545, unique, &lsquo;on-chain&rsquo; NFTs by artist #[b Joan Heemskerk] (JODI)
               

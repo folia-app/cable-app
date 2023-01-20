@@ -49,12 +49,14 @@ metainfo
 
 
             //- mint link
-            button.btn.bg-accent3.flex-1.md_w-auto.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
+            button.btn.bg-accent4.flex-1.md_w-auto.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
               div mint
 
             //- (connect btn)
             template(v-if="!$store.state.address")
-              button.btn.bg-accent3.flex-1.md_w-auto.md_px-10.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="connectWallet") connect
+              button.btn.bg-yellow-600.flex-1.md_w-auto.md_px-10.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="connectWallet")
+                | connect
+                div(style="font-size:0.9em") ꩜
 
             //- (connected dropdown)
             template(v-if="$store.state.address")

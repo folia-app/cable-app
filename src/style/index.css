@@ -9,8 +9,10 @@
   --color-bg: black;
   --color-text: #CCFF01;
   --color-accent: cyan ; /*#0d84fa;*/
-  --color-accent2: #00f051;
+  --color-accent2: rgb(0,255,0);
   --color-accent3: magenta;
+
+  --red-500: rgb(255,0,0);
 }
 
 html{

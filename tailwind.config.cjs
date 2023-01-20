@@ -137,10 +137,13 @@ module.exports = {
 
       yellow: {
         500: 'yellow',
-        600: '#f5f500'
+        600: 'rgb(239,239,0)'
       },
-      red: 'red',
-      'red-duller': '#ce1212', // soldout
+      // red: 'red',
+      red: {
+        500: 'var(--red-500)',
+        600: '#ce1212', // soldout
+      },
       green: {
         400: '#30cb5f',
         'bright': '#03FF00',

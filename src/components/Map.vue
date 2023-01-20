@@ -1,5 +1,5 @@
 <template>
-  <div id="map-container"></div>
+  <div id="map-container" :style="{background: bgColor}"></div>
   <MapCableInfo :id="highlightId"></MapCableInfo>
 </template>
 
@@ -17,9 +17,9 @@
   import store from '@/store'
   import MapCableInfo from "./MapCableInfo.vue";
 
-  const bgColor = '#333355' // '#333355'
+  const bgColor = '#333355' // '#060688' // '#333355'
   const cableColor = '#000' // '#000'
-  const hoverColor = 'yellow' // '#0018F9'
+  const hoverColor = '#0018F9' // '#0018F9'
   const mintColor = 'rgb(0,255,0)' // '#eeeeee'
 
   const highlightId = ref()
@@ -52,7 +52,7 @@
     const style = [cableStyle, labelStyle];
   
     const vectorLayer1 = new VectorLayer({
-      background: bgColor,
+      background: 'transparent', // set on <div>
       source: new VectorSource({
         format: new GeoJSON(),
         url: '/data/cable-geo.json',
@@ -97,7 +97,7 @@
         const owner = store.state.owners[tokenId]
         const color = owner ? mintColor : hoverColor // '#2222ff' // feature.get('color')
         highlightStyle[1].getStroke().setColor(color);
-        highlightStyle[1].getStroke().setWidth(3);
+        // highlightStyle[1].getStroke().setWidth(3);
         return highlightStyle2;
       },
     });

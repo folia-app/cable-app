@@ -17,6 +17,11 @@
   import store from '@/store'
   import MapCableInfo from "./MapCableInfo.vue";
 
+  const bgColor = '#333355' // '#333355'
+  const cableColor = '#000' // '#000'
+  const hoverColor = 'yellow' // '#0018F9'
+  const mintColor = 'rgb(0,255,0)' // '#eeeeee'
+
   const highlightId = ref()
 
   // get owners
@@ -39,7 +44,7 @@
   
     const cableStyle = new Style({
       stroke: new Stroke({
-        color: '#000',
+        color: cableColor,
         width: 8,
       }),
     });
@@ -47,7 +52,7 @@
     const style = [cableStyle, labelStyle];
   
     const vectorLayer1 = new VectorLayer({
-      background: '#333355',
+      background: bgColor,
       source: new VectorSource({
         format: new GeoJSON(),
         url: '/data/cable-geo.json',
@@ -90,8 +95,9 @@
       style: function (feature) {
         const tokenId = feature.id_
         const owner = store.state.owners[tokenId]
-        const color = owner ? '#eeeeee' : '#0018F9' // '#2222ff' // feature.get('color')
+        const color = owner ? mintColor : hoverColor // '#2222ff' // feature.get('color')
         highlightStyle[1].getStroke().setColor(color);
+        highlightStyle[1].getStroke().setWidth(3);
         return highlightStyle2;
       },
     });

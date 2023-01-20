@@ -17,7 +17,7 @@ metainfo
           //- (folia logo link)
           template(v-if="isIndex")
             a.-mr-22.sm_mr-0.block.opacity-30ff.mouse_hover_opacity-100.mouse_hover_bg-yellow-500.roundedff(href="https://folia.app", target="_blank", title="folia.app ↗")
-              .w-22.h-22.sm_w-20.sm_h-20.flex.items-center.justify-center.text-accent3.mouse_hover_text-black.pb-1.pr-1
+              .w-22.h-22.sm_w-20.sm_h-20.flex.items-center.justify-center.text-accent3.mouse_hover_text-black.pb-1.pr-1(style="color:cyan")
                 svg-fleuron(style="height:1.3em")
           //- (back btn)
           template(v-else-if="lastRt.name")
@@ -29,7 +29,7 @@ metainfo
               arrow-left-icon.w-8.h-8.text-current
 
           router-link.h-22.sm_h-20.flex-1.flex.items-center.justify-center.pl-2px.leading-none(to="/")
-            h1.text-2xl.mt-1.tracking-wide ADOPT-A-CABLE
+            h1.text-2xl.mt-1.tracking-wide CABLE
 
         //- laptop right
         nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.md_justify-end.items-center.px-6.sm_pr-2px.md_px-10.leading-none.text-smm
@@ -42,7 +42,11 @@ metainfo
             
             //- (info btn)
             router-link.btn.bg-accent3.flex-1.md_w-auto.md_px-10.mouse_hover_bg-yellow-500.mouse_hover_text-black(:to="{name: 'mints'}")
-              | adopted
+              | cables
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mb-2px ml-1px">
+                <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h2.25a3 3 0 013 3v2.25a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm9.75 0a3 3 0 013-3H18a3 3 0 013 3v2.25a3 3 0 01-3 3h-2.25a3 3 0 01-3-3V6zM3 15.75a3 3 0 013-3h2.25a3 3 0 013 3V18a3 3 0 01-3 3H6a3 3 0 01-3-3v-2.25zm9.75 0a3 3 0 013-3H18a3 3 0 013 3V18a3 3 0 01-3 3h-2.25a3 3 0 01-3-3v-2.25z" clip-rule="evenodd" />
+              </svg>
+
 
             //- mint link
             button.btn.bg-accent3.flex-1.md_w-auto.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="$store.dispatch('mint', {})")

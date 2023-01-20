@@ -3,18 +3,17 @@
     <figure class="relative aspect-square cursor-pointer" @click="openFullscreen" aria-label="view fullscreen">
       <CableImage :id="props.id"></CableImage>
     </figure>
-    <ul class="text-3xs px-2 leading-normal align-baseline">
-      <!-- {{ props.id }} -->
+    <ul class="text-3xs px-2 leading-normal align-baseline pr-12">
+      <!-- <div class="text-xs leading-snug">
+        <a :href="$store.getters.marketplaceLink({ token: props.id })" target="_blank" rel="noopener noreferrer">{{ props.id }}</a>
+      </div> -->
       <div style="vertical-align: baseline;">
         <h6 class="font-bold text-xs inline-block" style="margin-right:0.75em">{{ cableData.name }}</h6>
-        <div class="inline-block uppercase">{{ cableData.length.split(' ')[0] }} <span class="text-smaller">KM</span></div>
+        <div class="inline-block uppercase">{{ cableData.length.split(' ')[0] }}&nbsp;<span class="text-smaller">KM</span></div>
       </div>
       <li><span>adopted by</span> <template v-if="owner"><a class="text-2xs leading-none underline font-bold" :href="$store.getters.marketplaceLink({ account: owner })" target="_blank" rel="noopener noreferrer"><Addr :address="owner"></Addr></a></template><template v-else><Observer class="inline" @visible="getOwner"><span class="animate-pulse">...</span></Observer></template></li>
       <!-- <li class="align-baseline">
         {{ cableData.length.split(' ')[0] }} <span class="text-smaller">KM</span>
-      </li> -->
-      <!-- <li>
-        <a class="text-smaller group opacity-25 mouse_hover_opacity-100 leading-none" :href="$store.getters.marketplaceLink({ token: props.id })" target="_blank" rel="noopener noreferrer"><span class="border-b border-dashedff border-gray-600 mouse_group-hover_border-solid">opensea</span> &nearr;</a>
       </li> -->
       <!-- buttons -->
       <div class="flex mt-3px -ml-1">
@@ -32,6 +31,7 @@
           <button class="p-1 mouse_hover_bg-yellow-500" @click="openFullscreen" title="view fullscreen">
             <SvgExpand />
           </button>
+          <a class="ml-2 flex items-center text-smaller group py-2 mouse_hover_bg-yellow-500 leading-none" :href="$store.getters.marketplaceLink({ token: props.id })" target="_blank" rel="noopener noreferrer"><span class="">opensea</span></a>
         </div>
     </ul>
 

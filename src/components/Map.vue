@@ -19,8 +19,8 @@
 
   const bgColor = 'rgb(21 21 154)' // '#333355'
   const cableColor = '#000' // '#000'
-  const hoverColor = 'rgb(0, 255, 0)' // '#0018F9' // '#0018F9'
-  const mintColor = 'magenta' // '#eeeeee'
+  const hoverColor = 'white' // 'rgb(0, 255, 0)' // '#0018F9' // '#0018F9'
+  const mintColor = 'rgb(0, 255, 0)' // 'magenta' // '#eeeeee'
 
   const highlightId = ref()
 

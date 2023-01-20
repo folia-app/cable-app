@@ -1,14 +1,14 @@
 <template>
   <div v-if="cable" class="fixed z-10 bottom-0 left-0 p-4 lg_p-8 flex items-end">
     <!-- (image) -->
-    <figure v-if="owner" class="relative bg-white aspect-square cursor-pointer group" style="width:10em" @click="$store.commit('OPEN_FULLSCREEN', props.id)" aria-label="view fullscreen">
+    <figure v-if="owner" class="relative bg-white aspect-square cursor-pointer group mr-6 lg_mr-8" style="width:10em" @click="$store.commit('OPEN_FULLSCREEN', props.id)" aria-label="view fullscreen">
       <CableImage :id="props.id" :isUnknown="!owner" :key="props.id" />
       <div class="absolute bottom-0 right-0 p-2 mouse_hidden mouse_group-hover_block text-black">
         <SvgExpand />
       </div>
     </figure>
     <!-- info -->
-    <div class="ml-6 lg_ml-8">
+    <div>
       <div class="align-baseline leading-tight">
         <h6 class="inline-block" style="margin-right:0.75em">{{ cable.name }}</h6>
         <div class="inline-block text-xs uppercase text-gray-400ff">{{ cable.length.split(' ')[0] }} <span class="text-smaller">KM</span></div>

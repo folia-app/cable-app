@@ -211,4 +211,14 @@
   right:8px;
   bottom:8px;
 }
+
+.ol-control button{
+  background:black;
+  color:white;
+
+  &:hover{
+    background:white;
+    color:black;
+  }
+}
 </style>

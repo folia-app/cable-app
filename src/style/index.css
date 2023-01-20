@@ -24,7 +24,7 @@ html{
     outline:none;
   }
   &:focus-visible{
-    @apply ring ring-accent3;
+    @apply ring ring-accent5;
   }
 }
 

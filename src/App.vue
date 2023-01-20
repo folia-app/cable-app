@@ -28,9 +28,9 @@ metainfo
 
           router-link.h-20.flex.items-center.-ml-px.sm_pr-6.leading-none(to="/")
             div.align-baseline
-              h1.inline-block.text-2xl.mt-1.tracking-wide CABLE
-              .inline-block.border-b.opacity-70.w-24.-mb-3px
-              div.inline-block.text-smaller.opacity-90 JOAN HEEMSKERK
+              h1.inline-block.text-3xl.md_text-2xl.mt-1.tracking-wide CABLE
+              //- .inline-block.border-b.opacity-70.w-24.-mb-3px
+              //- div.inline-block.text-smaller.opacity-90 JOAN HEEMSKERK
 
         //- laptop right
         nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.md_justify-end.items-center.px-3.sm_pr-2px.md_px-10.leading-none.text-smm

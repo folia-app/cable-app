@@ -16,9 +16,9 @@ metainfo
         .flex-1.sm_flex-none.flex.pointer-events-auto.items-center
           //- (folia logo link)
           template(v-if="isIndex")
-            a.-mr-22.sm_mr-0.block.opacity-30ff.mouse_hover_opacity-100.mouse_hover_bg-yellow-500.roundedff(href="https://folia.app", target="_blank", title="folia.app ↗")
-              .w-22.h-22.sm_w-20.sm_h-20.flex.items-center.justify-center.text-accent3.mouse_hover_text-black.pb-1.pr-1(style="color:cyan")
-                svg-fleuron(style="height:1.3em")
+            a.-mr-22.sm_mr-0.w-22.h-22.sm_w-20.sm_h-20.flex.p-3(href="https://folia.app", target="_blank", title="folia.app ↗")
+              .w-full.flex.items-center.justify-center.pb-1.pr-px.rounded.text-accent5.mouse_hover_bg-yellow-500.mouse_hover_text-accent5
+                svg-fleuron(style="height:1.28em")
           //- (back btn)
           template(v-else-if="lastRt.name")
             button.w-22.h-22.sm_w-20.sm_h-20.flex.w-full.items-center.justify-center.rounded.mouse_hover_bg-accent2.mouse_hover_text-accent1(@click="$router.go(-1)")
@@ -28,7 +28,7 @@ metainfo
             router-link.w-22.h-22.sm_w-20.sm_h-20.flex.w-full.items-center.justify-center.rounded.mouse_hover_bg-accent2.mouse_hover_text-accent1(:to="$route.params.networkName ? { name: 'network-index', params: $route.params } : `/`")
               arrow-left-icon.w-8.h-8.text-current
 
-          router-link.h-22.sm_h-20.flex-1.flex.items-center.justify-center.pl-2px.leading-none(to="/")
+          router-link.h-22.sm_h-20.flex-1.flex.items-center.justify-center.pl-px.leading-none(to="/")
             h1.text-2xl.mt-1.tracking-wide CABLE
 
         //- laptop right

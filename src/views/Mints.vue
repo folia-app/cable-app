@@ -13,6 +13,9 @@
       <span class="sr-only">Close</span>
       <SVGX class="w-6 h-6" strokeWidth="1.15" />
     </router-link>
+
+    <!-- dimmer -->
+    <div class="absolute overlay z-20 pointer-events-none" style="background:rgb(244 244 244); mix-blend-mode: multiply;"></div>
   </section>
 </template>
 

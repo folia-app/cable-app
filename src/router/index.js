@@ -14,7 +14,7 @@ const routes = [
         component: HomeIndex
       },
       {
-        path: '/adopted',
+        path: '/cables',
         name: 'mints',
         component: Mints
       }

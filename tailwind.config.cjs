@@ -58,6 +58,8 @@ module.exports = {
       68: '17rem',
       72: '18rem',
       80: '20rem',
+      84: '21rem',
+      96: '24rem',
       'lh-snug': '1.375em'
     },
     fontSize: {
@@ -662,6 +664,7 @@ module.exports = {
     },
     lineHeight: {
       none: '1',
+      tighter: '1.125',
       tight: '1.25',
       snug: '1.375',
       normal: '1.5',

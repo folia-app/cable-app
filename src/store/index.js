@@ -56,6 +56,7 @@ export default createStore({
 
       contractAddr: null,
 
+      mintCount: undefined,
       mintPrice: undefined,
 
       mints: null,
@@ -218,6 +219,10 @@ export default createStore({
       const addrs = JSON.parse(JSON.stringify(state.addresses))
       addrs[address.toLowerCase()] = { ens, openSea }
       state.addresses = addrs
+    },
+
+    SAVE_MINT_COUNT (state, count) {
+      state.mintCount = count
     },
 
     SET_MINT_PRICE (state, bigNumber) {
@@ -580,6 +585,7 @@ export default createStore({
       try {
         const nftContract = await dispatch('getNFTContract', { network })
         const count = await nftContract.totalSupply()
+        commit('SAVE_MINT_COUNT', count)
         return count
       } catch (e) {
         console.error(e)

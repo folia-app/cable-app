@@ -50,8 +50,18 @@ metainfo
 
 
             //- mint link
-            button.btn.bg-accent4.flex-1.md_w-auto.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
+            //- button.btn.bg-accent4.flex-1.md_w-auto.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
               div mint
+            //- (mint dropdown)
+            div.flex-1.md_w-auto
+              button.btn.w-full.bg-accent4.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black.active_opacity-40(@click="mintMenuVisible = true", :class="{'opacity-40 pointer-events-none': mintMenuVisible}")
+                div mint
+
+              //- (dropdown)
+              //- TODO - catch if they need to connect (don't close on v-click-outside)
+              .relative(v-if="mintMenuVisible", v-click-outside="() => { mintMenuVisible = false }")
+                .absolute.top-0.left-0.sm_left-auto.sm_right-0.pt-1.sm_pt-2.w-full.sm_w-84
+                  mint-panel
 
             //- (connect btn)
             template(v-if="!$store.state.address")
@@ -158,9 +168,10 @@ import Observer from '@/components/Observer.vue'
 import Addr from '@/components/Addr.vue'
 import SvgChevronDown from '@/components/SvgChevronDown.vue'
 import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
+import MintPanel from '@/components/MintPanel.vue'
 export default {
   name: 'App',
-  components: { ConnectDisconnectBtn, SvgLogo, SvgFleuron, SvgX, Observer, Addr, SvgChevronDown, ArrowLeftIcon },
+  components: { ConnectDisconnectBtn, SvgLogo, MintPanel, SvgFleuron, SvgX, Observer, Addr, SvgChevronDown, ArrowLeftIcon },
   // metaInfo: {
   //   titleTemplate: (ttl) => {
   //     return ttl ? `${ttl} :: s̷̰̃t̴̫̊r̶͔̽ả̷̜y̴̼͂l̸̙͛į̸͆g̴̘̎h̷̜̀ṭ̸͂ ̸̰̊p̵̞̅ȑ̴̙ơ̸͍t̶̗̑o̶͂͜ć̵͍ȏ̸͕l̷̗͗` : 's̷̰̃t̴̫̊r̶͔̽ả̷̜y̴̼͂l̸̙͛į̸͆g̴̘̎h̷̜̀ṭ̸͂ ̸̰̊p̵̞̅ȑ̴̙ơ̸͍t̶̗̑o̶͂͜ć̵͍ȏ̸͕l̷̗͗ by Paul Seidler'
@@ -170,6 +181,7 @@ export default {
     return {
       infoVisible: false,
       userMenuVisible: false,
+      mintMenuVisible: false,
       discordLink: import.meta.env.VITE_APP_DISCORD_LINK,
       lastRt: this.$route
     }

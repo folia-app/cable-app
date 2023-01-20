@@ -80,7 +80,7 @@ metainfo
           .relative.z-10.bg-accent3.text-black.rounded.border-accent3.overflow-hidden(@click.stop, v-show="infoVisible", style="box-shadowff: #f72d8e 0 4px 98px; box-shadowoff: rgba(0,0,0,0.75) 0px 2px 4px inset")
             .px-6.md_px-9.py-9.leading-snug.text-sm.tracking-wide.w-full(style="max-width:46em")
               p.text-sm.pb-4.mb-em.-ml-1
-                | #[a.font-bold(href="https://folia.app", target="_blank", rel="noopener noreferrer") #[svg-fleuron.inline-block(style="height:1.1em;margin-bottom:0.25em;margin-right:0.12em")] #[span.border-b.border-current.border-dashed.hover_border-solid folia]] presents&hellip;<br>
+                | #[a.font-bold(href="https://folia.app", target="_blank", rel="noopener noreferrer") #[svg-fleuron.inline-block(style="height:1.1em;margin-bottom:0.25em;margin-right:0.12em")] #[span.underline folia]] presents&hellip;<br>
               p.text-3xlff
                 | #[b cable] &mdash; a collection of 545, unique, &lsquo;on-chain&rsquo; NFTs by artist #[b Joan Heemskerk] (JODI)
               
@@ -92,14 +92,14 @@ metainfo
               
               p.mt-em 🌊🌊🌊🌊🌊🌊
               
-              p.mt-em all the world’s undersea cables are vulnerable, some failures are caused by natural hazards like #[a(href="https://www.youtube.com/watch?v=1ex7uTQf4bQ" target="_blank" rel="noopener noreferrer" class="border-b border-dashed mouse_hover_border-solid") sharks], but the vast majority of cable faults are caused by human activities !
+              p.mt-em all the world’s undersea cables are vulnerable, some failures are caused by natural hazards like #[a(href="https://www.youtube.com/watch?v=1ex7uTQf4bQ" target="_blank" rel="noopener noreferrer" class="underline") sharks], but the vast majority of cable faults are caused by human activities !
               
               p.mt-em #[b ADOPT A CABLE!!]
               
-              p.mt-em Joan Heemskerk is a contemporary artist who makes WWWorks in the cloud. _ She is also a member of the art collective JODI >>> JODI, or (#[a.border-b.border-current.border-dashed.hover_border-solid(href="https://joid.org"  target="_blank") jodi.org])- pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?code. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
+              p.mt-em Joan Heemskerk is a contemporary artist who makes WWWorks in the cloud. _ She is also a member of the art collective JODI >>> JODI, or (#[a.underline(href="https://joid.org"  target="_blank") jodi.org])- pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?code. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
               
               p.mt-em
-                | &larr; click a cable on the map to view<br>(or view all minted &darr;)
+                | &larr; click a cable <button class="underline" @click.stop="closeInfoOverlay">on the map</button> to view<br>(or <router-link :to="{name: 'mints'}" class="underline">view all minted</router-link> &darr;)
 
             footer.w-full.grid.grid-cols-3.border-t.text-smm
               a.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-yellow-500(:href="$store.getters.etherscanLink({ networkName: 'ethereum' })", target="_blank", rel="noopener noreferrer")

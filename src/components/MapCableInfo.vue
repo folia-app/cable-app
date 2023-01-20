@@ -1,5 +1,5 @@
 <template>
-  <div v-if="cable" class="fixed z-10 bottom-0 left-0 flex items-end">
+  <div v-if="cable" class="fixed z-10 bottom-0 left-0 p-4 lg_p-8 flex items-end">
     <!-- (image) -->
     <figure v-if="owner" class="relative bg-white aspect-square cursor-pointer group" style="width:10em" @click="$store.commit('OPEN_FULLSCREEN', props.id)" aria-label="view fullscreen">
       <CableImage :id="props.id" :isUnknown="!owner" :key="props.id" />
@@ -8,13 +8,13 @@
       </div>
     </figure>
     <!-- info -->
-    <div class="p-8">
-      <div style="vertical-align: baseline;">
+    <div class="ml-6 lg_ml-8">
+      <div class="align-baseline leading-tight">
         <h6 class="inline-block" style="margin-right:0.75em">{{ cable.name }}</h6>
-        <div class="inline-block text-xs uppercase text-gray-400">{{ cable.length.split(' ')[0] }} <span class="text-smaller">KM</span></div>
+        <div class="inline-block text-xs uppercase text-gray-400ff">{{ cable.length.split(' ')[0] }} <span class="text-smaller">KM</span></div>
       </div>
       <div class="text-xs">
-        <template v-if="owner"><span class="text-3xs">adopted by</span> <a :href="$store.getters.marketplaceLink({ account: owner })" class="font-bold"><Addr :address="owner" :short="true" /></a></template>
+        <template v-if="owner"><span class="text-3xs">adopted by</span> <a :href="$store.getters.marketplaceLink({ account: owner })" class="ml-1 underline font-bold" target="_blank" rel="noopener noreferrer"><Addr :address="owner" :short="true" /></a></template>
       </div>
     </div>
   </div>

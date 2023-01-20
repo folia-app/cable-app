@@ -9,30 +9,31 @@ metainfo
     //- HEADER AS INTRO
     header.fixed.top-0.left-0.w-full.z-20.pointer-events-none
       //- top bar
-      .flex.flex-wrap.w-full.items-start.relative.z-10
-        //- h1.sr-only Straylight Protocol
-        
+      .flex.flex-wrap.w-full.items-start.relative.z-10.mt-1.sm_mt-0
         //- laptop left
-        .flex-1.sm_flex-none.flex.pointer-events-auto.items-center
+        .flex-1.sm_flex-none.flex.pointer-events-auto.items-end
           //- (folia logo link)
-          template(v-if="isIndex")
-            a.-mr-22.sm_mr-0.w-22.h-22.sm_w-20.sm_h-20.flex.p-3(href="https://folia.app", target="_blank", title="folia.app ↗")
-              .w-full.flex.items-center.justify-center.pb-1.pr-px.rounded.text-accent5.mouse_hover_bg-yellow-500.mouse_hover_text-accent5
-                svg-fleuron(style="height:1.28em")
+          //- template(v-if="isIndex")
+          a.w-20.h-20.flex.p-3(href="https://folia.app", target="_blank", title="folia.app ↗")
+            .w-full.flex.items-center.justify-center.pb-1.pr-px.rounded.text-accent5.mouse_hover_bg-yellow-500.mouse_hover_text-accent5
+              svg-fleuron(style="height:1.28em")
           //- (back btn)
-          template(v-else-if="lastRt.name")
-            button.w-22.h-22.sm_w-20.sm_h-20.flex.w-full.items-center.justify-center.rounded.mouse_hover_bg-accent2.mouse_hover_text-accent1(@click="$router.go(-1)")
+          //- template(v-else-if="lastRt.name")
+            button.w-22.h-22.sm_w-20.flex.w-full.items-center.justify-center.rounded.mouse_hover_bg-accent2.mouse_hover_text-accent1(@click="$router.go(-1)")
               arrow-left-icon.w-8.h-8.text-current
           //- (back link)
-          template(v-else)
-            router-link.w-22.h-22.sm_w-20.sm_h-20.flex.w-full.items-center.justify-center.rounded.mouse_hover_bg-accent2.mouse_hover_text-accent1(:to="$route.params.networkName ? { name: 'network-index', params: $route.params } : `/`")
+          //- template(v-else)
+            router-link.w-22.h-22.sm_w-20.flex.w-full.items-center.justify-center.rounded.mouse_hover_bg-accent2.mouse_hover_text-accent1(:to="$route.params.networkName ? { name: 'network-index', params: $route.params } : `/`")
               arrow-left-icon.w-8.h-8.text-current
 
-          router-link.h-22.sm_h-20.flex-1.flex.items-center.justify-center.pl-px.leading-none(to="/")
-            h1.text-2xl.mt-1.tracking-wide CABLE
+          router-link.h-20.flex.items-center.-ml-px.sm_pr-6.leading-none(to="/")
+            div.align-baseline
+              h1.inline-block.text-2xl.mt-1.tracking-wide CABLE
+              .inline-block.border-b.opacity-70.w-24.-mb-3px
+              div.inline-block.text-smaller.opacity-90 JOAN HEEMSKERK
 
         //- laptop right
-        nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.md_justify-end.items-center.px-6.sm_pr-2px.md_px-10.leading-none.text-smm
+        nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.md_justify-end.items-center.px-3.sm_pr-2px.md_px-10.leading-none.text-smm
           .grid.grid-cols-2.md_flex.gap-2px.flex-1.md_flex-none.pointer-events-auto.text-black
             //- cell body
             //- .w-full.md_w-auto.flex.justify-evenly.bg-accent3.text-black.border-gray-600.rounded.flex.overflow-hiddenff.bg-accent1.text-center

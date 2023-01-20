@@ -1,6 +1,7 @@
 <template>
   <div ref="overlayEl" v-if="$props.id" class="fixed overlay z-40 bg-white overflow-scroll scrollbars-hidden" tabindex="0">
-    <CableImage :id="$props.id"></CableImage>
+    <!-- <CableImage :id="$props.id"></CableImage> -->
+    <img :src="svg" class="absolute overlay object-contain object-center" />
 
     <button class="fixed top-0 right-0 p-8 mouse_hover_bg-yellow-500" to="/" @click="closeOverlay">
       <span class="sr-only">Close</span>
@@ -16,6 +17,7 @@
   import store from '../store';
   
   const props = defineProps(['id'])
+  const svg = ref()
 
   let lastActiveEl
   
@@ -30,5 +32,9 @@
     lastActiveEl = document.activeElement
     overlayEl.value.focus()
     overlayEl.value.scrollTo(0, (overlayEl.value.scrollHeight - window.innerHeight)/2);
+
+    // get svg
+    store.dispatch('getCableImage', { id: props.id })
+      .then(imgSrc => { svg.value = imgSrc })
   })
 </script>

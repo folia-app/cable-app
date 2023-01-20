@@ -96,7 +96,7 @@ metainfo
               
               p.mt-em #[b ADOPT A CABLE!!]
               
-              p.mt-em Joan Heemskerk is a contemporary artist who makes WWWorks in the cloud. _ She is also a member of the art collective JODI >>> JODI, or (#[a.underline(href="https://joid.org"  target="_blank") jodi.org])- pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?code. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
+              p.mt-em #[a.underline(href="https://joanheemskerk.com"  target="_blank") Joan Heemskerk] is a contemporary artist who makes WWWorks in the cloud. _ She is also a member of the art collective JODI >>> (#[a.underline(href="http://jodi.org"  target="_blank") jodi.org]) - pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?code. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
               
               p.mt-em
                 | &larr; click a cable <button class="underline" @click.stop="closeInfoOverlay">on the map</button> to view<br>(or <router-link :to="{name: 'mints'}" class="underline">view all minted</router-link> &darr;)
@@ -105,7 +105,7 @@ metainfo
               a.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-yellow-500(:href="$store.getters.etherscanLink({ networkName: 'ethereum' })", target="_blank", rel="noopener noreferrer")
                 | contract #[span.ml-1(style="font-size:0.75em") ↗]
 
-              a.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-yellow-500(:href="$store.getters.marketplaceLink({ networkName: 'ethereum', path: '/collection/straylight-protocol' })", target="_blank", rel="noopener noreferrer")
+              a.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-yellow-500(:href="$store.getters.marketplaceLink({ networkName: 'ethereum', path: '/collection/cable' })", target="_blank", rel="noopener noreferrer")
                 | opensea #[span.ml-1(style="font-size:0.75em") ↗]
 
               a.h-10.flex.items-center.pl-2.pt-1.mouse_hover_bg-yellow-500(:href="discordLink", target="_blank", rel="noopener noreferrer")

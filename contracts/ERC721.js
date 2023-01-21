@@ -7,8 +7,8 @@ export default {
     // },
     // goerli
     5: {
-      "address": "0xE7574E70180C0F5026050E4516b5F1403A9dB3A7",
-      "blockNumber": 8352396
+      "address": "0xFf247Cc3735B87d6F0254a523831d8b5F7734244",
+      "blockNumber": 8352865
     }
   },
   "abi": [
@@ -309,6 +309,35 @@ export default {
     {
       "inputs": [
         {
+          "internalType": "uint256",
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_salePrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "royaltyInfo",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "address",
           "name": "from",
           "type": "address"
@@ -397,6 +426,24 @@ export default {
         }
       ],
       "name": "setMetadata",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "royaltyReceiver",
+          "type": "address"
+        },
+        {
+          "internalType": "uint96",
+          "name": "royaltyPercentage",
+          "type": "uint96"
+        }
+      ],
+      "name": "setRoyaltyPercentage",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

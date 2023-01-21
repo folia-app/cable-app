@@ -6,7 +6,7 @@ export default {
     // },
     // goerli
     5: {
-      "address": "0xd46C322d54A9dbeFee5A1732C855048292f68108",
+      "address": "0x561d1e39F43fAA23390271B578e9F02EF157606D",
     }
   },
   "abi": [

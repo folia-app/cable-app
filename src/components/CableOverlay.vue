@@ -2,10 +2,14 @@
   <div ref="overlayEl" v-if="$props.id" class="fixed overlay z-40 bg-white overflow-scroll scrollbars-hidden" tabindex="0">
     <CableImage :id="$props.id"></CableImage>
 
-    <button class="fixed top-0 right-0 p-8 mouse_hover_bg-yellow-500" to="/" @click="closeOverlay">
-      <span class="sr-only">Close</span>
-      <SVGX class="w-6 h-6 text-black" strokeWidth="1.15" />
-    </button>
+    <div class="fixed h-24 z-10 w-full top-0 left-0 flex justify-end items-center text-black">
+      <div class="flex items-center">
+        <button class="ml-3 p-1 rounded mr-4 mouse_hover_bg-black mouse_hover_text-white" @click="closeOverlay">
+          <span class="sr-only">Close</span>
+          <SVGX class="w-6 h-6" strokeWidth="1.15" />
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 

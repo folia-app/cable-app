@@ -54,8 +54,9 @@ metainfo
               div mint
             //- (mint dropdown)
             div.flex-1.md_w-auto
-              button.btn.btn-green.w-full.bg-accent4.md_px-12.active_opacity-40(@click="mintMenuVisible = true", :class="{'opacity-40 pointer-events-none': mintMenuVisible}")
-                div mint
+              button.btn.btn-green.w-full.bg-accent4.md_pl-12.md_pr-7.active_opacity-40(@click="mintMenuVisible = true", :class="{'opacity-40 pointer-events-none': mintMenuVisible}")
+                div.ml-7.md_ml-0 mint
+                svg-chevron-down.w-6.h-6.mx-2.mb-1(strokeWidth="1")
 
               //- (dropdown)
               //- TODO - catch if they need to connect (don't close on v-click-outside)
@@ -79,10 +80,10 @@ metainfo
                 .relative(v-if="userMenuVisible", v-click-outside="() => { userMenuVisible = false }")
                   .absolute.top-0.right-0.pt-2
                     ul.bg-yellow-500.rounded
+                      //- li
+                        .btn-yellow.block.px-4.py-2.-mb-2(:to="myProfileRt") my cables
                       li
-                        .btn-yellow.block.px-4.py-2(:to="myProfileRt") my cables
-                      li
-                        button.block.text-left.btn-yellow.w-full.px-4.py-2.-mt-2(@click.stop="disconnectWallet") sign-out
+                        button.block.text-left.btn-yellow.w-full.px-4.py-2(@click.stop="disconnectWallet") sign-out
 
       //- bg gradient
       //- .sm_hidden.absolute.overlay.bg-gradient-to-b.from-accent1.to-transparent.pointer-events-none(style="height:200%")

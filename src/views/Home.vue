@@ -24,7 +24,7 @@ const mintsVisible = ref(false)
 .slideupdown-leave-active{
   transition: all 800ms;
   height:100vh;
-  overflow:hidden;
+  /* overflow:hidden; */
 }
 .slideupdown-enter-from,
 .slideupdown-leave-to{

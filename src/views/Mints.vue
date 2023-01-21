@@ -1,19 +1,35 @@
 <template>
   <section class="relative z-20 min-h-screen bg-white text-black">
-    <header class="sticky z-10 w-full top-0 left-0 flex justify-between items-center h-24">
-      <div></div>
+    <header class="sticky h-20 mb-36 z-10 w-full top-0 left-0 flex justify-between items-center h-24">
+      <div class="pl-10">
+        <!-- <h2 v-if="mintCount" class="text-smm font-bold">{{ mintCount ?? '...' }}/545</h2> -->
+        <!-- <h2 class="text-smm font-bold">cables</h2> -->
+        <template v-if="mintCount === undefined">
+          <div class="btn border pl-7 pr-6 animate-pulse">loading...</div>
+        </template>
+        <template v-else-if="mintCount > 0">
+          <SortDropdown></SortDropdown>
+        </template>
+      </div>
 
-      <router-link class="p-3 rounded mr-4 mouse_hover_bg-black mouse_hover_text-white" to="/">
-        <span class="sr-only">Close</span>
-        <SVGX class="w-6 h-6" strokeWidth="1.15" />
-      </router-link>
+      <div class="flex items-center">
+
+        <router-link class="ml-3 p-1 rounded mr-4 mouse_hover_bg-black mouse_hover_text-white" to="/">
+          <span class="sr-only">Close</span>
+          <SVGX class="w-6 h-6" strokeWidth="1.15" />
+        </router-link>
+      </div>
+      
     </header>
     
-    <ul class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 xl_grid-cols-5 text-smm">
-      <template v-for="id in mintIdsSorted" :key="id">
-        <CableThumb :id="id"></CableThumb>
-      </template>
-    </ul>
+    
+    <transition name="fade">
+      <ul v-if="mintCount !== undefined" class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 xl_grid-cols-5 text-smm">
+        <template v-for="id in mintIdsSorted" :key="id">
+          <CableThumb :id="id"></CableThumb>
+        </template>
+      </ul>  
+    </transition>
 
     
 
@@ -27,17 +43,18 @@ import { ref, computed, onMounted } from 'vue';
 import CableThumb from '../components/CableThumb.vue';
 import SVGX from '../components/SVG-X.vue';
 import store from '../store';
+import SortDropdown from '@/components/SortDropdown.vue'
+import { useRoute } from 'vue-router'
 
-const mintCount = ref(0)
+const route = useRoute()
+
+const mintCount = ref()
+
 const mintIdsSorted = computed(() => {
   let mintIds = new Array(mintCount.value).fill(0).map((v, i) => i + 1)
-  // if (this.sort === 'updated' && this.mintIdsUpdated?.length) {
-  //   // add updated mints to beginning, then de-dupe
-  //   mintIds = [...this.mintIdsUpdated, ...mintIds]
-  //   mintIds = [...new Set(mintIds)]
-  // } else if (this.sort === 'oldest') {
-  //   mintIds.reverse()
-  // }
+  if (route.query.sort === 'newest') {
+    mintIds.reverse()
+  }
   return mintIds
 })
 
@@ -45,3 +62,24 @@ onMounted(async () => {
   mintCount.value = await store.dispatch('getMintCount', {})
 })
 </script>
+
+<script>
+export default {
+  beforeRouteEnter (to, from, next) {
+    if (!to.query.sort) {
+      to.query.sort = 'newest'
+      next(to)
+    }
+    next()
+  }
+}
+</script>
+
+<style>
+.fade-enter-active{
+  transition: opacity 500ms
+}
+.fade-enter-from{
+  opacity:0;
+}
+</style>

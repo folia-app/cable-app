@@ -62,6 +62,18 @@ input::selection {
 .btn-lg{
   @apply h-10;
 }
+.btn-yellow{
+  @apply bg-yellow-500 mouse_hover_bg-black mouse_hover_text-yellow-500;
+}
+.btn-cyan{
+  @apply bg-accent3 mouse_hover_bg-black mouse_hover_text-accent3;
+}
+.btn-green{
+  @apply bg-accent4 mouse_hover_bg-black mouse_hover_text-accent4;
+}
+.btn-white{
+  @apply bg-white mouse_hover_bg-black mouse_hover_text-white;
+}
 
 .btn-theme-darken{
   &:hover, &:focus{ @apply bg-black-a03 }

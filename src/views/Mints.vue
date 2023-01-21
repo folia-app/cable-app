@@ -1,18 +1,21 @@
 <template>
   <section class="relative z-20 min-h-screen bg-white text-black">
-    <header class="sticky w-full top-0 left-0">
+    <header class="sticky z-10 w-full top-0 left-0 flex justify-between items-center h-24">
+      <div></div>
 
+      <router-link class="p-3 rounded mr-4 mouse_hover_bg-black mouse_hover_text-white" to="/">
+        <span class="sr-only">Close</span>
+        <SVGX class="w-6 h-6" strokeWidth="1.15" />
+      </router-link>
     </header>
+    
     <ul class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 xl_grid-cols-5 text-smm">
       <template v-for="id in mintIdsSorted" :key="id">
         <CableThumb :id="id"></CableThumb>
       </template>
     </ul>
 
-    <router-link class="fixed top-0 right-0 p-8 mouse_hover_bg-yellow-500" to="/">
-      <span class="sr-only">Close</span>
-      <SVGX class="w-6 h-6" strokeWidth="1.15" />
-    </router-link>
+    
 
     <!-- dimmer -->
     <div class="absolute overlay z-20 pointer-events-none" style="background:rgb(244 244 244); mix-blend-mode: multiply;"></div>
@@ -39,6 +42,6 @@ const mintIdsSorted = computed(() => {
 })
 
 onMounted(async () => {
-  mintCount.value = (await store.dispatch('getMintCount', {})).toNumber()
+  mintCount.value = await store.dispatch('getMintCount', {})
 })
 </script>

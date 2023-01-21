@@ -584,7 +584,7 @@ export default createStore({
     async getMintCount ({ state, commit, dispatch }, { network }) {
       try {
         const nftContract = await dispatch('getNFTContract', { network })
-        const count = await nftContract.totalSupply()
+        const count = (await nftContract.totalSupply()).toNumber()
         commit('SAVE_MINT_COUNT', count)
         return count
       } catch (e) {

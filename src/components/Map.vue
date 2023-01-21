@@ -26,7 +26,7 @@
 
   // get owners
   store.dispatch('getMintCount', {}).then((count) => {
-    const tokenIds = new Array(count.toNumber()).fill(0).map((v, i) => i + 1)
+    const tokenIds = new Array(count).fill(0).map((v, i) => i + 1)
     tokenIds.forEach(id => store.dispatch('getNFTOwnerByTokenId', { tokenId: id }))
   })
   

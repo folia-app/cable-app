@@ -15,7 +15,7 @@ metainfo
           //- (folia logo link)
           //- template(v-if="isIndex")
           a.w-20.h-20.flex.p-3(href="https://folia.app", target="_blank", title="folia.app ↗")
-            .w-full.flex.items-center.justify-center.pb-1.pr-px.rounded.text-red-500.mouse_hover_bg-yellow-500
+            .w-full.flex.items-center.justify-center.pb-1.pr-px.rounded.text-red-500.mouse_hover_bg-black
               svg-fleuron(style="height:1.28em")
           //- (back btn)
           //- template(v-else-if="lastRt.name")
@@ -38,11 +38,11 @@ metainfo
             //- cell body
             //- .w-full.md_w-auto.flex.justify-evenly.bg-accent3.text-black.border-gray-600.rounded.flex.overflow-hiddenff.bg-accent1.text-center
             //- (info btn)
-            button.btn.bg-accent3.flex-1.md_w-auto.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="openInfoOverlay")
+            button.btn.btn-cyan.flex-1.md_w-auto.md_px-12(@click="openInfoOverlay")
               | info
             
             //- (info btn)
-            router-link.btn.bg-accent3.flex-1.md_w-auto.md_px-10.mouse_hover_bg-yellow-500.mouse_hover_text-black(:to="{name: 'mints'}")
+            router-link.btn.btn-cyan.flex-1.md_w-auto.md_px-10(:to="{name: 'mints'}")
               | cables
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mb-2px ml-1px">
                 <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h2.25a3 3 0 013 3v2.25a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm9.75 0a3 3 0 013-3H18a3 3 0 013 3v2.25a3 3 0 01-3 3h-2.25a3 3 0 01-3-3V6zM3 15.75a3 3 0 013-3h2.25a3 3 0 013 3V18a3 3 0 01-3 3H6a3 3 0 01-3-3v-2.25zm9.75 0a3 3 0 013-3H18a3 3 0 013 3V18a3 3 0 01-3 3h-2.25a3 3 0 01-3-3v-2.25z" clip-rule="evenodd" />
@@ -50,11 +50,11 @@ metainfo
 
 
             //- mint link
-            //- button.btn.bg-accent4.flex-1.md_w-auto.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
+            //- button.btn.bg-accent4.flex-1.md_w-auto.md_px-12.mouse_hover_bg-black.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
               div mint
             //- (mint dropdown)
             div.flex-1.md_w-auto
-              button.btn.w-full.bg-accent4.md_px-12.mouse_hover_bg-yellow-500.mouse_hover_text-black.active_opacity-40(@click="mintMenuVisible = true", :class="{'opacity-40 pointer-events-none': mintMenuVisible}")
+              button.btn.btn-green.w-full.bg-accent4.md_px-12.active_opacity-40(@click="mintMenuVisible = true", :class="{'opacity-40 pointer-events-none': mintMenuVisible}")
                 div mint
 
               //- (dropdown)
@@ -65,24 +65,24 @@ metainfo
 
             //- (connect btn)
             template(v-if="!$store.state.address")
-              button.btn.bg-yellow-600.flex-1.md_w-auto.md_px-10.mouse_hover_bg-yellow-500.mouse_hover_text-black(@click="connectWallet")
+              button.btn.btn-yellow.flex-1.md_w-auto.md_px-10(@click="connectWallet")
                 | connect
                 div(style="font-size:0.9em") ꩜
 
             //- (connected dropdown)
             template(v-if="$store.state.address")
               div.text-accent1.text-smm
-                button.btn.w-full.block.pl-7.bg-yellow-500(@click="userMenuVisible = true")
+                button.btn.btn-yellow.w-full.block.pl-7.bg-yellow-500(@click="userMenuVisible = true")
                   addr(:address="$store.state.address")
                   svg-chevron-down.w-6.h-6.mx-2.mb-1(strokeWidth="1")
 
                 .relative(v-if="userMenuVisible", v-click-outside="() => { userMenuVisible = false }")
                   .absolute.top-0.right-0.pt-2
-                    ul.bg-yellow-500.rounded.pt-1.pb-1
+                    ul.bg-yellow-500.rounded
                       li
-                        .block.px-4.py-1.rounded-full(:to="myProfileRt") my cables
+                        .btn-yellow.block.px-4.py-2(:to="myProfileRt") my cables
                       li
-                        button.block.px-4.py-1.rounded-full(@click.stop="disconnectWallet") sign-out
+                        button.block.text-left.btn-yellow.w-full.px-4.py-2.-mt-2(@click.stop="disconnectWallet") sign-out
 
       //- bg gradient
       //- .sm_hidden.absolute.overlay.bg-gradient-to-b.from-accent1.to-transparent.pointer-events-none(style="height:200%")
@@ -119,13 +119,13 @@ metainfo
                 | &larr; click a cable <button class="underline" @click.stop="closeInfoOverlay">on the map</button> to view<br>(or <router-link :to="{name: 'mints'}" class="underline">view all minted</router-link> &darr;)
 
             footer.w-full.grid.grid-cols-3.border-t.text-smm
-              a.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-yellow-500(:href="$store.getters.etherscanLink({ networkName: 'ethereum' })", target="_blank", rel="noopener noreferrer")
+              a.btn-cyan.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700(:href="$store.getters.etherscanLink({ networkName: 'ethereum' })", target="_blank", rel="noopener noreferrer")
                 | contract #[span.ml-1(style="font-size:0.75em") ↗]
 
-              a.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-yellow-500(:href="$store.getters.marketplaceLink({ networkName: 'ethereum', path: '/collection/cable' })", target="_blank", rel="noopener noreferrer")
+              a.btn-cyan.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-black(:href="$store.getters.marketplaceLink({ networkName: 'ethereum', path: '/collection/cable' })", target="_blank", rel="noopener noreferrer")
                 | opensea #[span.ml-1(style="font-size:0.75em") ↗]
 
-              a.h-10.flex.items-center.pl-2.pt-1.mouse_hover_bg-yellow-500(:href="discordLink", target="_blank", rel="noopener noreferrer")
+              a.btn-cyan.h-10.flex.items-center.pl-2.pt-1.mouse_hover_bg-black(:href="discordLink", target="_blank", rel="noopener noreferrer")
                 | discord #[span.ml-1(style="font-size:0.75em") ↗]
 
 

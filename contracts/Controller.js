@@ -6,7 +6,7 @@ export default {
     // },
     // goerli
     5: {
-      "address": "0xF80B749e0d03C005b8EfB7451BC6552555556149",
+      "address": "0xd46C322d54A9dbeFee5A1732C855048292f68108",
     }
   },
   "abi": [
@@ -138,6 +138,19 @@ export default {
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_to",
+          "type": "address"
+        }
+      ],
+      "name": "recoverUnsuccessfulMintPayment",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "renounceOwnership",
       "outputs": [],
@@ -173,6 +186,19 @@ export default {
     {
       "inputs": [
         {
+          "internalType": "uint256",
+          "name": "price_",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "address",
           "name": "splitter_",
           "type": "address"
@@ -194,19 +220,6 @@ export default {
         }
       ],
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address payable",
-          "name": "_to",
-          "type": "address"
-        }
-      ],
-      "name": "sweep",
-      "outputs": [],
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {

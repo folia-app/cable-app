@@ -6,7 +6,7 @@ export default {
     // },
     // goerli
     5: {
-      "address": "0x82f9Ae9a95117fB968bBd37abB05937974F15230",
+      "address": "0x43e0B0321B314c4A444F214D62f3e93d94642443",
     }
   },
   "abi": [
@@ -40,6 +40,11 @@ export default {
           "components": [
             {
               "internalType": "uint256",
+              "name": "cableId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
               "name": "regionIndex",
               "type": "uint256"
             },
@@ -52,6 +57,11 @@ export default {
               "internalType": "string",
               "name": "path",
               "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "length",
+              "type": "uint256"
             }
           ],
           "internalType": "struct Metadata.CableData[]",
@@ -62,35 +72,6 @@ export default {
       "name": "addCables",
       "outputs": [],
       "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "cables",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "regionIndex",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "path",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -193,25 +174,6 @@ export default {
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "regions",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [],
       "name": "renounceOwnership",
       "outputs": [],
@@ -229,6 +191,19 @@ export default {
       "name": "setCable",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalCables",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -265,9 +240,54 @@ export default {
           "internalType": "string",
           "name": "name",
           "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "length",
+          "type": "uint256"
         }
       ],
       "name": "updateCable",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "cableId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "regionIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "path",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "length",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct Metadata.CableData[]",
+          "name": "cables_",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "updateCables",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

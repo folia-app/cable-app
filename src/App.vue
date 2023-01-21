@@ -35,8 +35,6 @@ metainfo
         //- laptop right
         nav.sm_h-20.w-full.sm_w-auto.sm_flex-1.flex.justify-end.md_justify-end.items-center.px-3.sm_pr-2px.md_px-10.leading-none.text-smm
           .grid.grid-cols-2.md_flex.gap-2px.flex-1.md_flex-none.pointer-events-auto.text-black
-            //- cell body
-            //- .w-full.md_w-auto.flex.justify-evenly.bg-accent3.text-black.border-gray-600.rounded.flex.overflow-hiddenff.bg-accent1.text-center
             //- (info btn)
             button.btn.btn-cyan.flex-1.md_w-auto.md_px-12(@click="openInfoOverlay")
               | info
@@ -48,10 +46,6 @@ metainfo
                 <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h2.25a3 3 0 013 3v2.25a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm9.75 0a3 3 0 013-3H18a3 3 0 013 3v2.25a3 3 0 01-3 3h-2.25a3 3 0 01-3-3V6zM3 15.75a3 3 0 013-3h2.25a3 3 0 013 3V18a3 3 0 01-3 3H6a3 3 0 01-3-3v-2.25zm9.75 0a3 3 0 013-3H18a3 3 0 013 3V18a3 3 0 01-3 3h-2.25a3 3 0 01-3-3v-2.25z" clip-rule="evenodd" />
               </svg>
 
-
-            //- mint link
-            //- button.btn.bg-accent4.flex-1.md_w-auto.md_px-12.mouse_hover_bg-black.mouse_hover_text-black(@click="$store.dispatch('mint', {})")
-              div mint
             //- (mint dropdown)
             div.flex-1.md_w-auto
               button.btn.btn-green.w-full.bg-accent4.md_pl-12.md_pr-7.active_opacity-40(@click="mintMenuVisible = true", :class="{'opacity-40 pointer-events-none': mintMenuVisible}")
@@ -90,34 +84,41 @@ metainfo
             
 
     //- (info overlay)
-    .fixed.pt-48.md_pt-18.z-40.overlay.overflow-y-scroll.scrollbars-hidden(ref="infoEl", :class="{'pointer-events-none': !infoVisible}")
+    .fixed.pt-44.sm_pt-20.md_pt-18.z-40.overlay.overflow-y-scroll.scrollbars-hidden(ref="infoEl", :class="{'pointer-events-none': !infoVisible}")
       //- (reveals as background fades in)
-      .relative.px-6.md_px-10
+      .relative.px-3.sm_px-1.md_px-10
         .flex.justify-end.items-start
           //- info card
           .relative.z-10.bg-accent3.text-black.rounded.border-accent3.overflow-hidden(@click.stop, v-show="infoVisible", style="box-shadowff: #f72d8e 0 4px 98px; box-shadowoff: rgba(0,0,0,0.75) 0px 2px 4px inset")
-            .px-6.md_px-9.py-9.leading-snug.text-sm.tracking-wide.w-full(style="max-width:46em")
-              p.text-sm.pb-4.mb-em.-ml-1
+            .px-6.md_px-9.py-9.leading-chill.text-sm.tracking-wide.w-full(style="max-width:46em")
+              p.text-sm.-ml-1
                 | #[a.font-bold(href="https://folia.app", target="_blank", rel="noopener noreferrer") #[svg-fleuron.inline-block(style="height:1.1em;margin-bottom:0.25em;margin-right:0.12em")] #[span.underline folia]] presents&hellip;<br>
-              p.text-3xlff
-                | #[b cable] &mdash; a collection of 545, unique, &lsquo;on-chain&rsquo; NFTs by artist #[b Joan Heemskerk] (JODI)
+              p.mt-em
+                | #[b cable] &mdash; a collection of 545, unique, &lsquo;on-chain&rsquo; NFTs by artist #[b #[a.underline(href="https://joanheemskerk.com"  target="_blank") Joan Heemskerk]] (#[a.underline(href="https://wwwwwwwww.jodi.org/" target="_blank") JODI])
               
-              p.mt-em the Submarine Cable System consists of 545 fiber optic cables today that deliver 95% of all international internet traffic.
+              //- p.mt-em today, the Submarine Cable System consists of 545 fiber-optic cables that deliver 95% of all international internet traffic.
 
-              p.mt-em subsea cable owners/operators can deploy cable stations that open gateways between continents and interconnect around the world.
+              p.mt-em each minted NFT in the collection reveals a different cable of the #[b Submarine Cable System]&nbsp;&mdash; expressed as an .SVG animation, fully hosted and rendered on the #[b Ethereum] blockchain.
 
-              p.mt-em each NFT (randomly revealed on mint) expresses a different subsea cable loaded with a [ + || - ] stream of data waves as an .SVG animation completely on the ethereum chain by the contract.
+              //- p.mt-em subsea cable owners/operators can deploy cable stations that open gateways between continents and interconnect around the world.
+
+              //- p.mt-em each NFT (randomly revealed on mint) expresses a different subsea cable loaded with a [ + || - ] stream of data waves as an .SVG animation completely on the ethereum chain by the contract.
               
-              p.mt-em 🌊🌊🌊🌊🌊🌊
+              //- p.mt-em 🌊🌊🌊🌊🌊🌊
               
-              //p.mt-em all the world’s undersea cables are vulnerable, some failures are caused by natural hazards like #[a(href="https://www.youtube.com/watch?v=1ex7uTQf4bQ" target="_blank" rel="noopener noreferrer" class="underline") sharks], but the vast majority of cable faults are caused by human activities !
+              //- p.mt-em all the world’s undersea cables are vulnerable, some failures are caused by natural hazards like #[a(href="https://www.youtube.com/watch?v=1ex7uTQf4bQ" target="_blank" rel="noopener noreferrer" class="underline") sharks], but the vast majority of cable faults are caused by human activities !
               
-              //p.mt-em #[b ADOPT A CABLE!!]
+              //- p.mt-em #[b ADOPT A CABLE!!]
               
-              p.mt-em #[a.underline(href="https://joanheemskerk.com"  target="_blank") Joan Heemskerk] is a contemporary artist who makes WWWorks in the cloud. _ She is also a member of the art collective JODI >>> (#[a.underline(href="http://jodi.org"  target="_blank") jodi.org]) - pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?code. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
+              //- p.mt-em #[a.underline(href="https://joanheemskerk.com"  target="_blank") Joan Heemskerk] is a contemporary artist who makes WWWorks in the cloud. _ She is also a member of the art collective JODI >>> (#[a.underline(href="http://jodi.org"  target="_blank") jodi.org]) - pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?code. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
               
               p.mt-em
-                | &larr; click a cable <button class="underline" @click.stop="closeInfoOverlay">on the map</button> to view<br>(or <router-link :to="{name: 'mints'}" class="underline">view all minted</router-link> &darr;)
+                | #[span(style="font-size:0.9em") ꩜] connect an #[a(href="https://ethereum.org/en/wallets" target="_blank" rel="noopener noreferrer" class="underline") Ethereum wallet] to mint a cable
+                <br>
+                | &larr; click/hover on cables <button class="underline" @click.stop="closeInfoOverlay">in the map</button> for info
+                template(v-if="$store.state.mintCount")
+                  <br>
+                  | (or #[router-link(:to="{name: 'mints'}" class="underline") view all] minted cables)
 
             footer.w-full.grid.grid-cols-3.border-t.text-smm
               a.btn-cyan.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700(:href="$store.getters.etherscanLink({ networkName: 'ethereum' })", target="_blank", rel="noopener noreferrer")

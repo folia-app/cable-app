@@ -15,7 +15,7 @@ metainfo
           //- (folia logo link)
           //- template(v-if="isIndex")
           a.w-20.h-20.flex.p-3(href="https://folia.app", target="_blank", title="folia.app ↗")
-            .w-full.flex.items-center.justify-center.pb-1.pr-px.rounded.text-accent5.mouse_hover_bg-yellow-500.mouse_hover_text-accent5
+            .w-full.flex.items-center.justify-center.pb-1.pr-px.rounded.text-red-500.mouse_hover_bg-yellow-500
               svg-fleuron(style="height:1.28em")
           //- (back btn)
           //- template(v-else-if="lastRt.name")

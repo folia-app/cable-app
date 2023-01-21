@@ -1,12 +1,12 @@
 <template>
   <li class="relative group mb-32 -mr-px">
-    <figure class="relative aspect-square cursor-pointer borderff border-dashed border-gray-400" @click="openFullscreen" aria-label="view fullscreen">
+    <figure class="relative aspect-square cursor-pointer" @click="openFullscreen" aria-label="view fullscreen">
       <CableImage :id="props.id"></CableImage>
     </figure>
     
-    <div class="border-lff border-t border-dashedff border-gray-200 pb-1" style="padding-left:5.9%; padding-top:6.1%;">
+    <div class="border-t border-gray-200 pb-1" style="padding-left:5.9%; padding-top:6.1%;">
       <!-- buttons -->
-      <div class="flex text-2xs pt-1 -ml-1">
+      <div class="flex text-3xs pt-1 -ml-1">
           <!-- locate on map -->
           <router-link :to="{name: 'home', query: { id: props.id }}" class="block p-2 rounded btn-white" title="highlight on the map">
             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +21,8 @@
           <button class="p-2 rounded btn-white" @click="openFullscreen" title="view fullscreen">
             <SvgExpand />
           </button>
-          <a class="px-2 flex items-center text-smaller group py-2 btn-white leading-none" :href="$store.getters.marketplaceLink({ token: props.id })" target="_blank" rel="noopener noreferrer"><span class="">opensea</span></a>
+          <!-- os link -->
+          <a class="px-2 flex items-center rounded text-smaller group py-2 btn-white leading-none" :href="$store.getters.marketplaceLink({ token: props.id })" target="_blank" rel="noopener noreferrer"><span class="">opensea</span></a>
         </div>
       
         <ul class="text-2xs pl-2 pr-12 leading-normal align-baseline" style="margin-top:5.9%">
@@ -64,7 +65,7 @@ const openFullscreen = () => store.commit('OPEN_FULLSCREEN', props.id)
 
 <style>
 @media(hover:hover) {
-  figure:hover + ul > div > button{
+  figure:hover + div > div:first-child > button{
     @apply bg-black text-white;
   }
 }

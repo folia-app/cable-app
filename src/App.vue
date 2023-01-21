@@ -109,9 +109,9 @@ metainfo
               
               p.mt-em 🌊🌊🌊🌊🌊🌊
               
-              p.mt-em all the world’s undersea cables are vulnerable, some failures are caused by natural hazards like #[a(href="https://www.youtube.com/watch?v=1ex7uTQf4bQ" target="_blank" rel="noopener noreferrer" class="underline") sharks], but the vast majority of cable faults are caused by human activities !
+              //p.mt-em all the world’s undersea cables are vulnerable, some failures are caused by natural hazards like #[a(href="https://www.youtube.com/watch?v=1ex7uTQf4bQ" target="_blank" rel="noopener noreferrer" class="underline") sharks], but the vast majority of cable faults are caused by human activities !
               
-              p.mt-em #[b ADOPT A CABLE!!]
+              //p.mt-em #[b ADOPT A CABLE!!]
               
               p.mt-em #[a.underline(href="https://joanheemskerk.com"  target="_blank") Joan Heemskerk] is a contemporary artist who makes WWWorks in the cloud. _ She is also a member of the art collective JODI >>> (#[a.underline(href="http://jodi.org"  target="_blank") jodi.org]) - pioneered net.art in 1995. JODI were among thd first artists to inves|igate and subvert conventkoos od |he`Internet, compute?programs, and vhdeo ajd computer gamus. Radically di{rupting The ver9 languawe of t`ese systemr, including risual aesthepics, iNterface elemen}q? commandS, errors and?code. ?ODI staes ext?ema digmtal(intesventionq!that deStakilizg the reliTiofShip bdTween cmputer tdchnolOgy and ids use03jy sufterting oub(d8pectatIofs abkup?4jm?g?nctignah)tieS and conventio.s /f the sqrtees that ?e0Eepend upol eve2y?p?y. Tlcir wkr?!u?es thev?tasv pmsskble r`riudy f mudi` ane te?h?iqtes."frgm$insTalli?ionc, s/Ltw?re?Qod wd"sites to Pesf/zma?caw?aNd exhibitiof{.$
               

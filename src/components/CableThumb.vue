@@ -33,7 +33,7 @@
           <h6 class="font-bold text-sm inline-block" style="margin-right:0.75em">{{ cableData.name }}</h6>
           <div class="inline-block uppercase">{{ cableData.length.split(' ')[0] }}&nbsp;<span class="text-smaller">KM</span></div>
         </div>
-        <li><span class="text-smaller">minted by</span> <template v-if="owner"><a class="text-2xs leading-none underline font-bold" :href="$store.getters.marketplaceLink({ account: owner })" target="_blank" rel="noopener noreferrer"><Addr :address="owner"></Addr></a></template><template v-else><Observer class="inline" @visible="getOwner"><span class="animate-pulse">...</span></Observer></template></li>
+        <li><span class="text-smaller">owned by</span> <template v-if="owner"><a class="text-2xs leading-none underline font-bold" :href="$store.getters.marketplaceLink({ account: owner })" target="_blank" rel="noopener noreferrer"><Addr :address="owner"></Addr></a></template><template v-else><Observer class="inline" @visible="getOwner"><span class="animate-pulse">...</span></Observer></template></li>
         <!-- <li class="align-baseline">
           {{ cableData.length.split(' ')[0] }} <span class="text-smaller">KM</span>
         </li> -->

@@ -14,7 +14,7 @@
         <div class="inline-block text-xs uppercase text-gray-400ff">{{ cable.length.split(' ')[0] }} <span class="text-smaller">KM</span></div>
       </div>
       <div class="text-xs">
-        <template v-if="owner"><span class="text-3xs">minted by</span> <a :href="$store.getters.marketplaceLink({ account: owner })" class="ml-1 underline font-bold" target="_blank" rel="noopener noreferrer"><Addr :address="owner" :short="true" /></a></template>
+        <template v-if="owner"><span class="text-3xs">owned by</span> <a :href="$store.getters.marketplaceLink({ account: owner })" class="ml-1 underline font-bold" target="_blank" rel="noopener noreferrer"><Addr :address="owner" :short="true" /></a></template>
       </div>
     </div>
   </div>

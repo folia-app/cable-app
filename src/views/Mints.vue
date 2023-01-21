@@ -7,7 +7,7 @@
         <template v-if="mintCount === undefined">
           <div class="btn border pl-7 pr-6 animate-pulse">loading...</div>
         </template>
-        <template v-else-if="mintCount > 0">
+        <template v-else-if="mintCount > 1">
           <SortDropdown></SortDropdown>
         </template>
       </div>

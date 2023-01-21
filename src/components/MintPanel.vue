@@ -7,10 +7,10 @@
       | #[template(v-if="$store.state.mintCount !== undefined") {{$store.state.mintCount}}]<span v-else class="animate-pulse">...</span>/545
   .flex.justify-between.text-smm
     div price
-    div #[template(v-if="mintPriceETH !== undefined") {{ mintPriceETH }}]#[span(v-else).animate-pulse ...] ETH
+    div #[template(v-if="mintPriceETH !== undefined") {{ mintPriceETH.toString().substr(0, 10) }}&hellip;]#[span(v-else).animate-pulse ...] ETH
   .mt-1
     button.btn.btn-green.w-full.border(@click="$store.dispatch('mint', {})") mint
-  figure.relative.aspect-square.w-full.mt-2.rounded.border
+  figure.relative.aspect-square.w-full.mt-2.rounded.bg-white
     transition(name="quickfade")
       div(v-if="previewImgSrc")
         <img class="absolute overlay object-fit object-center opacity-30 animate-pulse" :src="previewImgSrc">

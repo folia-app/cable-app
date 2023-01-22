@@ -17,8 +17,8 @@ const appDefaultNetworkId = Number(import.meta.env.VITE_APP_FALLBACK_NETWORK_ID 
 
 // setup web3 modal
 let web3Modal
-function setWeb3Modal (networkName) {
-  networkName = networkName === 'ethereum' ? 'mainnet' 
+function setWeb3Modal(networkName) {
+  networkName = networkName === 'ethereum' ? 'mainnet'
     : networkName === 'optimism-goerli' ? undefined // not in their list :/
       : networkName
 
@@ -44,7 +44,7 @@ setWeb3Modal()
 
 export default createStore({
   // modules: { profiles },
-  state () {
+  state() {
     return {
       networks,
 
@@ -119,13 +119,13 @@ export default createStore({
       const chainId = state.chainId ?? appDefaultNetworkId
       const contractAddr = getters.contractAddr(chainId)
       const network = networks[chainId]
-      
+
       let url = network?.marketplace.domain
-      
-      url += token !== undefined ? `${ network.marketplace.assetPath }/${contractAddr}/${token}`
+
+      url += token !== undefined ? `${network.marketplace.assetPath}/${contractAddr}/${token}`
         : account ? `/${account}`
           : path || `/collection/${contractAddr}`
-      
+
       return url
     },
     meta: state => ({ title, descrip, img, video }) => {
@@ -135,7 +135,7 @@ export default createStore({
       const siteDescrip = 'an on-chain NFT edition by by joan heemskerk (JODI) ~ presented by folia 𐡸'
       const siteImg = undefined
       const siteVideo = undefined
-      
+
       // meta description is logo-title if custom page title
       const description = descrip ? descrip : !descrip && title ? undefined : siteDescrip
       // 
@@ -144,7 +144,7 @@ export default createStore({
       video = img ? undefined : siteVideo
       // custom image
       const image = img || siteImg
-      
+
       // add
       const data = {
         htmlAttrs: {
@@ -174,7 +174,7 @@ export default createStore({
       if (video) {
         data.og.video = data.twitter.video = video
       }
-      
+
       return data
     },
     docsLink: state => (path) => {
@@ -182,82 +182,82 @@ export default createStore({
     }
   },
   mutations: {
-    SIGN_IN (state, { address }) {
+    SIGN_IN(state, { address }) {
       state.address = address.toLowerCase()
       console.log('signed in', address)
     },
-    SIGN_OUT (state) {
+    SIGN_OUT(state) {
       state.address = undefined
       state.givenNetworkId = null
-      
+
       walletProvider = undefined
       signer = undefined
       console.log('wallet disconnected')
     },
-    SET_GIVEN_NETWORK_ID (state, chainId) {
+    SET_GIVEN_NETWORK_ID(state, chainId) {
       state.givenNetworkId = chainId
       console.log('given network:', chainId)
     },
-    SAVE_WORK (state, work) {
+    SAVE_WORK(state, work) {
       const i = state.works.findIndex(svd => svd.id === work.id)
       // remove existing ?
       if (i > -1) state.works.splice(i, 1)
       // push so app updates
       state.works.push(work)
     },
-    SAVE_OWNER (state, { tokenId, owner }) {
+    SAVE_OWNER(state, { tokenId, owner }) {
       state.owners[tokenId] = owner
     },
-    SAVE_SVG (state, { tokenId, svg }) {
+    SAVE_SVG(state, { tokenId, svg }) {
       state.svgs[tokenId] = svg
     },
-    SAVE_METADATA (state, metadata) {
+    SAVE_METADATA(state, metadata) {
       state.metadatas.push(metadata)
     },
 
-    SAVE_ADDRESS (state, { address, ens, openSea }) {
+    SAVE_ADDRESS(state, { address, ens, openSea }) {
       const addrs = JSON.parse(JSON.stringify(state.addresses))
       addrs[address.toLowerCase()] = { ens, openSea }
       state.addresses = addrs
     },
 
-    SAVE_MINT_COUNT (state, count) {
+    SAVE_MINT_COUNT(state, count) {
       state.mintCount = count
     },
 
-    SET_MINT_PRICE (state, bigNumber) {
+    SET_MINT_PRICE(state, bigNumber) {
       state.mintPrice = bigNumber
     },
 
-    SAVE_MINTS (state, mints) {
+    SAVE_MINTS(state, mints) {
       state.mints = mints
     },
 
-    SET_MINT_COUNT (state, count) {
+    SET_MINT_COUNT(state, count) {
       state.mintCount = count
     },
 
-    SAVE_MOVES (state, moves) {
+    SAVE_MOVES(state, moves) {
       state.moves = moves
     },
 
-    SAVE_NETWORK_MINT_EVENTS (state, { networkName, mintEvents }) {
+    SAVE_NETWORK_MINT_EVENTS(state, { networkName, mintEvents }) {
       state.mintEvents[networkName] = mintEvents
     },
 
-    SAVE_NETWORK_REPROGRAM_EVENTS (state, { networkName, events }) {
+    SAVE_NETWORK_REPROGRAM_EVENTS(state, { networkName, events }) {
       state.reprogrammedEvents[networkName] = events
     },
-    OPEN_FULLSCREEN (state, id) {
+    OPEN_FULLSCREEN(state, id) {
       state.fullscreenId = id
     },
-    CLOSE_FULLSCREEN (state) {
+    CLOSE_FULLSCREEN(state) {
       state.fullscreenId = null
     }
   },
   actions: {
     // setup provider -> network/contracts
-    async init ({ state, commit, dispatch }) {
+    async init({ state, commit, dispatch }) {
       // de-dupe
       if (initializing) {
         return initializing
@@ -285,7 +285,7 @@ export default createStore({
     },
 
     /* connect wallet */
-    async connect ({ state, commit, dispatch }, networkName) {
+    async connect({ state, commit, dispatch }, networkName) {
       try {
         if (networkName) {
           setWeb3Modal(networkName)
@@ -305,7 +305,7 @@ export default createStore({
         commit('SET_GIVEN_NETWORK_ID', chainId)
 
         dispatch('listenToWalletProvider', web3ModalProvider)
-        
+
         return { address, chainId }
       } catch (e) {
         console.error(e)
@@ -315,9 +315,9 @@ export default createStore({
         throw e
       }
     },
-    
+
     /* disconnect wallet */
-    disconnect ({ commit, dispatch }) {
+    disconnect({ commit, dispatch }) {
       // clear so they can re-select from scratch
       web3Modal.clearCachedProvider()
       // manually clear walletconnect --- https://github.com/Web3Modal/web3modal/issues/354
@@ -332,9 +332,9 @@ export default createStore({
       // reset provider
       // dispatch('setupContracts')
     },
-    
+
     /* wallet events */
-    listenToWalletProvider ({ commit, dispatch }) {
+    listenToWalletProvider({ commit, dispatch }) {
       if (!web3ModalProvider?.on) return
 
       // account changed (or disconnected)
@@ -357,15 +357,15 @@ export default createStore({
           const availableProvider = web3ModalProvider || window.ethereum
           if (availableProvider) {
             walletProvider = new ethers.providers.Web3Provider(availableProvider)
-            
+
             const { chainId } = await walletProvider.getNetwork()
             commit('SET_GIVEN_NETWORK_ID', chainId)
-    
+
             // update signer if still signed in
             if (signer) {
               signer = walletProvider.getSigner()
             }
-          } 
+          }
         } catch (e) {
           alert('An error occurred while switching networks. Refresh required.')
           window.location.reload()
@@ -379,7 +379,7 @@ export default createStore({
       })
     },
 
-    async switchNetwork ({ dispatch }, { chainId, name }) { 
+    async switchNetwork({ dispatch }, { chainId, name }) {
       // dont attempt to switch if browser doesn't have MetaMask
       // or! wallet is connect via WalletConnect (since at least Rainbow doesn't let you switch there)
       if (!window.ethereum || walletProvider?.provider?.wc) {
@@ -397,7 +397,7 @@ export default createStore({
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
           params: [{ chainId }]
-        })  
+        })
 
         // reload app
         // if (reload) {
@@ -406,11 +406,11 @@ export default createStore({
         // }
 
         // provider + signer updates in networkChanged listener...
-        
+
         return true
       } catch (e) {
         console.error(e)
-        
+
         // try adding the chain first
         if (e?.code === 4902) {
           console.log('trying to add chain...')
@@ -422,7 +422,7 @@ export default createStore({
 
             const chainInfo = network.chainInfo
             chainInfo.chainId = ethers.utils.hexValue(chainInfo.chainId)
-            
+
             // add...
             await window.ethereum.request({
               method: 'wallet_addEthereumChain',
@@ -443,11 +443,17 @@ export default createStore({
       }
     },
 
-    async getProvider ({ state, commit }, { network }) {
+    async getProvider({ state, commit }, { network }) {
+      // // use local provider
+      // const localUrl = 'http://localhost:8545'
+      // let localProvider = new ethers.providers.JsonRpcProvider(localUrl)
+      // return { provider: localProvider, chainId: appDefaultNetworkId }
+
+
       let provider = walletProvider
       let targetChainId = network?.id
         ?? Object.keys(networks).find(key => networks[key]['name'] === network?.name)
-          ?? appDefaultNetworkId
+        ?? appDefaultNetworkId
 
       // get provider from browser/wallet provider if needed
       if (!provider && window.ethereum) {
@@ -477,37 +483,37 @@ export default createStore({
       return { provider, chainId: targetChainId /*|| givenChainId*/ }
     },
 
-    async getNFTContract ({ dispatch }, { network }) {
+    async getNFTContract({ dispatch }, { network }) {
       const { provider, chainId } = await dispatch('getProvider', { network })
       const contract = new ethers.Contract(NFTContractDeploy.networks[chainId].address, NFTContractDeploy.abi, provider)
       return contract
     },
 
-    async getControllerContract ({ dispatch }, { network }) {
+    async getControllerContract({ dispatch }, { network }) {
       const { provider, chainId } = await dispatch('getProvider', { network })
       const contract = new ethers.Contract(ControllerDeploy.networks[chainId].address, ControllerDeploy.abi, provider)
       return contract
     },
 
-    async getMetadataContract ({ dispatch }, { network }) {
+    async getMetadataContract({ dispatch }, { network }) {
       const { provider, chainId } = await dispatch('getProvider', { network })
       const contract = new ethers.Contract(MetadataDeploy.networks[chainId].address, MetadataDeploy.abi, provider)
       return contract
     },
 
-    async getDeployBlock ({ state, dispatch }, { network }) {
+    async getDeployBlock({ state, dispatch }, { network }) {
       let deployBlock = 0
       if (network) {
         const chainId = network.id || Object.keys(networks).find(key => networks[key]["name"] === network.name)
-        deployBlock = NFTContractDeploy.networks[chainId].blockNumber  
+        deployBlock = NFTContractDeploy.networks[chainId].blockNumber
       }
       return deployBlock
     },
-    
-    async getCableImage ({ state, commit, dispatch }, { id, network }) {
+
+    async getCableImage({ state, commit, dispatch }, { id, network }) {
       const saved = state.svgs[id]
       if (saved)
-      return saved
+        return saved
 
       try {
         const nftContract = await dispatch('getMetadataContract', { network })
@@ -570,7 +576,7 @@ export default createStore({
     //   }
     // },
 
-    async getMintPrice ({ state, commit, dispatch }, { network }) {
+    async getMintPrice({ state, commit, dispatch }, { network }) {
       try {
         const contract = await dispatch('getControllerContract', { network })
         const price = await contract.price()
@@ -581,7 +587,7 @@ export default createStore({
       }
     },
 
-    async getMintCount ({ state, commit, dispatch }, { network }) {
+    async getMintCount({ state, commit, dispatch }, { network }) {
       try {
         const nftContract = await dispatch('getNFTContract', { network })
         const count = (await nftContract.totalSupply()).toNumber()
@@ -593,7 +599,7 @@ export default createStore({
       }
     },
 
-    async mint ({ state, dispatch }, { network }) {
+    async mint({ state, dispatch }, { network }) {
       try {
         // wait for init?
         const contract = await dispatch('getControllerContract', { network })
@@ -629,19 +635,19 @@ export default createStore({
       }
     },
 
-    async isWalletCorrectNetwork ({ getters, dispatch }, { network }) {
+    async isWalletCorrectNetwork({ getters, dispatch }, { network }) {
       try {
         if (!signer || !walletProvider) {
           await dispatch('connect')
         }
-  
+
         const { chainId } = await walletProvider.getNetwork()
-        const turmiteChainId = getters.chainId({ networkName: network.name})
-        
+        const turmiteChainId = getters.chainId({ networkName: network.name })
+
         if (chainId?.toString() !== turmiteChainId?.toString()) {
           throw new Error(`WALLET IS WRONG NETWORK`)
         }
-        
+
         return true
       } catch (e) {
         console.error(e)
@@ -650,7 +656,7 @@ export default createStore({
     },
 
     /* read owner by token id from chain */
-    async getNFTOwnerByTokenId ({ state, commit, dispatch }, { tokenId, network }) {
+    async getNFTOwnerByTokenId({ state, commit, dispatch }, { tokenId, network }) {
       // saved?
       let owner = state.owners[tokenId]
       if (owner) return owner
@@ -736,7 +742,7 @@ export default createStore({
     //   }
     // },
 
-    async resolveAddress ({ state, getters, commit, dispatch }, { address, queryOpenSea = false }) {
+    async resolveAddress({ state, getters, commit, dispatch }, { address, queryOpenSea = false }) {
       try {
         if (!address) {
           // console.warn('No address provided')
@@ -786,16 +792,16 @@ export default createStore({
       }
     },
 
-    async resolveENS ({ state, commit, dispatch }, ens) {
+    async resolveENS({ state, commit, dispatch }, ens) {
       try {
         // saved ?
         let address = Object.keys(state.addresses).find(key => ens && state.addresses[key].ens === ens)
         if (address) return address
-        
+
         // resolve ENS on mainnet...
         const provider = new ethers.getDefaultProvider(networks[1].infura)
         address = await provider.resolveName(ens)
-        
+
         if (address) {
           // save if resolved...
           commit('SAVE_ADDRESS', { address, ens })
@@ -808,7 +814,7 @@ export default createStore({
       }
     },
 
-    async fetchFromOpenSea ({ state, dispatch }, { path, priority = 1 }) {
+    async fetchFromOpenSea({ state, dispatch }, { path, priority = 1 }) {
       try {
         if (!state.networkId) await dispatch('init')
 
@@ -843,7 +849,7 @@ export default createStore({
       }
     },
 
-    async getAddressOpenSeaName ({ state, dispatch }, address) {
+    async getAddressOpenSeaName({ state, dispatch }, address) {
       try {
         const resp = await dispatch('fetchFromOpenSea', { path: `/api/v1/account/${address}`, priority: 1.2 })
 

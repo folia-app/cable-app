@@ -6,16 +6,18 @@ export default {
     layer: 'ethereum',
     infura: `https://mainnet.infura.io/v3/${infuraProjectID}`,
     explorer: { name: 'Etherscan', domain: 'https://etherscan.io' },
-    marketplace: { name: 'OpenSea', domain: 'https://opensea.io', assetPath: '/assets/ethereum'},
+    marketplace: { name: 'OpenSea', domain: 'https://opensea.io', assetPath: '/assets/ethereum' },
     movesMax: 4000
   },
-  5: {
+  1337: {
     name: 'goerli',
     layer: 'ethereum',
-    infura: `https://goerli.infura.io/v3/${infuraProjectID}`,
+    // infura: `https://goerli.infura.io/v3/${infuraProjectID}`,
+    infura: `http://localhost:8545`,
     explorer: {
       name: 'Etherscan',
-      domain: 'https://goerli.etherscan.io' },
+      domain: 'https://goerli.etherscan.io'
+    },
     marketplace: {
       name: 'OpenSea',
       domain: 'https://testnets.opensea.io',

@@ -1,10 +1,10 @@
 export default {
   "networks": {
     // ethereum
-    // 1: {
-    //   "address": "0x9a6b280D9dE461c16e9D47fB7996aCbe36Eac50B",
-    //   "blockNumber": 16096337,
-    // },
+    1: {
+      "address": "0x536580914cDA50C7B74BA2cB693A38fFa4784D82",
+      "blockNumber": 16465512,
+    },
     // goerli
     5: {
       "address": "0xbB5317B85708B11581f6c58C236598F71D01c9c9",

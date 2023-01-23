@@ -1,9 +1,9 @@
 export default {
   "networks": {
     // ethereum
-    // 1: {
-    //   "address": "0xe0b14d9412f762b6a49e7d009b62daed70212788",
-    // },
+    1: {
+      "address": "0xfa18625CF80c124f9568e809BF1BD8Ee726C7C4a",
+    },
     // goerli
     5: {
       "address": "0x72927CA70D8743aAd712000675c2c8768818a53B",

@@ -124,7 +124,7 @@ metainfo
               a.btn-cyan.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700(:href="$store.getters.etherscanLink({ networkName: 'ethereum' })", target="_blank", rel="noopener noreferrer")
                 | contract #[span.ml-1(style="font-size:0.75em") ↗]
 
-              a.btn-cyan.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-black(:href="$store.getters.marketplaceLink({ networkName: 'ethereum', path: '/collection/cable' })", target="_blank", rel="noopener noreferrer")
+              a.btn-cyan.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-black(:href="$store.getters.marketplaceLink({ networkName: 'ethereum', path: '/collection/cable-' })", target="_blank", rel="noopener noreferrer")
                 | opensea #[span.ml-1(style="font-size:0.75em") ↗]
 
               a.btn-cyan.h-10.flex.items-center.pl-2.pt-1.mouse_hover_bg-black(:href="discordLink", target="_blank", rel="noopener noreferrer")

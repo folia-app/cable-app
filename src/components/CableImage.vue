@@ -9,7 +9,7 @@ observer.cable-image.relative.group(:threshold="0.01", @visible="onVisible", @hi
           .py-1.pl-3.pr-2 loading...
 
   template(v-else)
-    img.block.w-full(:src="imgSrc")
+    img.block.w-full(v-if="visible", :src="imgSrc")
 
 </template>
 
@@ -34,6 +34,7 @@ export default {
       this.visible = true
     },
     loadImage () {
+      if (this.imgSrc) return
       const network = undefined // this.network
       this.$store.dispatch('getCableImage', { id: this.id.toString(), network })
         .then(imgSrc => this.imgSrc = imgSrc)

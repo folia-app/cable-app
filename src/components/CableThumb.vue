@@ -25,6 +25,12 @@
           <button class="p-2 rounded btn-white" @click="openFullscreen" title="view fullscreen">
             <SvgExpand />
           </button>
+          <!-- share -->
+          <button class="p-2 rounded btn-white" @click="copyShareUrl" title="Share Image">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+          </button>
           <!-- os link -->
           <a class="px-2 flex items-center rounded text-smaller group py-2 btn-white leading-none" :href="$store.getters.marketplaceLink({ token: props.id })" target="_blank" rel="noopener noreferrer"><span class="">opensea</span></a>
         </div>
@@ -69,11 +75,15 @@ const getOwner = async () => {
 }
 
 const openFullscreen = () => store.commit('OPEN_FULLSCREEN', props.id)
+
+function copyShareUrl () {
+  const url = `https://res.cloudinary.com/folia/image/fetch/w_1200/f_png/https://cable.folia.app/cable-promo.svg`
+}
 </script>
 
 <style>
 @media(hover:hover) {
-  figure:hover + div > div:first-child > button{
+  figure:hover + div > div:first-child > button:nth-child(2){
     @apply bg-black text-white;
   }
 }

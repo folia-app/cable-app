@@ -1,5 +1,5 @@
 <template>
-  <section class="relative bg-white text-black">
+  <section class="relative min-h-screen bg-white text-black">
     <header class="sticky h-20 mb-32 z-10 w-full top-0 left-0 flex justify-between items-center">
       <div class="pl-10">
         <template v-if="mintCount === undefined">
@@ -57,7 +57,7 @@ const router = useRouter()
 
 const emit = defineEmits(['sortChange'])
 
-const mintCount = ref()
+const mintCount = computed(() => store.state.mintCount)
 
 const isSortNewest = ref(true)
 function toggleSort () {
@@ -73,10 +73,6 @@ const mintIdsSorted = computed(() => {
     mintIds.reverse()
   }
   return mintIds
-})
-
-onMounted(async () => {
-  mintCount.value = await store.dispatch('getMintCount', {})
 })
 </script>
 

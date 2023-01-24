@@ -1,9 +1,9 @@
 <template lang="pug">
 div
   template(v-if="props.type === 'dot'")
-    .flex.items-center.text-accent4
-      .mt-1.relative.group
-        .rounded-full.h-4.w-4(:class="{'animate-pulse bg-accent4': isListening, 'border border-current opacity-50': !isListening }")
+    .flex.items-center
+      .relative.group
+        .rounded-full.h-4.w-4(:class="{'animate-pulse bg-current': isListening, 'border border-current opacity-50': !isListening }", title="listening for mints")
         .absolute.top-0.left-full.h-full.flex.items-center.opacity-0.mouse_group-hover_opacity-100.text-2xs.pl-2(v-if="isListening && !updateCount")
           | listening...
           
@@ -43,7 +43,7 @@ div
 
   async function getContract () {
     try {
-      contract = await store.dispatch('getNFTContract', { network: { name: route.params.networkName }})
+      contract = await store.dispatch('getControllerContract', {})
     } catch (e) {
       console.error(e)
     }
@@ -67,26 +67,12 @@ div
 
   async function listenForMints () {
     try {
-      contract.on('TurmiteMint', (tokenId, rule, boardId) => {
+      contract.on('EthMoved', (tokenId, rule, boardId) => {
         const data = {tokenId: tokenId.toString(), rule, boardId: boardId.toString() }
         onEvent({ type: 'mint', msg: 'new turmite!', data })
       })
 
       console.log('listening for mints...')
-    } catch (e) {
-      console.error(e)
-      throw e
-    }
-  }
-
-  async function listenForMoves () {
-    try {
-      contract.on('TurmiteMove', (tokenId, boardnumber, moves) => {
-        const data = {tokenId: tokenId.toString(), boardId: boardnumber.toString(), moves: moves.toString() }
-        onEvent({ type: 'move', msg: 'turmite moved!', data })
-      })
-
-      console.log('listening for moves...')
     } catch (e) {
       console.error(e)
       throw e
@@ -99,7 +85,6 @@ div
         await getContract()
       }
       listenForMints()
-      listenForMoves()
       isListening.value = true
     } catch (e) {
       console.error(e)

@@ -1,7 +1,6 @@
 <template>
 <Map></Map>
 
-
 <!-- mints overlay via /cables route -->
 <div ref="scrollbody" :class="['fixed z-20 overlay bg-white overflow-scroll transition-transform duration-800 flex', {'translate-y-full': !isMintsView}]">
   <div :class="['w-full transition duration-800', {'opacity-0': !isMintsView }]">
@@ -11,6 +10,9 @@
 
 <!-- fullscreen overlay -->
 <CableOverlay v-if="$store.state.fullscreenId" :id="$store.state.fullscreenId"></CableOverlay>
+
+<!-- mint listener -->
+<contract-listener v-if="$store.state.mintCount < 545" @update="$store.dispatch('getMintCount', {})" />
 </template>
 
 <script setup>
@@ -19,6 +21,7 @@ import { useRoute } from 'vue-router';
 import CableOverlay from '../components/CableOverlay.vue';
 import Map from '../components/Map.vue'
 import Mints from './Mints.vue'
+import ContractListener from '@/components/ContractListener.vue'
 
 const route = useRoute()
 

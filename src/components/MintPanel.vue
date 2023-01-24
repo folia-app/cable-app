@@ -27,8 +27,13 @@
     li.p-2.pb-2.text-center.rounded.border.-mt-px.relative(v-for="tx in txs", :class="{'bg-black text-legend-orange pb-4': tx.status === 'error'}")
       h6.mt-2.mb-2.text-xs.font-bold.uppercase(v-if="tx.status === 'error'")
         | MINT ERROR
-      p.text-2xs(:class="{'animate-pulse': tx.msg.includes('...') }") {{tx.msg}}
-      //- kill item
+      p.text-2xs
+        //- (success link)
+        template(v-if="tx.status === 'success'")
+          router-link.underline(:to="{name: 'mints'}") MINTED 1 CABLE!
+        //- (msg)
+        span(v-else, :class="{'animate-pulse': tx.msg.includes('...') }") {{tx.msg}}
+      //- kill item btn
       button.absolute.top-0.right-0.h-full.p-px.flex.items-start(v-if="tx.status !== 'pending'", @click="removeTxItem(tx)")
         svg-x.text-current(style="width:13px;height:13px")
 
@@ -105,7 +110,6 @@
       // success
       const theTx = txs.value.find(tx => tx.id === id)
       theTx.status = 'success'
-      theTx.msg = 'MINTED 1 CABLE!'
 
       // update count
       store.dispatch('getMintCount', {})

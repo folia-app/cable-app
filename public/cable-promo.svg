@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"  height="100%" width="100%" viewBox="0 0 600 600"  preserveAspectRatio="meet" style="background:white">
+<style>
+.name {
+	fill: #000000;
+	font-size: 14px;
+	font-family: "Verdana",sans-serif;
+  }  
+path{
+	fill: none;
+	stroke: #000000;
+	stroke-width: 100;
+	stroke-dasharray: 1;
+	animation: dash 1s linear infinite;
+}
+@keyframes dash {
+  to {
+    stroke-dashoffset: 100;
+  }
+}
+</style>
+
+<path d="m60 422.53l16.76-21.69 22.16-13.74 88.65-122.78 103.42-54.02 147.75-13.46 29.55-13.43 29.55-40.15 22.16-39.96-21.44-25.83" />
+
+<text x="50" y="550" class="name">GigNet-1</text>
+
+</svg>

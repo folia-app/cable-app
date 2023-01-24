@@ -1,5 +1,5 @@
 <template lang="pug">
-.mint-panel.bg-accent4.rounded.p-2.leading-tighter
+.mint-panel.bg-accent4.rounded.p-2.leading-tighter.overflow-scroll(style="max-height:calc(100vh - 64px)")
   .flex.justify-between
     div
       | minted
@@ -10,12 +10,31 @@
     div #[template(v-if="mintPriceETH !== undefined") {{ mintPriceETH.toString().substr(0, 10) }}&hellip;]#[span(v-else).animate-pulse ...] ETH
   
   //- mint btn
-  .mt-1
-    button.btn.btn-green.w-full.border(@click="$store.dispatch('mint', {})", :disabled="isConnectedToWrongNetwork") mint
+  .mt-1.mb-2
+    button.btn.btn-green.w-full.border(@click="mint", :disabled="isSoldOut || isConnectedToWrongNetwork") {{ isSoldOut ? 'SOLD OUT' : 'mint' }}
+  
+  //- (status)
+  .p-2.pb-2.text-center.rounded.relative(v-if="status", :class="{'bg-black text-legend-orange pb-4': status.type === 'error'}")
+    h6.mt-2.mb-2.text-xs.font-bold.uppercase(v-if="status.type")
+      | {{ status.type === 'error' ? 'MINT ERROR' : 'OOPS' }}
+    p.text-2xs(:class="{'animate-pulse': status.msg.includes('...')}") {{ status.msg }}
+    //- (kill item)
+    button.absolute.top-0.right-0.h-full.p-1.flex.items-start(v-if="status.type === 'error'", @click="status = undefined")
+      svg-x.text-current(style="width:13px;height:13px")
+  
+  //- (tx's list)
+  ul.mt-2
+    li.p-2.pb-2.text-center.rounded.border.-mt-px.relative(v-for="tx in txs", :class="{'bg-black text-legend-orange pb-4': tx.status === 'error'}")
+      h6.mt-2.mb-2.text-xs.font-bold.uppercase(v-if="tx.status === 'error'")
+        | MINT ERROR
+      p.text-2xs(:class="{'animate-pulse': tx.msg.includes('...') }") {{tx.msg}}
+      //- kill item
+      button.absolute.top-0.right-0.h-full.p-px.flex.items-start(v-if="tx.status !== 'pending'", @click="removeTxItem(tx)")
+        svg-x.text-current(style="width:13px;height:13px")
 
   //- (switch network)
-  .my-1.bg-black.px-2.pt-4.pb-2.rounded.text-accent4.text-xs(v-if="isConnectedToWrongNetwork || switchError")
-    h6.font-bold.text-center.mt-2px WRONG NETWORK
+  .my-1.bg-black.p-2.rounded.text-accent4.text-xs(v-if="isConnectedToWrongNetwork || switchError")
+    h6.mt-3.font-bold.text-center WRONG NETWORK
     p.mt-3.text-2xs.px-1.text-center your connected wallet is not on <span class="uppercase font-bold">{{ appNetworkName }}</span> network
     //- .my-2.text-center &darr;
     button.mt-4.btn.w-full.border(@click="switchNetwork") switch network ꩜
@@ -40,6 +59,7 @@
   import store from '@/store'
   import { utils } from 'ethers'
   import networks from '@/networks'
+  import SvgX from './SVG-X.vue'
 
   const mintPriceETH = ref(undefined)
   
@@ -51,13 +71,64 @@
   const isConnectedToWrongNetwork = computed(() => store.state.address && store.state.givenNetworkId !== store.state.appDefaultNetworkId)
   const appNetworkName = networks[store.state.appDefaultNetworkId].name
 
-  // async function mint () {
-  //   if (!store.state.address) {
-  //     await store.dispatch('connect')
-  //   }
-  // }
+  const isSoldOut = computed(() => store.state.mintCount >= 545)
   
   const status = ref()
+  const txs = ref([])
+
+  async function mint () {
+    if (!store.state.address) {
+      await store.dispatch('connect')
+      if (isConnectedToWrongNetwork.value) {
+        // user will see switch network prompt
+        return
+      }
+    }
+
+    let id = new Date().getTime()
+    try {
+      status.value = { msg: 'confirm transaction in your wallet...' }
+
+      // confirm -> create tx...
+      const tx = await store.dispatch('mint', {})
+      
+      // store tx
+      txs.value.push({ id, tx, status: 'pending', msg: 'waiting for tx confirmation...' })
+      // clear status for new tx
+      status.value = undefined
+
+      // wait for confirmation...
+      const receipt = await tx.wait()
+
+      console.log('minted!', receipt)
+
+      // success
+      const theTx = txs.value.find(tx => tx.id === id)
+      theTx.status = 'success'
+      theTx.msg = 'MINTED 1 CABLE!'
+
+      // update count
+      store.dispatch('getMintCount', {})
+    } catch (e) {
+      console.error(e)
+
+      // error msg
+      let msg = (e.reason || e.message || e)
+      msg = msg === 'execution reverted: PAUSED' ? 'MINTING NOT OPEN YET' : msg
+      msg = msg.toLowerCase().includes('insufficient funds') ? 'Insufficient ETH in your wallet :(' : msg
+      // detail?
+      msg += e.data?.message ? '<br>' + e.data.message : ''
+      
+      // show error to user
+      const theTx = txs.value.find(tx => tx.id === id)
+      if (theTx) {
+        theTx.status = 'error'
+        theTx.msg = msg
+      } else {
+        status.value = { type: 'error', msg }
+      }
+    }
+  }
 
   const switchError = ref(false)
   async function switchNetwork () {
@@ -81,6 +152,11 @@
       }
       switchError.value = `oops! did you cancel switching?`
     }
+  }
+
+  function removeTxItem ({ id }) {
+    const index = txs.value.findIndex(tx => tx.id === id)
+    txs.value.splice(index, 1)
   }
 
   onMounted(async () => {

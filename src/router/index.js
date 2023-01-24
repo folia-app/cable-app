@@ -108,29 +108,29 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior (to, from, savedPosition) {
-    if (to.hash) {
-      return {
-        el: to.hash,
-        behavior: 'smooth'
-      }
-    } else if (savedPosition) {
-      if (to.name === 'mints' && savedPosition) {
-        // wait for page transition
-        return new Promise((resolve, reject) => {
-          setTimeout(() => resolve(savedPosition), 800)
-        })
-      }
-      return savedPosition
-    } else {
-      // don't scroll to top on user tab changes...
-      const isSameAddress = to.params.address && to.params.address === from.params.address
-      const isSameNetwork = to.query.network && to.query.network === from.query.network
-      if (isSameAddress || isSameNetwork) {
-        return
-      }
-      // scroll to top
-      return { top: 0 }
-    }
+    // if (to.hash) {
+    //   return {
+    //     el: to.hash,
+    //     behavior: 'smooth'
+    //   }
+    // } else if (savedPosition) {
+    //   if (to.name === 'mints' && savedPosition) {
+    //     // wait for page transition
+    //     return new Promise((resolve, reject) => {
+    //       setTimeout(() => resolve(savedPosition), 800)
+    //     })
+    //   }
+    //   return savedPosition
+    // } else {
+    //   // don't scroll to top on user tab changes...
+    //   const isSameAddress = to.params.address && to.params.address === from.params.address
+    //   const isSameNetwork = to.query.network && to.query.network === from.query.network
+    //   if (isSameAddress || isSameNetwork) {
+    //     return
+    //   }
+    //   // scroll to top
+    //   return { top: 0 }
+    // }
   }
 })
 

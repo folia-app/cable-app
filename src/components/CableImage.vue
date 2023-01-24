@@ -44,9 +44,11 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      // refresh observer because toggling newest/oldest sort causes it to freeze out on false :(
-      this.isObserving = false
-      this.waitToObserve = setTimeout(() => { this.isObserving = true }, 100)
+      if (to.query.sort !== from.query.sort) {
+        // refresh observer because toggling newest/oldest sort causes it to freeze out on false :(
+        this.isObserving = false
+        this.waitToObserve = setTimeout(() => { this.isObserving = true }, 100)
+      }
     }
   }
 }

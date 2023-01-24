@@ -109,7 +109,7 @@ export default createStore({
     },
     etherscanLink: (state, getters) => ({ hash, networkName, address }) => {
       const network = getters.network({ networkName })
-      const contractAddr = getters.contractAddr({ networkName })
+      const contractAddr = getters.contractAddr()
       let path = network?.explorer.domain
       path += hash ? `/tx/${hash}`
         : `/address/${address ?? contractAddr}`

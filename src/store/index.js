@@ -572,8 +572,12 @@ export default createStore({
 
     async getMintPrice ({ state, commit, dispatch }, { network }) {
       try {
+        if (state.mintPrice) {
+          return state.mintPrice
+        }
         const contract = await dispatch('getControllerContract', { network })
         const price = await contract.price()
+        commit('SET_MINT_PRICE', price)
         return price
       } catch (e) {
         console.error(e)

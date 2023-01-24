@@ -1,16 +1,13 @@
 <template lang="pug">
-observer.cable-image.relative.group(:threshold="0.01", @visible="onVisible", @hidden="visible = false")
+//- (placeholder)
+template(v-if="!imgSrc")
+  .absolute.overlay.flex.items-center.justify-center.animate-pulse.text-3xs.animate-pulse loading...
 
-  //- (placeholder)
-  template(v-if="!imgSrc")
-    .w-full
-      .aspect-square
-        .absolute.overlay.flex.items-center.justify-center.animate-pulse.text-2xs
-          .py-1.pl-3.pr-2 loading...
-
-  template(v-else)
-    img.block.w-full(v-if="visible", :src="imgSrc")
-
+transition(name="quickfade")
+  template(v-if="imgSrc && visible")
+    img.absolute.overlay.object-contain.object-center(:src="imgSrc")
+  
+observer.block.absolute.overlay.pointer-events-none(v-if="isObserving", :threshold="0.01", @visible="onVisible", @hidden="visible = false", style="height:50%")
 </template>
 
 <script>
@@ -23,6 +20,8 @@ export default {
     return {
       visible: false,
       imgSrc: undefined,
+      isObserving: true,
+      waitToObserve: undefined
     }
   },
   methods: {
@@ -38,6 +37,13 @@ export default {
       const network = undefined // this.network
       this.$store.dispatch('getCableImage', { id: this.id.toString(), network })
         .then(imgSrc => this.imgSrc = imgSrc)
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      // refresh observer because toggling newest/oldest sort causes it to freeze out on false :(
+      this.isObserving = false
+      this.waitToObserve = setTimeout(() => { this.isObserving = true }, 100)
     }
   }
 }

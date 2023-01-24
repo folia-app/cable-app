@@ -1,7 +1,7 @@
 <template>
   <li class="relative group mb-32 -mr-px">
     <figure class="relative aspect-square cursor-pointer" @click="openFullscreen" aria-label="view fullscreen">
-      <CableImage :id="props.id"></CableImage>
+      <CableImage :id="props.id" :key="props.id"></CableImage>
     </figure>
     
     <div class="border-t border-gray-200 pb-1" style="padding-left:5.9%; padding-top:6.1%;">

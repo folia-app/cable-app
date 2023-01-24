@@ -1,9 +1,7 @@
 <template>
   <section class="relative z-20 min-h-screen bg-white text-black">
-    <header class="sticky h-20 mb-36 z-10 w-full top-0 left-0 flex justify-between items-center h-24">
+    <header class="sticky h-20 mb-32 z-10 w-full top-0 left-0 flex justify-between items-center">
       <div class="pl-10">
-        <!-- <h2 v-if="mintCount" class="text-smm font-bold">{{ mintCount ?? '...' }}/545</h2> -->
-        <!-- <h2 class="text-smm font-bold">cables</h2> -->
         <template v-if="mintCount === undefined">
           <div class="btn border pl-7 pr-6 animate-pulse">loading...</div>
         </template>
@@ -13,20 +11,21 @@
       </div>
 
       <div class="flex items-center">
-
+        <!-- close link -->
         <router-link class="ml-3 p-1 rounded mr-4 mouse_hover_bg-black mouse_hover_text-white" to="/">
           <span class="sr-only">Close</span>
           <SVGX class="w-6 h-6" strokeWidth="1.15" />
         </router-link>
       </div>
-      
     </header>
     
     
     <transition name="fade">
       <ul v-if="mintCount !== undefined" class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 xl_grid-cols-5 text-smm">
-        <template v-for="id in mintIdsSorted" :key="id">
-          <CableThumb :id="id"></CableThumb>
+        <template v-for="n in 1">
+          <template v-for="id in mintIdsSorted" :key="id">
+            <CableThumb :id="id"></CableThumb>
+          </template>
         </template>
       </ul>  
     </transition>

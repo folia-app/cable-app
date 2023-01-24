@@ -114,6 +114,12 @@ const router = createRouter({
         behavior: 'smooth'
       }
     } else if (savedPosition) {
+      if (to.name === 'mints' && savedPosition) {
+        // wait for page transition
+        return new Promise((resolve, reject) => {
+          setTimeout(() => resolve(savedPosition), 800)
+        })
+      }
       return savedPosition
     } else {
       // don't scroll to top on user tab changes...

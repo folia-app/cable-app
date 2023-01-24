@@ -20,17 +20,17 @@
     </header>
     
     
+    <!-- list -->
     <transition name="fade">
-      <ul v-if="mintCount !== undefined" class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 xl_grid-cols-5 text-smm">
-        <template v-for="n in 1">
+      <ul v-if="mintCount !== undefined" class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 xl_grid-cols-5 text-smm transition duration-500" :class="{'opacity-0': isPageTransition}">
+        <template v-for="n in 60">
           <template v-for="id in mintIdsSorted" :key="id">
+            <!-- items... -->
             <CableThumb :id="id"></CableThumb>
           </template>
         </template>
       </ul>  
     </transition>
-
-    
 
     <!-- dimmer -->
     <div class="absolute overlay z-20 pointer-events-none" style="background:rgb(244 244 244); mix-blend-mode: multiply;"></div>
@@ -45,6 +45,7 @@ import store from '../store';
 import SortDropdown from '@/components/SortDropdown.vue'
 import { useRoute } from 'vue-router'
 
+const props = defineProps(['isPageTransition'])
 const route = useRoute()
 
 const mintCount = ref()

@@ -20,7 +20,7 @@ export default {
     return {
       visible: false,
       imgSrc: undefined,
-      isObserving: true,
+      isObserving: false,
       waitToObserve: undefined
     }
   },
@@ -38,6 +38,9 @@ export default {
       this.$store.dispatch('getCableImage', { id: this.id.toString(), network })
         .then(imgSrc => this.imgSrc = imgSrc)
     }
+  },
+  mounted () {
+    setTimeout(() => { this.isObserving = true }, 100)
   },
   watch: {
     '$route' (to, from) {

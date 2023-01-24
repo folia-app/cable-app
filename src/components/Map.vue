@@ -110,6 +110,7 @@
       if (highlight === feature) return
       featureOverlay.getSource().removeFeature(highlight);
       featureOverlay.getSource().addFeature(feature);
+      
       highlight = feature
       highlightId.value = feature.id_
       if (pin) {
@@ -163,17 +164,25 @@
     const route = useRoute()
     const router = useRouter()
     
-    watch(() => route.query.id, highlightFeatureByID)
+    watch(() => route.query.id, highlightAndZoomToFeatureByID)
 
-    function highlightFeatureByID (id) {
+    function highlightAndZoomToFeatureByID (id) {
       if (!id || isNaN(id)) {
         clearHighlight()
         return
       }
       const source = vectorLayer1.getSource()
       const ft = source.getFeatureById(id)
-      console.log(source, ft, typeof id)
-      return ft && highlightFeature(ft, { pin: true })
+      // console.log(source, ft, typeof id)
+      
+      if (ft) {
+        highlightFeature(ft, { pin: true })
+        
+        // zoom to feature
+        const extent = ft.getGeometry().getExtent()
+        map.getView().fit(extent, map.getSize())
+        map.getView().setZoom(map.getView().getZoom()-1.5)
+      }
     }
 
     // loaded with id?

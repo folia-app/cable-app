@@ -54,7 +54,7 @@ metainfo
 
               //- (dropdown)
               //- TODO - catch if they need to connect (don't close on v-click-outside)
-              .relative(v-if="mintMenuVisible", v-click-outside="() => { mintMenuVisible = false }")
+              .relative(v-if="mintMenuVisible", v-click-outside="onMintDropdownClickOutside")
                 .absolute.top-0.left-0.sm_left-auto.sm_right-0.pt-1.sm_pt-2.w-full.sm_w-84
                   mint-panel
 
@@ -251,6 +251,14 @@ export default {
       } catch (e) {
         alert("error disconnecting wallet")
       }
+    },
+
+    onMintDropdownClickOutside (e) {
+      // ignore web3modal clicks (connect on mint)
+      if (e.path.find(el => el.className?.includes('web3modal'))) {
+        return
+      }
+      this.mintMenuVisible = false
     }
   },
   created () {

@@ -1,7 +1,8 @@
 <template lang="pug">
 metainfo
   template(v-slot:title="{ content }")
-    | {{ content ? `${content} :: s̷̰̃t̴̫̊r̶͔̽ả̷̜y̴̼͂l̸̙͛į̸͆g̴̘̎h̷̜̀ṭ̸͂ ̸̰̊p̵̞̅ȑ̴̙ơ̸͍t̶̗̑o̶͂͜ć̵͍ȏ̸͕l̷̗͗` : `s̷̰̃t̴̫̊r̶͔̽ả̷̜y̴̼͂l̸̙͛į̸͆g̴̘̎h̷̜̀ṭ̸͂ ̸̰̊p̵̞̅ȑ̴̙ơ̸͍t̶̗̑o̶͂͜ć̵͍ȏ̸͕l̷̗͗` }}
+    //- | {{ content ? `${content} — CABLE` : `CABLE by Joan Heemskerk` }}
+    | {{ content }}
 
 #app.text-base
   .min-h-screen.flex.flex-col

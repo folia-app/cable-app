@@ -6,18 +6,18 @@
 
 <script>
 import CableOverlay from '@/components/CableOverlay.vue'
+import geoJSON from '@/assets/cable-geo.json'
 let lastRt
 export default {
   components: { CableOverlay },
-  // metaInfo () {
-  //   // const title = `${this.$route.params.networkName?.toUpperCase()}_world_${this.boardId}`
-  //   // const descrip = null
-  //   // const img = `https://straylight.folia.app/.netlify/functions/boardimg/${this.$store.getters.chainId(this.$route.params)}/${this.boardId}.png`
+  metaInfo () {
+    const title = geoJSON.features.find(f => f.id === this.$route.params?.tokenId?.toString())?.properties.name
+    const img = `https://res.cloudinary.com/folia/image/fetch/w_1200/f_gif/${window.location.origin}/.netlify/functions/tokenimg/${this.$route.params.tokenId}`
     
-  //   // setTimeout(() => { window.prerenderReady = true }, 200)
+    setTimeout(() => { window.prerenderReady = true }, 200)
 
-  //   // return this.$store.getters.meta({ title, descrip, img })
-  // },
+    return this.$store.getters.meta({ title, img })
+  },
   methods: {
     goBack () {
       if (lastRt?.name) {

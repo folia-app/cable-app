@@ -131,10 +131,10 @@ export default createStore({
     meta: state => ({ title, descrip, img, video }) => {
       const meta = []
       // defaults
-      const siteTitle = 'cable'
-      const siteDescrip = 'an on-chain NFT edition by by joan heemskerk (JODI) ~ presented by folia 𐡸'
-      const siteImg = undefined
-      const siteVideo = undefined
+      const siteTitle = 'CABLE by Joan Heemskerk'
+      const siteDescrip = 'The world’s Submarine Cable System, expressed as an NFT collection of 545, on-chain, .SVG-animations by artist Joan Heemskerk (JODI) ~ presented by folia 𐡸'
+      const siteImg = '/cable-promo.png'
+      const siteVideo = '/cable-anim-web.mp4'
       
       // meta description is logo-title if custom page title
       const description = descrip ? descrip : !descrip && title ? undefined : siteDescrip

@@ -61,7 +61,8 @@ module.exports = {
       80: '20rem',
       84: '21rem',
       96: '24rem',
-      'lh-snug': '1.375em'
+      'lh-snug': '1.375em',
+      '10em': '10em',
     },
     fontSize: {
       'smaller': '0.75em',
@@ -105,6 +106,7 @@ module.exports = {
       current: 'currentColor',
 
       white: 'white',
+      paper: 'rgb(241,241,241)',
       black: '#000',
       'black-a03': 'rgba(0,0,0,0.03)',
       'black-a08': 'rgba(0,0,0,0.08)',

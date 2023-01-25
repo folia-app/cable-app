@@ -61,7 +61,8 @@ module.exports = {
       80: '20rem',
       84: '21rem',
       96: '24rem',
-      'lh-snug': '1.375em'
+      'lh-snug': '1.375em',
+      '10em': '10em',
     },
     fontSize: {
       'smaller': '0.75em',

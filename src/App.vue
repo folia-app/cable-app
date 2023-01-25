@@ -56,7 +56,7 @@ metainfo
               //- (dropdown)
               //- TODO - catch if they need to connect (don't close on v-click-outside)
               .relative(v-show="mintMenuVisible")
-                .absolute.top-0.left-0.sm_left-auto.sm_right-0.pt-1.sm_pt-2.w-full.sm_w-84
+                .absolute.top-0.left-0.sm_left-auto.sm_right-0.pt-1.sm_pt-2.w-full.sm_w-84(style="min-width:13em")
                   mint-panel
 
             //- (connect btn)

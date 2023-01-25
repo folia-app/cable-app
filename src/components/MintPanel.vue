@@ -7,7 +7,7 @@
       | #[template(v-if="$store.state.mintCount !== undefined") {{$store.state.mintCount}}]<span v-else class="animate-pulse">...</span>/545
   .flex.justify-between.text-smm
     div price
-    div #[template(v-if="mintPriceETH !== undefined") {{ mintPriceETH.toString().substr(0, 10) }}&hellip;]#[span(v-else).animate-pulse ...] ETH
+    div #[template(v-if="mintPriceETH !== undefined") {{ mintPriceETH.toString().substr(0, 9) }}&hellip;]#[span(v-else).animate-pulse ...] ETH
   
   //- mint btn
   .mt-1.mb-2

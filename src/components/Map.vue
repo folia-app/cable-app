@@ -1,6 +1,6 @@
 <template>
   <div id="map-container" :style="{background: bgColor}"></div>
-  <MapCableInfo :id="highlightId"></MapCableInfo>
+  <MapCableInfo v-if="highlightId" :id="highlightId" :key="highlightId"></MapCableInfo>
 </template>
 
 <script setup>
@@ -25,10 +25,10 @@
   const highlightId = ref()
 
   // get owners
-  store.dispatch('getMintCount', {}).then((count) => {
-    const tokenIds = new Array(count).fill(0).map((v, i) => i + 1)
-    tokenIds.forEach(id => store.dispatch('getNFTOwnerByTokenId', { tokenId: id }))
-  })
+  // store.dispatch('getMintCount', {}).then((count) => {
+  //   const tokenIds = new Array(count).fill(0).map((v, i) => i + 1)
+  //   tokenIds.forEach(id => store.dispatch('getNFTOwnerByTokenId', { tokenId: id }))
+  // })
   
   onMounted(() => {
     const labelStyle = new Style({
@@ -94,8 +94,8 @@
       map: map,
       style: function (feature) {
         const tokenId = feature.id_
-        const owner = store.state.owners[tokenId]
-        const color = owner ? mintColor : hoverColor // '#2222ff' // feature.get('color')
+        // const owner = store.state.owners[tokenId]
+        const color = mintColor // owner ? mintColor : hoverColor // '#2222ff' // feature.get('color')
         highlightStyle[1].getStroke().setColor(color);
         // highlightStyle[1].getStroke().setWidth(3);
         return highlightStyle2;

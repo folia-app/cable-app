@@ -4,7 +4,10 @@
     div
       | minted
     div
-      | #[template(v-if="$store.state.mintCount !== undefined") {{$store.state.mintCount}}]<span v-else class="animate-pulse">...</span>/545
+      //- | #[template(v-if="$store.state.mintCount !== undefined") {{$store.state.mintCount}}]<span v-else class="animate-pulse">...</span>/545
+      | 545/545
+  
+  //- (price)
   .flex.justify-between.text-smm
     div price
     div #[template(v-if="mintPriceETH !== undefined") {{ mintPriceETH.toString().substr(0, 9) }}&hellip;]#[span(v-else).animate-pulse ...] ETH
@@ -76,7 +79,7 @@
   const isConnectedToWrongNetwork = computed(() => store.state.address && store.state.givenNetworkId !== store.state.appDefaultNetworkId)
   const appNetworkName = networks[store.state.appDefaultNetworkId].name
 
-  const isSoldOut = computed(() => store.state.mintCount >= 545)
+  const isSoldOut = true // computed(() => store.state.mintCount >= 545)
   
   const status = ref()
   const txs = ref([])

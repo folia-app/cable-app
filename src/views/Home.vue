@@ -22,7 +22,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router';
-import CableOverlay from '../components/CableOverlay.vue';
+
 import Map from '../components/Map.vue'
 import Mints from './Mints.vue'
 import ContractListener from '@/components/ContractListener.vue'
@@ -40,6 +40,14 @@ watch(() => route.name, name => {
 })
 
 const scrollbody = ref()
+</script>
+
+<script>
+export default {
+  metaInfo () {
+    return this.$store.getters.meta({})
+  }
+}
 </script>
 
 <style>

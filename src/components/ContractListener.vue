@@ -69,7 +69,7 @@ div
     try {
       contract.on('EthMoved', (tokenId, rule, boardId) => {
         const data = {tokenId: tokenId.toString(), rule, boardId: boardId.toString() }
-        onEvent({ type: 'mint', msg: 'new turmite!', data })
+        onEvent({ type: 'mint', msg: 'new mint!', data })
       })
 
       console.log('listening for mints...')

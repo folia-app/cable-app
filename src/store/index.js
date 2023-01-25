@@ -131,10 +131,10 @@ export default createStore({
     meta: state => ({ title, descrip, img, video }) => {
       const meta = []
       // defaults
-      const siteTitle = 'cable'
-      const siteDescrip = 'an on-chain NFT edition by by joan heemskerk (JODI) ~ presented by folia 𐡸'
-      const siteImg = undefined
-      const siteVideo = undefined
+      const siteTitle = 'CABLE by Joan Heemskerk'
+      const siteDescrip = 'The world’s Submarine Cable System, expressed as an NFT collection of 545, on-chain, .SVG-animations by artist Joan Heemskerk (JODI) ~ presented by folia 𐡸'
+      const siteImg = '/cable-promo.png'
+      const siteVideo = '/cable-anim-web.mp4'
       
       // meta description is logo-title if custom page title
       const description = descrip ? descrip : !descrip && title ? undefined : siteDescrip
@@ -162,7 +162,7 @@ export default createStore({
           title,
           // description,
           card: 'summary_large_image',
-          domain: 'straylight.folia.app'
+          domain: 'cable.folia.app'
         }
       }
       if (description) {
@@ -176,6 +176,9 @@ export default createStore({
       }
       
       return data
+    },
+    metaImage: state => tokenId => {
+      return `https://res.cloudinary.com/folia/image/fetch/w_1200/f_gif/${window.location.origin}/.netlify/functions/tokenimg/${tokenId}`
     },
     docsLink: state => (path) => {
       return `${import.meta.env.VITE_APP_DOCS_ORIGIN}/straylightdocs${path ?? ''}`
@@ -572,8 +575,12 @@ export default createStore({
 
     async getMintPrice ({ state, commit, dispatch }, { network }) {
       try {
+        if (state.mintPrice) {
+          return state.mintPrice
+        }
         const contract = await dispatch('getControllerContract', { network })
         const price = await contract.price()
+        commit('SET_MINT_PRICE', price)
         return price
       } catch (e) {
         console.error(e)

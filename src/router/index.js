@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
-import HomeIndex from '@/views/HomeIndex.vue'
-import Mints from '@/views/Mints.vue'
+import EmptyView from '@/views/HomeIndex.vue'
+import Token from '@/views/Token.vue'
 
 const routes = [
   {
@@ -11,12 +11,17 @@ const routes = [
       {
         path: '',
         name: 'home',
-        component: HomeIndex
+        component: EmptyView
       },
       {
         path: '/cables',
         name: 'mints',
-        component: Mints
+        component: EmptyView
+      },
+      {
+        path: '/tokens/:tokenId',
+        name: 'token',
+        component: Token
       }
     ]
   },

@@ -1,20 +1,21 @@
 <template>
-  <div v-if="cable" class="fixed z-10 bottom-0 left-0 p-4 lg_p-8 flex items-end">
+  <div v-if="cable" class="fixed z-10 bottom-0 left-0 p-4 md_p-8 flex items-end" style="max-width:calc(100% - 40px)">
     <!-- (image) -->
-    <figure v-if="owner" class="relative bg-white aspect-square cursor-pointer group mr-6 lg_mr-8" style="width:10em" @click="$store.commit('OPEN_FULLSCREEN', props.id)" aria-label="view fullscreen">
+    <router-link v-if="owner" :to="{name: 'token', params:{ tokenId: props.id}}" class="relative bg-white aspect-square cursor-pointer group mr-4 lg_mr-8 w-44 md_w-10em flex-shrink-0" @click="$store.commit('OPEN_FULLSCREEN', props.id)" aria-label="view fullscreen">
       <CableImage :id="props.id" :key="props.id" />
       <div class="absolute bottom-0 right-0 p-2 mouse_hidden mouse_group-hover_block text-black">
         <SvgExpand />
       </div>
-    </figure>
+    </router-link>
+    
     <!-- info -->
-    <div>
-      <div class="align-baseline leading-tight">
+    <div class="text-sm md_text-lg xl_text-xl">
+      <div class=" align-baseline leading-tight">
         <h6 class="inline-block" style="margin-right:0.75em">{{ cable.name }}</h6>
-        <div class="inline-block text-xs uppercase text-gray-400ff">{{ cable.length.split(' ')[0] }} <span class="text-smaller">KM</span></div>
+        <div class="inline-block text-smaller uppercase text-gray-400ff">{{ cable.length.split(' ')[0] }} <span class="text-smaller">KM</span></div>
       </div>
-      <div class="text-xs">
-        <template v-if="owner"><span class="text-3xs">owned by</span> <a :href="$store.getters.marketplaceLink({ account: owner })" class="ml-1 underline font-bold" target="_blank" rel="noopener noreferrer"><Addr :address="owner" :short="true" /></a></template>
+      <div class="text-smaller">
+        <template v-if="owner"><span class="text-smaller">owned by</span> <a :href="$store.getters.marketplaceLink({ account: owner })" class="ml-1 underline font-bold" target="_blank" rel="noopener noreferrer"><Addr :address="owner" :short="true" /></a></template>
       </div>
     </div>
   </div>

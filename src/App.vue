@@ -1,7 +1,8 @@
 <template lang="pug">
 metainfo
   template(v-slot:title="{ content }")
-    | {{ content ? `${content} :: s̷̰̃t̴̫̊r̶͔̽ả̷̜y̴̼͂l̸̙͛į̸͆g̴̘̎h̷̜̀ṭ̸͂ ̸̰̊p̵̞̅ȑ̴̙ơ̸͍t̶̗̑o̶͂͜ć̵͍ȏ̸͕l̷̗͗` : `s̷̰̃t̴̫̊r̶͔̽ả̷̜y̴̼͂l̸̙͛į̸͆g̴̘̎h̷̜̀ṭ̸͂ ̸̰̊p̵̞̅ȑ̴̙ơ̸͍t̶̗̑o̶͂͜ć̵͍ȏ̸͕l̷̗͗` }}
+    //- | {{ content ? `${content} — CABLE` : `CABLE by Joan Heemskerk` }}
+    | {{ content }}
 
 #app.text-base
   .min-h-screen.flex.flex-col
@@ -48,14 +49,14 @@ metainfo
 
             //- (mint dropdown)
             div.flex-1.md_w-auto
-              button.btn.btn-green.w-full.bg-accent4.md_pl-12.md_pr-7.active_opacity-40(@click="mintMenuVisible = true", :class="{'opacity-40 pointer-events-none': mintMenuVisible}")
+              button.btn.btn-green.w-full.bg-accent4.md_pl-12.md_pr-7.active_opacity-40(@click="mintMenuVisible = !mintMenuVisible", :class="{'opacity-40': mintMenuVisible}")
                 div.ml-7.md_ml-0 mint
                 svg-chevron-down.w-6.h-6.mx-2.mb-1(strokeWidth="1")
 
               //- (dropdown)
               //- TODO - catch if they need to connect (don't close on v-click-outside)
-              .relative(v-if="mintMenuVisible", v-click-outside="onMintDropdownClickOutside")
-                .absolute.top-0.left-0.sm_left-auto.sm_right-0.pt-1.sm_pt-2.w-full.sm_w-84
+              .relative(v-show="mintMenuVisible")
+                .absolute.top-0.left-0.sm_left-auto.sm_right-0.pt-1.sm_pt-2.w-full.sm_w-84(style="min-width:13em")
                   mint-panel
 
             //- (connect btn)
@@ -73,7 +74,7 @@ metainfo
 
                 .relative(v-if="userMenuVisible", v-click-outside="() => { userMenuVisible = false }")
                   .absolute.top-0.right-0.pt-2
-                    ul.bg-yellow-500.rounded
+                    ul.bg-yellow-500.rounded.overflow-hidden
                       //- li
                         .btn-yellow.block.px-4.py-2.-mb-2(:to="myProfileRt") my cables
                       li
@@ -143,7 +144,7 @@ metainfo
         button.block.absolute.overlay.bg-black-a60ff.transition.duration-1000(:class="{'opacity-0 pointer-events-none': !infoVisible}", @click.stop="infoVisible = false", aria-label="Close Info")
 
     //- main
-    main.app_main.flex-1
+    main.app_main.flex-1(@click="closeMenus")
       router-view(v-slot="{ Component }")
         component(:is="Component")
 
@@ -224,6 +225,7 @@ export default {
     // },
     // info overlay
     async openInfoOverlay () {
+      this.closeMenus()
       this.infoVisible = true
       await this.$nextTick()
       this.$refs.infoEl.scrollTo(0, 0)
@@ -232,6 +234,10 @@ export default {
       this.infoVisible = false
     },
     // end info overlay
+
+    closeMenus () {
+      this.mintMenuVisible = false
+    },
 
     async connectWallet () {
       try {

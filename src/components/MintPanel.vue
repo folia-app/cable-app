@@ -13,50 +13,53 @@
     div #[template(v-if="mintPriceETH !== undefined") {{ mintPriceETH.toString().substr(0, 9) }}&hellip;]#[span(v-else).animate-pulse ...] ETH
   
   //- mint btn
-  .mt-1.mb-2
-    button.btn.btn-green.w-full.border(@click="mint", :disabled="isSoldOut || isConnectedToWrongNetwork") {{ isSoldOut ? 'SOLD OUT' : 'mint' }}
+  .mt-1
+    template(v-if="!isSoldOut")
+      button.btn.btn-green.w-full.border(@click="mint", :disabled="isSoldOut || isConnectedToWrongNetwork") {{ isSoldOut ? 'SOLD OUT' : 'mint' }}
+    template(v-else)
+      a.btn.btn-green.w-full.border(:href="$store.getters.marketplaceLink({ path: '/collection/cable-' })", target="_blank", rel="noopener noreferrer") BUY ON OPENSEA ↗
   
-  //- (status)
-  .p-2.pb-2.text-center.rounded.relative(v-if="status", :class="{'bg-black text-legend-orange pb-4': status.type === 'error'}")
-    h6.mt-2.mb-2.text-xs.font-bold.uppercase(v-if="status.type")
-      | {{ status.type === 'error' ? 'MINT ERROR' : 'OOPS' }}
-    p.text-2xs(:class="{'animate-pulse': status.msg.includes('...')}") {{ status.msg }}
-    //- (kill item)
-    button.absolute.top-0.right-0.h-full.p-1.flex.items-start(v-if="status.type === 'error'", @click="status = undefined")
-      svg-x.text-current(style="width:13px;height:13px")
-  
-  //- (tx's list)
-  ul.mt-2
-    li.p-2.pb-2.text-center.rounded.border.-mt-px.relative(v-for="tx in txs", :class="{'bg-black text-legend-orange pb-4': tx.status === 'error'}")
-      h6.mt-2.mb-2.text-xs.font-bold.uppercase(v-if="tx.status === 'error'")
-        | MINT ERROR
-      p.text-2xs
-        //- (success link)
-        template(v-if="tx.status === 'success'")
-          router-link.underline(:to="{name: 'mints'}") MINTED 1 CABLE!
-        //- (msg)
-        span(v-else, :class="{'animate-pulse': tx.msg.includes('...') }") {{tx.msg}}
-      //- kill item btn
-      button.absolute.top-0.right-0.h-full.p-px.flex.items-start(v-if="tx.status !== 'pending'", @click="removeTxItem(tx)")
+  template(v-if="!isSoldOut")
+    //- (status)
+    .mt-2.p-2.pb-2.text-center.rounded.relative(v-if="status", :class="{'bg-black text-legend-orange pb-4': status.type === 'error'}")
+      h6.mt-2.mb-2.text-xs.font-bold.uppercase(v-if="status.type")
+        | {{ status.type === 'error' ? 'MINT ERROR' : 'OOPS' }}
+      p.text-2xs(:class="{'animate-pulse': status.msg.includes('...')}") {{ status.msg }}
+      //- (kill item)
+      button.absolute.top-0.right-0.h-full.p-1.flex.items-start(v-if="status.type === 'error'", @click="status = undefined")
         svg-x.text-current(style="width:13px;height:13px")
+    
+    //- (tx's list)
+    ul.mt-2
+      li.p-2.pb-2.text-center.rounded.border.-mt-px.relative(v-for="tx in txs", :class="{'bg-black text-legend-orange pb-4': tx.status === 'error'}")
+        h6.mt-2.mb-2.text-xs.font-bold.uppercase(v-if="tx.status === 'error'")
+          | MINT ERROR
+        p.text-2xs
+          //- (success link)
+          template(v-if="tx.status === 'success'")
+            router-link.underline(:to="{name: 'mints'}") MINTED 1 CABLE!
+          //- (msg)
+          span(v-else, :class="{'animate-pulse': tx.msg.includes('...') }") {{tx.msg}}
+        //- kill item btn
+        button.absolute.top-0.right-0.h-full.p-px.flex.items-start(v-if="tx.status !== 'pending'", @click="removeTxItem(tx)")
+          svg-x.text-current(style="width:13px;height:13px")
 
-  //- (switch network)
-  .my-1.bg-black.p-2.rounded.text-accent4.text-xs(v-if="isConnectedToWrongNetwork || switchError")
-    h6.mt-3.font-bold.text-center WRONG NETWORK
-    p.mt-3.text-2xs.px-1.text-center your connected wallet is not on <span class="uppercase font-bold">{{ appNetworkName }}</span> network
-    //- .my-2.text-center &darr;
-    button.mt-4.btn.w-full.border(@click="switchNetwork") switch network ꩜
-    //- switch error
-    p.mt-3.mb-1.text-2xs.px-1.text-center.text-legend-orange(v-if="switchError", v-html="switchError")
-  
-  
-  //- preview img
-  figure.relative.aspect-square.w-full.mt-2.rounded.bg-white
-    transition(name="quickfade")
-      div(v-if="previewImgSrc")
-        <img class="absolute overlay object-fit object-center opacity-30 animate-pulse" :src="previewImgSrc">
-    div.absolute.overlay.flex.items-center.justify-center.text-3xl.font-bold(:class="{'animate-pulse': !previewImgSrc}") ???
-  
+    //- (switch network)
+    .mt-2.mb-1.bg-black.p-2.rounded.text-accent4.text-xs(v-if="isConnectedToWrongNetwork || switchError")
+      h6.mt-3.font-bold.text-center WRONG NETWORK
+      p.mt-3.text-2xs.px-1.text-center your connected wallet is not on <span class="uppercase font-bold">{{ appNetworkName }}</span> network
+      //- .my-2.text-center &darr;
+      button.mt-4.btn.w-full.border(@click="switchNetwork") switch network ꩜
+      //- switch error
+      p.mt-3.mb-1.text-2xs.px-1.text-center.text-legend-orange(v-if="switchError", v-html="switchError")
+    
+    //- preview img
+    figure.mt-2.relative.aspect-square.w-full.mt-2.rounded.bg-white
+      transition(name="quickfade")
+        div(v-if="previewImgSrc")
+          <img class="absolute overlay object-fit object-center opacity-30 animate-pulse" :src="previewImgSrc">
+      div.absolute.overlay.flex.items-center.justify-center.text-3xl.font-bold(:class="{'animate-pulse': !previewImgSrc}") ???
+    
   //- (view mints link)
   .mt-2.text-3xs.text-center(v-if="$store.state.mintCount > 0")
     router-link.underline(:to="{name: 'mints'}") view mints
@@ -71,6 +74,7 @@
 
   const mintPriceETH = ref(undefined)
   
+  store.dispatch('getMintCount', {})
   store.dispatch('getMintPrice', {})
     .then(wei => { mintPriceETH.value = utils.formatEther(wei) })
   

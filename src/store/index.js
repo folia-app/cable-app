@@ -765,7 +765,7 @@ export default createStore({
         // fetch new...
         // if (!provider) await dispatch('init')
         // lookup on mainnet
-        const provider = walletProvider || new ethers.getDefaultProvider(networks[1].infura)
+        const provider = walletProvider || new ethers.providers.InfuraProvider(undefined, infuraProjectID)
         const ens = await provider.lookupAddress(address)
 
         // fetch from opensea...

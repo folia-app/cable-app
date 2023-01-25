@@ -162,7 +162,7 @@ export default createStore({
           title,
           // description,
           card: 'summary_large_image',
-          domain: 'straylight.folia.app'
+          domain: 'cable.folia.app'
         }
       }
       if (description) {

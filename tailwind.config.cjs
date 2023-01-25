@@ -105,6 +105,7 @@ module.exports = {
       current: 'currentColor',
 
       white: 'white',
+      paper: 'rgb(241,241,241)',
       black: '#000',
       'black-a03': 'rgba(0,0,0,0.03)',
       'black-a08': 'rgba(0,0,0,0.08)',

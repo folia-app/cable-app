@@ -1,12 +1,12 @@
 <template>
-  <section class="relative min-h-screen bg-white text-black">
+  <section class="relative min-h-screen text-black bg-paper">
     <header class="sticky h-20 mb-32 z-10 w-full top-0 left-0 flex justify-between items-center">
       <div class="pl-10">
         <template v-if="mintCount === undefined">
           <div class="btn border pl-7 pr-6 animate-pulse">loading...</div>
         </template>
         <template v-else-if="mintCount > 1">
-          <button class="btn rounded btn-white text-smm border pl-7" @click.prevent="toggleSort" style="align-items:stretch">
+          <button class="btn rounded btn-paper text-smm border pl-7" @click.prevent="toggleSort" style="align-items:stretch">
             <div class=" whitespace-nowrap pointer-events-none" style="width: 3.8em">
               {{ isSortNewest ? 'newest' : 'oldest' }}
             </div> 
@@ -40,7 +40,7 @@
     </transition>
 
     <!-- dimmer -->
-    <div class="absolute overlay z-20 pointer-events-none" style="background:rgb(244 244 244); mix-blend-mode: multiply;"></div>
+    <!-- <div class="absolute overlay z-20 pointer-events-none" style="background:rgb(244 244 244); mix-blend-mode: multiply;"></div> -->
   </section>
 </template>
 

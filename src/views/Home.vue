@@ -2,7 +2,7 @@
 <Map></Map>
 
 <!-- mints overlay via /cables route -->
-<div ref="scrollbody" :class="['fixed z-20 overlay bg-white overflow-scroll transition-transform duration-800 flex', {'translate-y-full': !isMintsView}]">
+<div ref="scrollbody" :class="['fixed z-20 overlay bg-paper overflow-scroll transition-transform duration-800 flex', {'translate-y-full': !isMintsView}]">
   <div :class="['w-full transition duration-800', {'opacity-0': !isMintsView }]">
     <Mints v-if="renderMints" @sortChange="scrollbody.scrollTo(0,0)"></Mints>
   </div>

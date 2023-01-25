@@ -74,6 +74,9 @@ input::selection {
 .btn-white{
   @apply bg-white mouse_hover_bg-black mouse_hover_text-white;
 }
+.btn-paper {
+  @apply bg-paper mouse_hover_bg-black mouse_hover_text-paper;
+}
 
 .btn-theme-darken{
   &:hover, &:focus{ @apply bg-black-a03 }

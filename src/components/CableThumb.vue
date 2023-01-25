@@ -1,5 +1,5 @@
 <template>
-  <li class="relative group mb-32 -mr-px">
+  <li class="cable-thumb relative group mb-32">
     <figure class="relative aspect-square cursor-pointer" @click="openFullscreen" aria-label="view fullscreen">
       <CableImage :id="props.id" :key="props.id"></CableImage>
     </figure>
@@ -8,7 +8,7 @@
       <!-- buttons -->
       <div class="flex text-3xs pt-1 -ml-1">
           <!-- locate on map -->
-          <router-link :to="{name: 'home', query: { id: props.id }}" class="block p-2 rounded btn-white" title="highlight on the map">
+          <router-link :to="{name: 'home', query: { id: props.id }}" class="block p-2 rounded btn-paper" title="highlight on the map">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
               <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" />
             </svg>
@@ -22,11 +22,11 @@
             </svg> -->
           </router-link>
           <!-- expand fullscreen -->
-          <button class="p-2 rounded btn-white" @click="openFullscreen" title="view fullscreen">
+          <button class="p-2 rounded btn-paper" @click="openFullscreen" title="view fullscreen">
             <SvgExpand />
           </button>
           <!-- os link -->
-          <a class="px-2 flex items-center rounded text-smaller group py-2 btn-white leading-none" :href="$store.getters.marketplaceLink({ token: props.id })" target="_blank" rel="noopener noreferrer"><span class="">opensea</span></a>
+          <a class="px-2 flex items-center rounded text-smaller group py-2 btn-paper leading-none" :href="$store.getters.marketplaceLink({ token: props.id })" target="_blank" rel="noopener noreferrer"><span class="">opensea</span></a>
         </div>
       
         <ul class="text-2xs pl-2 pr-12 leading-normal align-baseline" style="margin-top:5.9%">
@@ -76,5 +76,9 @@ const openFullscreen = () => store.commit('OPEN_FULLSCREEN', props.id)
   figure:hover + div > div:first-child > button{
     @apply bg-black text-white;
   }
+}
+
+.cable-thumb figure img{
+  mix-blend-mode: multiply;
 }
 </style>

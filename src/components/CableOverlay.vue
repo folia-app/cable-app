@@ -1,7 +1,7 @@
 <template>
-  <div ref="overlayEl" class="w-full overflow-y-scroll" tabindex="0">
-    <!-- <CableImage :id="$props.id"></CableImage> -->
-    <img :src="svg" :class="{'absolute overlay object-contain object-center': isFit, 'w-full block': !isFit}" />
+  <div ref="overlayEl" class="w-full overflow-y-scroll text-black" tabindex="0">
+    <CableImage :id="$props.id"></CableImage>
+    <!-- <img :src="svg" :class="{'absolute overlay object-contain object-center': isFit, 'w-full block': !isFit}" /> -->
 
     <div class="fixed h-24 z-10 w-full top-0 left-0 flex justify-end items-center text-black">
       <div class="flex items-center">
@@ -22,7 +22,7 @@
 <script setup>
   import { ref, onMounted, onUnmounted } from 'vue'
   import SVGX from '../components/SVG-X.vue';
-  // import CableImage from '../components/CableImage.vue';
+  import CableImage from '../components/CableImage.vue';
   import store from '../store';
   import CopyUrlButton from './CopyUrlButton.vue';
   
@@ -44,8 +44,8 @@
   //   }
   // }
 
-  store.dispatch('getCableImage', { id: props.id })
-    .then(code => { svg.value = code })
+  // store.dispatch('getCableImage', { id: props.id })
+  //   .then(code => { svg.value = code })
 
   onMounted(() => {
     lastActiveEl = document.activeElement

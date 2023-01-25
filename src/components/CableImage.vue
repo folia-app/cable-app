@@ -1,11 +1,11 @@
 <template lang="pug">
 //- (placeholder)
-template(v-if="!imgSrc")
+template(v-if="!imgLoaded")
   .absolute.overlay.flex.items-center.justify-center.animate-pulse.text-3xs.animate-pulse loading...
 
 transition(name="quickfade")
   template(v-if="imgSrc && visible")
-    img.absolute.overlay.object-contain.object-center(:src="imgSrc")
+    img.absolute.overlay.object-contain.object-center(:src="imgSrc", @load="imgLoaded = true")
   
 observer.block.absolute.overlay.pointer-events-none(v-if="isObserving", :threshold="0.01", @visible="onVisible", @hidden="visible = false", style="height:50%")
 </template>
@@ -20,6 +20,7 @@ export default {
     return {
       visible: false,
       imgSrc: undefined,
+      imgLoaded: false,
       isObserving: false,
       waitToObserve: undefined
     }
@@ -34,8 +35,7 @@ export default {
     },
     loadImage () {
       if (this.imgSrc) return
-      const network = undefined // this.network
-      this.$store.dispatch('getCableImage', { id: this.id.toString(), network })
+      this.$store.dispatch('getCableImage', { id: this.id.toString() })
         .then(imgSrc => this.imgSrc = imgSrc)
     }
   },

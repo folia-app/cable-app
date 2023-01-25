@@ -508,23 +508,22 @@ export default createStore({
     },
     
     async getCableImage ({ state, commit, dispatch }, { id, network }) {
-      if (process.env.NODE_ENV === 'production') {
-        return `https://res.cloudinary.com/folia/image/fetch/${window.location.origin}/.netlify/functions/tokenimg/${id}`
-      }
-      // local queries contract
-      const saved = state.svgs[id]
-      if (saved)
-      return saved
+      // now that all minted just load Cloudinary cached copies of the svgs
+      return `https://res.cloudinary.com/folia/image/fetch/https://cable.folia.app/.netlify/functions/tokenimg/${id}`      
 
-      try {
-        const nftContract = await dispatch('getMetadataContract', { network })
-        const svg = nftContract.getSVG(id)
-        commit('SAVE_SVG', { tokenId: id, svg })
-        return svg
-      } catch (e) {
-        console.error(e)
-        return null
-      }
+      // const saved = state.svgs[id]
+      // if (saved)
+      // return saved
+
+      // try {
+      //   const nftContract = await dispatch('getMetadataContract', { network })
+      //   const svg = nftContract.getSVG(id)
+      //   commit('SAVE_SVG', { tokenId: id, svg })
+      //   return svg
+      // } catch (e) {
+      //   console.error(e)
+      //   return null
+      // }
     },
 
     // async getMints ({ state, commit, dispatch }, { cached = false, filter, network }) {

@@ -8,8 +8,12 @@
   </div>
 </div>
 
-<!-- fullscreen overlay -->
-<CableOverlay v-if="$store.state.fullscreenId" :id="$store.state.fullscreenId"></CableOverlay>
+<!-- token overlay as route -->
+<router-view v-slot="{ Component, route }">
+  <transition name="slideupdown">
+    <component :is="Component" />
+  </transition>
+</router-view>
 
 <!-- mint listener -->
 <contract-listener v-if="$store.state.mintCount < 545" @update="$store.dispatch('getMintCount', {})" />

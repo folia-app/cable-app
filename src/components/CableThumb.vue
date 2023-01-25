@@ -1,8 +1,10 @@
 <template>
   <li class="cable-thumb relative group mb-32">
-    <figure class="relative aspect-square cursor-pointer" @click="openFullscreen" aria-label="view fullscreen">
-      <CableImage :id="props.id" :key="props.id"></CableImage>
-    </figure>
+    <router-link class="cable-thumb__imglink block" :to="{name: 'token', params: { tokenId: props.id }}">
+      <figure class="relative aspect-square cursor-pointer pointer-events-none" @click="openFullscreen" aria-label="view fullscreen">
+        <CableImage :id="props.id" :key="props.id"></CableImage>
+      </figure>
+    </router-link>
     
     <div class="border-t border-gray-200 pb-1" style="padding-left:5.9%; padding-top:6.1%;">
       <!-- buttons -->
@@ -22,9 +24,9 @@
             </svg> -->
           </router-link>
           <!-- expand fullscreen -->
-          <button class="p-2 rounded btn-paper" @click="openFullscreen" title="view fullscreen">
+          <router-link :to="{name: 'token', params: {tokenId: props.id}}" class="p-2 rounded btn-paper cable-thumb__fullscreen-btn" title="view fullscreen">
             <SvgExpand />
-          </button>
+          </router-link>
           <!-- os link -->
           <a class="px-2 flex items-center rounded text-smaller group py-2 btn-paper leading-none" :href="$store.getters.marketplaceLink({ token: props.id })" target="_blank" rel="noopener noreferrer"><span class="">opensea</span></a>
         </div>
@@ -73,7 +75,7 @@ const openFullscreen = () => store.commit('OPEN_FULLSCREEN', props.id)
 
 <style>
 @media(hover:hover) {
-  figure:hover + div > div:first-child > button{
+  .cable-thumb__imglink:hover + div .cable-thumb__fullscreen-btn{
     @apply bg-black text-white;
   }
 }

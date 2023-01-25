@@ -26,10 +26,10 @@ const status = ref()
 function copyShareUrl () {
   try {
     window.navigator.clipboard.writeText(props.url ?? window.location.href)
-    status.value = { type: 'success', msg: 'cable URL copied :)' }
+    status.value = { type: 'success', msg: 'cable URL copied!' }
   } catch (e) {
     console.log(e)
-    status.value = { type: 'error', msg: "couldn't copy cable URL :(" }
+    status.value = { type: 'error', msg: "couldn't copy cable URL!" }
   }
   setTimeout(() => { status.value = undefined }, 1500)
 }

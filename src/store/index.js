@@ -508,6 +508,10 @@ export default createStore({
     },
     
     async getCableImage ({ state, commit, dispatch }, { id, network }) {
+      if (process.env.NODE_ENV === 'production') {
+        return `https://res.cloudinary.com/folia/image/fetch/${window.location.origin}/.netlify/functions/tokenimg/${id}`
+      }
+      // local queries contract
       const saved = state.svgs[id]
       if (saved)
       return saved

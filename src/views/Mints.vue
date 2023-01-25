@@ -1,7 +1,7 @@
 <template>
   <section class="relative min-h-screen text-black bg-paper">
     <header class="sticky h-20 mb-32 z-10 w-full top-0 left-0 flex justify-between items-center">
-      <div class="pl-10">
+      <div class="pl-4 md_pl-10 flex items-center">
         <template v-if="mintCount === undefined">
           <div class="btn border pl-7 pr-6 animate-pulse">loading...</div>
         </template>
@@ -13,6 +13,13 @@
             <div class="flex items-center" :class="{'transform rotate-180 origin-center': !isSortNewest }">
               <svg-chevron-down class=" w-6 h-6 mx-3 pointer-events-none" strokeWidth="1.25" />
             </div>
+          </button>
+
+          <button v-if="newMintsCount" class="btn rounded btn-green text-smm border pl-3 pr-1 ml-3 flex items-center group" @click="getMintCount">
+            {{ newMintsCount }}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 pb-2px w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
           </button>
         </template>
       </div>
@@ -54,19 +61,19 @@ import SvgChevronDown from '@/components/SvgChevronDown.vue'
 
 const route = useRoute()
 const router = useRouter()
-
 const emit = defineEmits(['sortChange'])
 
-const mintCount = computed(() => store.state.mintCount)
+// mint count
+const mintCount = ref(store.state.mintCount)
+const newMintsCount = computed(() => mintCount.value !== undefined ? store.state.mintCount - mintCount.value : 0)
 
-const isSortNewest = ref(true)
-function toggleSort () {
-  isSortNewest.value = !isSortNewest.value
-  emit('sortChange')
-  // replace rt so CableImage refreshes observer
-  router.replace(isSortNewest.value ? {} : { query: { sort: 'oldest' }})
+async function getMintCount () {
+  mintCount.value = await store.dispatch('getMintCount', {})
 }
 
+if (mintCount.value === undefined) getMintCount()
+
+// mint ids
 const mintIdsSorted = computed(() => {
   let mintIds = new Array(mintCount.value).fill(0).map((v, i) => i + 1)
   if (isSortNewest.value) {
@@ -74,6 +81,15 @@ const mintIdsSorted = computed(() => {
   }
   return mintIds
 })
+
+// sort
+const isSortNewest = ref(true)
+function toggleSort () {
+  isSortNewest.value = !isSortNewest.value
+  emit('sortChange')
+  // replace rt so CableImage refreshes observer
+  router.replace(isSortNewest.value ? {} : { query: { sort: 'oldest' }})
+}
 </script>
 
 <style>

@@ -63,19 +63,19 @@ input::selection {
   @apply h-10;
 }
 .btn-yellow{
-  @apply bg-yellow-500 mouse_hover_bg-black mouse_hover_text-yellow-500;
+  @apply bg-yellow-500 mouse_hover_bg-black mouse_hover_text-yellow-500 mouse_hover_border-black;
 }
 .btn-cyan{
-  @apply bg-accent3 mouse_hover_bg-black mouse_hover_text-accent3;
+  @apply bg-accent3 mouse_hover_bg-black mouse_hover_text-accent3 mouse_hover_border-black;
 }
 .btn-green{
-  @apply bg-accent4 mouse_hover_bg-black mouse_hover_text-accent4;
+  @apply bg-accent4 mouse_hover_bg-black mouse_hover_text-accent4 mouse_hover_border-black;
 }
 .btn-white{
-  @apply bg-white mouse_hover_bg-black mouse_hover_text-white;
+  @apply bg-white mouse_hover_bg-black mouse_hover_text-white mouse_hover_border-black;
 }
 .btn-paper {
-  @apply bg-paper mouse_hover_bg-black mouse_hover_text-paper;
+  @apply bg-paper mouse_hover_bg-black mouse_hover_text-paper mouse_hover_border-black;
 }
 
 .btn-theme-darken{

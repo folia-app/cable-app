@@ -121,14 +121,15 @@ metainfo
                   <br>
                   | (or #[router-link(:to="{name: 'mints'}" class="underline") view all] minted cables)
 
-            footer.w-full.grid.grid-cols-3.border-t.text-smm
-              a.btn-cyan.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700(:href="$store.getters.etherscanLink({ networkName: 'ethereum' })", target="_blank", rel="noopener noreferrer")
+            footer.w-full.flex.border-t.text-smm
+              a.flex-1.btn-cyan.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700(:href="$store.getters.etherscanLink({ networkName: 'ethereum' })", target="_blank", rel="noopener noreferrer")
                 | contract #[span.ml-1(style="font-size:0.75em") ↗]
 
-              a.btn-cyan.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-black(:href="$store.getters.marketplaceLink({ networkName: 'ethereum', path: '/collection/cable-' })", target="_blank", rel="noopener noreferrer")
+              a.flex-1.btn-cyan.h-10.flex.items-center.pl-2.pt-1.border-r.border-gray-700.mouse_hover_bg-black(:href="$store.getters.marketplaceLink({ networkName: 'ethereum', path: '/collection/cable-' })", target="_blank", rel="noopener noreferrer")
                 | opensea #[span.ml-1(style="font-size:0.75em") ↗]
-
-              a.btn-cyan.h-10.flex.items-center.pl-2.pt-1.mouse_hover_bg-black(:href="discordLink", target="_blank", rel="noopener noreferrer")
+              
+              //- (discord link)
+              a.flex-1.btn-cyan.h-10.flex.items-center.pl-2.pt-1.mouse_hover_bg-black(v-if="discordLink", :href="discordLink", target="_blank", rel="noopener noreferrer")
                 | discord #[span.ml-1(style="font-size:0.75em") ↗]
 
 

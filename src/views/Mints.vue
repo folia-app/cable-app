@@ -36,14 +36,22 @@
     
     <!-- list -->
     <transition name="fade">
-      <ul v-if="mintCount !== undefined" class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 xl_grid-cols-5 text-smm">
-        <template v-for="n in 1">
-          <template v-for="id in mintIdsSorted" :key="id">
-            <!-- items... -->
-            <CableThumb :id="id"></CableThumb>
+      <section v-if="mintCount !== undefined">
+        <!-- grid -->
+        <ul class="grid grid-cols-2 sm_grid-cols-3 lg_grid-cols-4 xl_grid-cols-5 text-smm">
+          <template v-for="n in 1">
+            <template v-for="id in mintIdsSorted.slice(0, Math.min(pageSize, mintCount))" :key="id">
+              <!-- items... -->
+              <CableThumb :id="id"></CableThumb>
+            </template>
           </template>
-        </template>
-      </ul>  
+        </ul>
+        
+        <!-- lazy page loader -->
+        <Observer v-if="pageSize < mintCount" class="min-h-[90vh] flex items-center justify-center text-3xs animate-pulse" :threshold="0.01" @visible="pageSize = pageSize + pageSizeStep">
+          <div class="sticky bottom-8 left-0 w-full text-center">loading...</div>
+        </Observer>
+      </section>
     </transition>
 
     <!-- dimmer -->
@@ -58,6 +66,7 @@ import SVGX from '../components/SVG-X.vue';
 import store from '../store';
 import { useRoute, useRouter } from 'vue-router'
 import SvgChevronDown from '@/components/SvgChevronDown.vue'
+import Observer from '../components/Observer.vue';
 
 const route = useRoute()
 const router = useRouter()
@@ -82,6 +91,10 @@ const mintIdsSorted = computed(() => {
   return mintIds
 })
 
+// page size
+const pageSizeStep = ref(20)
+const pageSize = ref(20)
+
 // sort
 const isSortNewest = ref(true)
 function toggleSort () {
@@ -89,6 +102,8 @@ function toggleSort () {
   emit('sortChange')
   // replace rt so CableImage refreshes observer
   router.replace(isSortNewest.value ? {} : { query: { sort: 'oldest' }})
+  // reset page size
+  pageSize.value = pageSizeStep.value
 }
 </script>
 

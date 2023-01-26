@@ -37,6 +37,7 @@ let waitToLoad
 
 onMounted(() => {
   waitToLoad = setTimeout(async () => {
+    console.log('lookup')
     owner.value = await store.dispatch('getNFTOwnerByTokenId', { tokenId: props.id })
   }, 400)
 })

@@ -451,14 +451,14 @@ export default createStore({
       let targetChainId = network?.id
         ?? Object.keys(networks).find(key => networks[key]['name'] === network?.name)
           ?? appDefaultNetworkId
-
+      
       // get provider from browser/wallet provider if needed
       if (!provider && window.ethereum) {
         provider = new ethers.providers.Web3Provider(window.ethereum)
 
         // lookup chain id if not connected to browser wallet
         // because we don't know if they switched network...
-        if (!state.address) {
+        if (!state.address && !state.givenNetworkId) {
           try {
             const { chainId } = await provider.getNetwork()
             commit('SET_GIVEN_NETWORK_ID', chainId)

@@ -43,7 +43,7 @@
         </div>
         <li>
           <div class="px-2 -ml-2 inline-block" :class="{'bg-yellow-500 rounded': owner && owner.toLowerCase() === $store.state.address}">
-            <span class="text-smaller">owned by</span> <template v-if="owner"><a class="text-2xs leading-none underline font-bold" :href="$store.getters.marketplaceLink({ account: owner })" target="_blank" rel="noopener noreferrer"><Addr :address="owner" :youOn="true"></Addr></a></template><template v-else><Observer class="inline" @visible="getOwner"><span class="animate-pulse">...</span></Observer></template>
+            <span class="text-smaller">owned by</span> <template v-if="owner"><a class="text-2xs leading-none underline font-bold" :href="$store.getters.marketplaceLink({ account: owner })" target="_blank" rel="noopener noreferrer"><Addr :address="owner" :youOn="true"></Addr></a></template><template v-else><Observer class="inline" @visible="onOwnerVisible" @hidden="onOwnerHidden"><span class="animate-pulse">...</span></Observer></template>
           </div>
         </li>
         <!-- <li class="align-baseline">
@@ -71,6 +71,14 @@ const cableData = computed(() => data.features[props.id - 1]?.properties)
 const owner = ref()
 const getOwner = async () => {
   owner.value = await store.dispatch('getNFTOwnerByTokenId', { tokenId: props.id })
+}
+let ownerLookupWait
+const onOwnerVisible = () => {
+  if (owner.value) return
+  ownerLookupWait = setTimeout(() => { getOwner() }, 1000)
+}
+const onOwnerHidden = () => {
+  clearTimeout(ownerLookupWait)
 }
 
 const openFullscreen = () => store.commit('OPEN_FULLSCREEN', props.id)

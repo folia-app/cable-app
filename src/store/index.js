@@ -3,6 +3,7 @@ import NFTContractDeploy from '../../contracts/ERC721'
 import ControllerDeploy from '../../contracts/Controller.js'
 import MetadataDeploy from '../../contracts/Metadata.js'
 import { ethers } from 'ethers'
+import { readProvider, rpcsFor } from '../rpc'
 import Web3Modal from 'web3modal'
 // Wallet Connect - directly import .js file since import breaks `vite build`
 // see: https://github.com/vitejs/vite/issues/7257
@@ -11,7 +12,6 @@ import networks from '../networks'
 
 let /*provider,*/ signer, initializing, walletProvider, web3ModalProvider
 
-const infuraProjectID = import.meta.env.VITE_APP_INFURA_PROJECT_ID
 
 const appDefaultNetworkId = Number(import.meta.env.VITE_APP_FALLBACK_NETWORK_ID ?? 1)
 
@@ -29,7 +29,7 @@ function setWeb3Modal (networkName) {
       walletconnect: {
         package: WalletConnectProvider, // required
         options: {
-          infuraId: infuraProjectID, // required
+          rpc: { 1: rpcsFor(1)[0] }, // keyless, no infuraId
           rpc: {
             // 10: networks[10].infura
             // 420: networks[420].infura
@@ -472,7 +472,7 @@ export default createStore({
       // use infura if no provider, or given-provider chain is not on target chain
       if (!provider || (targetChainId && state.givenNetworkId !== Number(targetChainId))) {
         // if not use infura on targetChain
-        provider = new ethers.getDefaultProvider(networks[targetChainId].infura)
+        provider = readProvider(targetChainId)
       }
 
       // console.log({ givenChainId: state.givenNetworkId, targetChainId })
@@ -765,7 +765,7 @@ export default createStore({
         // fetch new...
         // if (!provider) await dispatch('init')
         // lookup on mainnet
-        const provider = walletProvider || new ethers.providers.InfuraProvider(undefined, infuraProjectID)
+        const provider = walletProvider || readProvider(1)
         const ens = await provider.lookupAddress(address)
 
         // fetch from opensea...
@@ -803,7 +803,7 @@ export default createStore({
         if (address) return address
         
         // resolve ENS on mainnet...
-        const provider = new ethers.getDefaultProvider(networks[1].infura)
+        const provider = readProvider(1)
         address = await provider.resolveName(ens)
         
         if (address) {

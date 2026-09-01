@@ -1,6 +1,8 @@
 import myContract from '../contracts/Metadata'
 import networks from '../src/networks'
-import ethers from 'ethers'
+// ethers v5 has no ESM default export; the named one is canonical. This only
+// worked under the old bundler via CommonJS interop.
+import { ethers } from 'ethers'
 require('dotenv').config()
 const chainId = process.env.VITE_APP_FALLBACK_NETWORK_ID ?? 1
 

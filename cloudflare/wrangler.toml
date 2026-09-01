@@ -1,0 +1,17 @@
+name = "folia-cf-cable"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "../dist"
+binding = "ASSETS"
+html_handling = "none"
+not_found_handling = "none"
+
+[alias]
+dotenv = "./src/shims/dotenv.js"
+
+[vars]
+# The function reads this off process.env to pick the contract deployment.
+VITE_APP_FALLBACK_NETWORK_ID = "1"
